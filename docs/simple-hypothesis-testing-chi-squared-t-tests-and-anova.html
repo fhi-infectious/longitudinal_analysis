@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Which Stats Method Should I Use?</title>
+  <meta name="description" content="A short course in learning which statistical methods should be applied where.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Which Stats Method Should I Use?" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A short course in learning which statistical methods should be applied where." />
+  <meta name="github-repo" content="raubreywhite/which_stats_method" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Which Stats Method Should I Use?" />
+  
+  <meta name="twitter:description" content="A short course in learning which statistical methods should be applied where." />
+  
+
+<meta name="author" content="Richard White">
+
+
+<meta name="date" content="2018-02-18">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="variables.html">
+<link rel="next" href="simple-regression-fixed-effects.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="/">Home</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Syllabus</a></li>
+<li class="chapter" data-level="2" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>2</b> Reference</a></li>
+<li class="chapter" data-level="3" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>3</b> Variables</a><ul>
+<li class="chapter" data-level="3.1" data-path="variables.html"><a href="variables.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="variables.html"><a href="variables.html#continuous-variables"><i class="fa fa-check"></i><b>3.2</b> Continuous Variables</a></li>
+<li class="chapter" data-level="3.3" data-path="variables.html"><a href="variables.html#binary-variables"><i class="fa fa-check"></i><b>3.3</b> Binary Variables</a></li>
+<li class="chapter" data-level="3.4" data-path="variables.html"><a href="variables.html#categorical-variable"><i class="fa fa-check"></i><b>3.4</b> Categorical Variable</a></li>
+<li class="chapter" data-level="3.5" data-path="variables.html"><a href="variables.html#censored-variables"><i class="fa fa-check"></i><b>3.5</b> Censored Variables</a></li>
+<li class="chapter" data-level="3.6" data-path="variables.html"><a href="variables.html#count-variables"><i class="fa fa-check"></i><b>3.6</b> Count Variables</a></li>
+<li class="chapter" data-level="3.7" data-path="variables.html"><a href="variables.html#independent-versus-dependent-variables"><i class="fa fa-check"></i><b>3.7</b> Independent Versus Dependent Variables</a></li>
+<li class="chapter" data-level="3.8" data-path="variables.html"><a href="variables.html#dataset-workflow-pipeline"><i class="fa fa-check"></i><b>3.8</b> Dataset workflow (pipeline)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><i class="fa fa-check"></i><b>4</b> Simple Hypothesis Testing: Chi-Squared, T-tests, and ANOVA</a><ul>
+<li class="chapter" data-level="4.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#hypothesis-testing"><i class="fa fa-check"></i><b>4.1</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="4.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#which-method-to-use"><i class="fa fa-check"></i><b>4.2</b> Which Method To Use?</a></li>
+<li class="chapter" data-level="4.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#chi-squared-test"><i class="fa fa-check"></i><b>4.3</b> Chi-Squared Test</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies"><i class="fa fa-check"></i><b>4.3.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="4.3.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#examples"><i class="fa fa-check"></i><b>4.3.2</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#one-sample-t-test"><i class="fa fa-check"></i><b>4.4</b> One Sample T-Test</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies-1"><i class="fa fa-check"></i><b>4.4.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="4.4.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-1"><i class="fa fa-check"></i><b>4.4.2</b> Example 1</a></li>
+<li class="chapter" data-level="4.4.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-2"><i class="fa fa-check"></i><b>4.4.3</b> Example 2</a></li>
+<li class="chapter" data-level="4.4.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-3"><i class="fa fa-check"></i><b>4.4.4</b> Example 3</a></li>
+<li class="chapter" data-level="4.4.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-4"><i class="fa fa-check"></i><b>4.4.5</b> Example 4</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#two-sample-t-tests"><i class="fa fa-check"></i><b>4.5</b> Two sample T-Tests</a></li>
+<li class="chapter" data-level="4.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#two-sample-paired-t-test"><i class="fa fa-check"></i><b>4.6</b> Two-sample Paired T-Test</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies-2"><i class="fa fa-check"></i><b>4.6.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="4.6.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-1-1"><i class="fa fa-check"></i><b>4.6.2</b> Example 1</a></li>
+<li class="chapter" data-level="4.6.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-2-1"><i class="fa fa-check"></i><b>4.6.3</b> Example 2</a></li>
+<li class="chapter" data-level="4.6.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-3-1"><i class="fa fa-check"></i><b>4.6.4</b> Example 3</a></li>
+<li class="chapter" data-level="4.6.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-4-1"><i class="fa fa-check"></i><b>4.6.5</b> Example 4</a></li>
+<li class="chapter" data-level="4.6.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#non-parametric-equivalent"><i class="fa fa-check"></i><b>4.6.6</b> Non-Parametric Equivalent</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#two-sample-unpaired-t-test"><i class="fa fa-check"></i><b>4.7</b> Two-sample Unpaired T-Test</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies-3"><i class="fa fa-check"></i><b>4.7.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="4.7.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-1-2"><i class="fa fa-check"></i><b>4.7.2</b> Example 1</a></li>
+<li class="chapter" data-level="4.7.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-2-2"><i class="fa fa-check"></i><b>4.7.3</b> Example 2</a></li>
+<li class="chapter" data-level="4.7.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-3-2"><i class="fa fa-check"></i><b>4.7.4</b> Example 3</a></li>
+<li class="chapter" data-level="4.7.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-4-2"><i class="fa fa-check"></i><b>4.7.5</b> Example 4</a></li>
+<li class="chapter" data-level="4.7.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#non-parametric-equivalent-1"><i class="fa fa-check"></i><b>4.7.6</b> Non-parametric equivalent</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#anova"><i class="fa fa-check"></i><b>4.8</b> ANOVA</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies-4"><i class="fa fa-check"></i><b>4.8.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="4.8.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-1-3"><i class="fa fa-check"></i><b>4.8.2</b> Example 1</a></li>
+<li class="chapter" data-level="4.8.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-2-3"><i class="fa fa-check"></i><b>4.8.3</b> Example 2</a></li>
+<li class="chapter" data-level="4.8.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-3-3"><i class="fa fa-check"></i><b>4.8.4</b> Example 3</a></li>
+<li class="chapter" data-level="4.8.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-4-3"><i class="fa fa-check"></i><b>4.8.5</b> Example 4</a></li>
+<li class="chapter" data-level="4.8.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#non-parametric-equivalent-2"><i class="fa fa-check"></i><b>4.8.6</b> Non-parametric equivalent</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html"><i class="fa fa-check"></i><b>5</b> Simple regression (fixed effects)</a><ul>
+<li class="chapter" data-level="5.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#regression-in-general"><i class="fa fa-check"></i><b>5.1</b> Regression in general</a></li>
+<li class="chapter" data-level="5.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#linear-regression"><i class="fa fa-check"></i><b>5.2</b> Linear regression</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#aimoutcomeexposureparametricdependencies-5"><i class="fa fa-check"></i><b>5.2.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="5.2.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-4"><i class="fa fa-check"></i><b>5.2.2</b> Example 1</a></li>
+<li class="chapter" data-level="5.2.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-4"><i class="fa fa-check"></i><b>5.2.3</b> Example 2</a></li>
+<li class="chapter" data-level="5.2.4" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-3-4"><i class="fa fa-check"></i><b>5.2.4</b> Example 3</a></li>
+<li class="chapter" data-level="5.2.5" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-4-4"><i class="fa fa-check"></i><b>5.2.5</b> Example 4</a></li>
+<li class="chapter" data-level="5.2.6" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-5"><i class="fa fa-check"></i><b>5.2.6</b> Example 5</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#similarities-between-t-tests-anova-and-linear-regression"><i class="fa fa-check"></i><b>5.3</b> Similarities between t-tests, ANOVA, and linear regression</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-5"><i class="fa fa-check"></i><b>5.3.1</b> Example 1</a></li>
+<li class="chapter" data-level="5.3.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-5"><i class="fa fa-check"></i><b>5.3.2</b> Example 2</a></li>
+<li class="chapter" data-level="5.3.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-3-5"><i class="fa fa-check"></i><b>5.3.3</b> Example 3</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#similarities-between-anova-and-linear-regression"><i class="fa fa-check"></i><b>5.4</b> Similarities between ANOVA and linear regression</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-6"><i class="fa fa-check"></i><b>5.4.1</b> Example 1</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-6"><i class="fa fa-check"></i><b>5.4.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#logistic-regression-models"><i class="fa fa-check"></i><b>5.5</b> Logistic regression models</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#aimoutcomeexposureparametricdependencies-6"><i class="fa fa-check"></i><b>5.5.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="5.5.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-7"><i class="fa fa-check"></i><b>5.5.2</b> Example 1</a></li>
+<li class="chapter" data-level="5.5.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-7"><i class="fa fa-check"></i><b>5.5.3</b> Example 2</a></li>
+<li class="chapter" data-level="5.5.4" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-3-6"><i class="fa fa-check"></i><b>5.5.4</b> Example 3</a></li>
+<li class="chapter" data-level="5.5.5" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-4-5"><i class="fa fa-check"></i><b>5.5.5</b> Example 4</a></li>
+<li class="chapter" data-level="5.5.6" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-5-1"><i class="fa fa-check"></i><b>5.5.6</b> Example 5</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#poissonnegative-binomial-regression-models"><i class="fa fa-check"></i><b>5.6</b> Poisson/negative-binomial regression models</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#aimoutcomeexposureparametricdependencies-7"><i class="fa fa-check"></i><b>5.6.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-8"><i class="fa fa-check"></i><b>5.6.2</b> Example 1</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-8"><i class="fa fa-check"></i><b>5.6.3</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#cox-regression-models"><i class="fa fa-check"></i><b>5.7</b> Cox regression models</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#aimoutcomeexposureparametricdependencies-8"><i class="fa fa-check"></i><b>5.7.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-9"><i class="fa fa-check"></i><b>5.7.2</b> Example 1</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-9"><i class="fa fa-check"></i><b>5.7.3</b> Example 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="complicated-regression.html"><a href="complicated-regression.html"><i class="fa fa-check"></i><b>6</b> Complicated regression</a><ul>
+<li class="chapter" data-level="6.1" data-path="complicated-regression.html"><a href="complicated-regression.html#dependencies-in-your-data"><i class="fa fa-check"></i><b>6.1</b> Dependencies in your data</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="complicated-regression.html"><a href="complicated-regression.html#what-is-independent-data"><i class="fa fa-check"></i><b>6.1.1</b> What is independent data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="complicated-regression.html"><a href="complicated-regression.html#what-is-data-with-dependencies"><i class="fa fa-check"></i><b>6.1.2</b> What is data with dependencies</a></li>
+<li class="chapter" data-level="6.1.3" data-path="complicated-regression.html"><a href="complicated-regression.html#repeated-measureslongitudinal-data"><i class="fa fa-check"></i><b>6.1.3</b> Repeated measures/longitudinal data</a></li>
+<li class="chapter" data-level="6.1.4" data-path="complicated-regression.html"><a href="complicated-regression.html#matched-data"><i class="fa fa-check"></i><b>6.1.4</b> Matched data</a></li>
+<li class="chapter" data-level="6.1.5" data-path="complicated-regression.html"><a href="complicated-regression.html#groupedclustered-data"><i class="fa fa-check"></i><b>6.1.5</b> Grouped/clustered data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="complicated-regression.html"><a href="complicated-regression.html#analysing-data-with-dependencies"><i class="fa fa-check"></i><b>6.2</b> Analysing data with dependencies</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="complicated-regression.html"><a href="complicated-regression.html#mixed-effects-regression"><i class="fa fa-check"></i><b>6.2.1</b> Mixed effects regression</a></li>
+<li class="chapter" data-level="6.2.2" data-path="complicated-regression.html"><a href="complicated-regression.html#conditional-logistic-regression"><i class="fa fa-check"></i><b>6.2.2</b> Conditional logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="complicated-regression.html"><a href="complicated-regression.html#tbd-understanding-the-best-practices-for-data-files-and-project-folders"><i class="fa fa-check"></i><b>6.3</b> (TBD) Understanding the best practices for data files and project folders</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="good-folder-structure.html"><a href="good-folder-structure.html"><i class="fa fa-check"></i><b>7</b> Good folder structure</a><ul>
+<li class="chapter" data-level="7.1" data-path="good-folder-structure.html"><a href="good-folder-structure.html#data-and-results"><i class="fa fa-check"></i><b>7.1</b> Data and results</a></li>
+<li class="chapter" data-level="7.2" data-path="good-folder-structure.html"><a href="good-folder-structure.html#keep-your-source-code-separate-from-data"><i class="fa fa-check"></i><b>7.2</b> Keep your source code separate from data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="examples-1.html"><a href="examples-1.html"><i class="fa fa-check"></i><b>8</b> Examples</a><ul>
+<li class="chapter" data-level="8.1" data-path="examples-1.html"><a href="examples-1.html#poisons-information-center"><i class="fa fa-check"></i><b>8.1</b> Poisons Information Center</a></li>
+<li class="chapter" data-level="8.2" data-path="examples-1.html"><a href="examples-1.html#norwegian-water-pipes"><i class="fa fa-check"></i><b>8.2</b> Norwegian Water Pipes</a></li>
+<li class="chapter" data-level="8.3" data-path="examples-1.html"><a href="examples-1.html#early-warning-system-ews-for-waterborne-outbreaks-part-1"><i class="fa fa-check"></i><b>8.3</b> Early warning system (EWS) for waterborne outbreaks (part 1)</a></li>
+<li class="chapter" data-level="8.4" data-path="examples-1.html"><a href="examples-1.html#early-warning-system-ews-for-waterborne-outbreaks-part-2"><i class="fa fa-check"></i><b>8.4</b> Early warning system (EWS) for waterborne outbreaks (part 2)</a></li>
+<li class="chapter" data-level="8.5" data-path="examples-1.html"><a href="examples-1.html#incidents-in-the-water-supply-system-and-illness"><i class="fa fa-check"></i><b>8.5</b> Incidents in the water supply system and illness</a></li>
+<li class="chapter" data-level="8.6" data-path="examples-1.html"><a href="examples-1.html#compliance-with-boil-water-advisories-and-perception-of-risks"><i class="fa fa-check"></i><b>8.6</b> Compliance with boil water advisories and perception of risks</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i><b>9</b> Solutions</a><ul>
+<li class="chapter" data-level="9.1" data-path="solutions.html"><a href="solutions.html#poisons-information-center-1"><i class="fa fa-check"></i><b>9.1</b> Poisons Information Center</a></li>
+<li class="chapter" data-level="9.2" data-path="solutions.html"><a href="solutions.html#norwegian-water-pipes-1"><i class="fa fa-check"></i><b>9.2</b> Norwegian Water Pipes</a></li>
+<li class="chapter" data-level="9.3" data-path="solutions.html"><a href="solutions.html#early-warning-system-ews-for-waterborne-outbreaks-part-1-1"><i class="fa fa-check"></i><b>9.3</b> Early warning system (EWS) for waterborne outbreaks (part 1)</a></li>
+<li class="chapter" data-level="9.4" data-path="solutions.html"><a href="solutions.html#early-warning-system-ews-for-waterborne-outbreaks-part-2-1"><i class="fa fa-check"></i><b>9.4</b> Early warning system (EWS) for waterborne outbreaks (part 2)</a></li>
+<li class="chapter" data-level="9.5" data-path="solutions.html"><a href="solutions.html#incidents-in-the-water-supply-system-and-illness-1"><i class="fa fa-check"></i><b>9.5</b> Incidents in the water supply system and illness</a></li>
+<li class="chapter" data-level="9.6" data-path="solutions.html"><a href="solutions.html#compliance-with-boil-water-advisories-and-perception-of-risks-1"><i class="fa fa-check"></i><b>9.6</b> Compliance with boil water advisories and perception of risks</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Which Stats Method Should I Use?</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="simple-hypothesis-testing-chi-squared-t-tests-and-anova" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Simple Hypothesis Testing: Chi-Squared, T-tests, and ANOVA</h1>
+<div id="hypothesis-testing" class="section level2">
+<h2><span class="header-section-number">4.1</span> Hypothesis Testing</h2>
+<p>In science, we are interested in testing hypotheses. Statistics allows us to formally test our hypotheses. In statistical testing we have a <strong>null</strong> hypothesis (<span class="math inline">\(\text{H}_0\)</span>) and an <strong>alternative</strong> hypothesis (<span class="math inline">\(\text{H}_1\)</span>). We assume the null hypothesis is true and try to find the probability of what we have observed (or something more extreme). If our observations are very unlikely (assuming the null hypothesis is true) then we reject the null hypothesis in favor of the alternative hypothesis.</p>
+<p>For example:</p>
+<p><span class="math display">\[\text{H}_0: \text{It is summer}\]</span> <span class="math display">\[\text{H}_1: \text{It is not summer}\]</span></p>
+<p>Our observed data for today is a maximum temperature of -20C. Assuming it is summer, how likely is it that today’s maximum temperature will be -20C? Not very likely! We therefore reject <span class="math inline">\(\text{H}_0\)</span> (“it is summer”) in favor of <span class="math inline">\(\text{H}_1\)</span> (“it is not summer”). That is, we conclude that it is not summer today.</p>
+</div>
+<div id="which-method-to-use" class="section level2">
+<h2><span class="header-section-number">4.2</span> Which Method To Use?</h2>
+<p>Deciding on the appropriate statistical method is (in principle) fairly easy. You just look at the:</p>
+<ul>
+<li>Aim (hypothesis testing or estimation of effect size?)</li>
+<li>Outcome type (continuous, binary, categorical, censored, count)</li>
+<li>Exposure (type)</li>
+<li>Parametric assumptions</li>
+<li>Dependencies in the data</li>
+</ul>
+<p>and we then (essentially) use a flowchart.</p>
+</div>
+<div id="chi-squared-test" class="section level2">
+<h2><span class="header-section-number">4.3</span> Chi-Squared Test</h2>
+<p>A Chi-Squared test is used to test if two categorical variables are associated with each other.</p>
+<div id="aimoutcomeexposureparametricdependencies" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Aim/Outcome/Exposure/Parametric/Dependencies</h3>
+<p><strong>Aim</strong>: Hypothesis testing (testing if two categorical variables are associated with each other.)</p>
+<p><strong>Outcome</strong>: Categorical variable</p>
+<p><strong>Exposure</strong>: Categorical variable</p>
+<p><strong>Parametric assumptions</strong>: No</p>
+<p><strong>Dependencies</strong>: None (all observations independent)</p>
+</div>
+<div id="examples" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> Examples</h3>
+<ul>
+<li>Testing if people’s country of origin (Norway/Not Norway) is associated with tuberculosis status (never had TB/has had TB)</li>
+<li>Testing if people’s region of origin (Europe/North America/South America/Other) is associated with marital status (Single/Married/Divorced)</li>
+<li>Testing if county of residence (Oslo, Akershus, etc) is associated with post-surgery infection status (No infection/mild infection/deep infection)</li>
+<li></li>
+<li></li>
+</ul>
+
+</div>
+</div>
+<div id="one-sample-t-test" class="section level2">
+<h2><span class="header-section-number">4.4</span> One Sample T-Test</h2>
+<p>A one sample t-test tests if the mean of a continuous variable differs from a specified value (generally zero)</p>
+<p><span class="math display">\[\text{H}_0: \mu = 180\]</span> <span class="math display">\[\text{H}_1: \mu \ne 180\]</span></p>
+<p>Or rephrased:</p>
+<p><span class="math display">\[\text{H}_0: \text{The average height of men is equal to 180cm}\]</span> <span class="math display">\[\text{H}_1: \text{The average height of men is not equal to 180cm}\]</span></p>
+<p><img src="which-stats-method_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div id="aimoutcomeexposureparametricdependencies-1" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Aim/Outcome/Exposure/Parametric/Dependencies</h3>
+<p><strong>Aim</strong>: Hypothesis testing (test if the mean of a continuous variable differs from a specified value)</p>
+<p><strong>Outcome</strong>: Continuous variable</p>
+<p><strong>Exposure</strong>: Does not exist</p>
+<p><strong>Parametric assumptions</strong>: Outcome is distributed as a Normal distribution</p>
+<p><strong>Dependencies</strong>: None (all observations independent)</p>
+</div>
+<div id="example-1" class="section level3">
+<h3><span class="header-section-number">4.4.2</span> Example 1</h3>
+<p><span class="math inline">\(\rightarrow\)</span> Testing if the average BMI of Norwegians is equal to 23</p>
+<p><span class="math display">\[H_0: \mu_{\text{bmi}} = 23\]</span> <span class="math display">\[H_1: \mu_{\text{bmi}} \ne 23\]</span></p>
+<p><img src="which-stats-method_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+
+</div>
+<div id="example-2" class="section level3">
+<h3><span class="header-section-number">4.4.3</span> Example 2</h3>
+<p><span class="math inline">\(\rightarrow\)</span> Testing if the average pH of tap water is equal to 7</p>
+<p><span class="math display">\[H_0: \mu_{\text{pH}} = 7\]</span> <span class="math display">\[H_1: \mu_{\text{pH}} \ne 7\]</span></p>
+<p><img src="which-stats-method_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="example-3" class="section level3">
+<h3><span class="header-section-number">4.4.4</span> Example 3</h3>
+<p><span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(H_0:\)</span> <span class="math inline">\(H_1:\)</span></p>
+
+</div>
+<div id="example-4" class="section level3">
+<h3><span class="header-section-number">4.4.5</span> Example 4</h3>
+<p><span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(H_0:\)</span> <span class="math inline">\(H_1:\)</span></p>
+</div>
+</div>
+<div id="two-sample-t-tests" class="section level2">
+<h2><span class="header-section-number">4.5</span> Two sample T-Tests</h2>
+<p>A t-test tests if the mean of a continuous variable differs between two groups. There are two kinds of two-sample t-tests: paired and unpaired.</p>
+</div>
+<div id="two-sample-paired-t-test" class="section level2">
+<h2><span class="header-section-number">4.6</span> Two-sample Paired T-Test</h2>
+<p>A paired t-test is a special case where we have <span class="math inline">\(N\)</span> participants, and each participant has two observations (generally “before experiment” and “after experiment”). We want to test if the mean of outcome variable differs between “after” and “before”.</p>
+<p>For example, in a weight-loss experiment, we have <span class="math inline">\(N\)</span> participants and we want to see if the average “after weight” is different from the average “before weight”.</p>
+<p>This is done by subtracting the outcome from one group (“before weight”) from the outcome in the other group (“after weight”) for each person (“difference in weight”), and then performing a one-sample t-test to see if the mean of this variable is different from zero.</p>
+<p><span class="math display">\[\text{H}_0: \mu_{\text{after}-\text{before}} = 0\]</span> <span class="math display">\[\text{H}_1: \mu_{\text{after}-\text{before}} \ne 0\]</span></p>
+<div id="aimoutcomeexposureparametricdependencies-2" class="section level3">
+<h3><span class="header-section-number">4.6.1</span> Aim/Outcome/Exposure/Parametric/Dependencies</h3>
+<p><strong>Special preprocessing of data</strong>: for each participant subtract the “before” observation from the “after” observation</p>
+<p><strong>Aim</strong>: Hypothesis testing (test if the mean of a continuous variable measured twice for each participant differs between “before” and “after”)</p>
+<p><strong>Outcome</strong>: (“after weight” minus “before weight”) continuous variable</p>
+<p><strong>Exposure</strong>: <span class="math inline">\(\text{group}_\text{after}\)</span> vs <span class="math inline">\(\text{group}_\text{before}\)</span></p>
+<p><strong>Parametric assumptions</strong>: Outcome is distributed as a Normal distribution</p>
+<p><strong>Dependencies</strong>: Paired data</p>
+
+</div>
+<div id="example-1-1" class="section level3">
+<h3><span class="header-section-number">4.6.2</span> Example 1</h3>
+<p><span class="math inline">\(\rightarrow\)</span> Testing if there is a difference in blood pressure before and after treatment (measured on the same person)</p>
+<p><span class="math display">\[\text{H}_0: \mu_{\text{BP after}-\text{BP before}} = 0\]</span> <span class="math display">\[\text{H}_1: \mu_{\text{BP after}-\text{BP before}} \ne 0\]</span></p>
+<p><img src="which-stats-method_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+
+</div>
+<div id="example-2-1" class="section level3">
+<h3><span class="header-section-number">4.6.3</span> Example 2</h3>
+<p><span class="math inline">\(\rightarrow\)</span> Testing if there is a difference in mouse DNA damage before and after irradiating (measured on the same mouse)</p>
+<p><span class="math display">\[\text{H}_0: \mu_{\text{DNA damage after}-\text{DNA damage before}} = 0\]</span> <span class="math display">\[\text{H}_1: \mu_{\text{DNA damage after}-\text{DNA damage before}} \ne 0\]</span></p>
+<p><img src="which-stats-method_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="example-3-1" class="section level3">
+<h3><span class="header-section-number">4.6.4</span> Example 3</h3>
+<p><span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(H_0:\)</span> <span class="math inline">\(H_1:\)</span></p>
+
+</div>
+<div id="example-4-1" class="section level3">
+<h3><span class="header-section-number">4.6.5</span> Example 4</h3>
+<p><span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(H_0:\)</span> <span class="math inline">\(H_1:\)</span></p>
+</div>
+<div id="non-parametric-equivalent" class="section level3">
+<h3><span class="header-section-number">4.6.6</span> Non-Parametric Equivalent</h3>
+<p>Wilcoxon signed-rank test. This should be used when the Normality assumption fails.</p>
+
+</div>
+</div>
+<div id="two-sample-unpaired-t-test" class="section level2">
+<h2><span class="header-section-number">4.7</span> Two-sample Unpaired T-Test</h2>
+<p>An unpaired t-test is where we have two independent groups of <span class="math inline">\(N_1\)</span> and <span class="math inline">\(N_2\)</span> participants, and we want to test if the mean of the outcome variable differs between <span class="math inline">\(\text{group}_1\)</span> and <span class="math inline">\(\text{group}_2\)</span>.</p>
+<p><span class="math display">\[\text{H}_0: \mu_0 = \mu_1\]</span> <span class="math display">\[\text{H}_1: \mu_0 \ne \mu_1\]</span></p>
+<p>Or rephrased:</p>
+<p><span class="math display">\[\text{H}_0: \text{The average height of men is equal to the average height of women}\]</span> <span class="math display">\[\text{H}_1: \text{The average height of men is not equal to the average height of women}\]</span></p>
+<p><img src="which-stats-method_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div id="aimoutcomeexposureparametricdependencies-3" class="section level3">
+<h3><span class="header-section-number">4.7.1</span> Aim/Outcome/Exposure/Parametric/Dependencies</h3>
+<p><strong>Aim</strong>: Hypothesis testing (test if the mean of a continuous variable differs between <span class="math inline">\(\text{group}_1\)</span> and <span class="math inline">\(\text{group}_2\)</span>)</p>
+<p><strong>Outcome</strong>: continuous variable</p>
+<p><strong>Exposure</strong>: <span class="math inline">\(\text{group}_1\)</span> vs <span class="math inline">\(\text{group}_2\)</span></p>
+<p><strong>Parametric assumptions</strong>: Outcomes for each group are distributed as a Normal distribution</p>
+<p><strong>Dependencies</strong>: None (all observations independent)</p>
+
+</div>
+<div id="example-1-2" class="section level3">
+<h3><span class="header-section-number">4.7.2</span> Example 1</h3>
+<p><span class="math inline">\(\rightarrow\)</span> Testing if the average blood pressure in people who didn’t receive treatment is different from people who did receive treatment</p>
+<p><span class="math display">\[\text{H}_0: \mu_{\text{BP treatment}} = \mu_{\text{BP no treatment}}\]</span> <span class="math display">\[\text{H}_1: \mu_{\text{BP treatment}} \ne \mu_{\text{BP no treatment}}\]</span></p>
+<p><img src="which-stats-method_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+
+</div>
+<div id="example-2-2" class="section level3">
+<h3><span class="header-section-number">4.7.3</span> Example 2</h3>
+<p><span class="math inline">\(\rightarrow\)</span> Testing if the average DNA damage in mice that weren’t irradiated is different from mice that were irradiated</p>
+<p><span class="math display">\[\text{H}_0: \mu_{\text{DNA radiation}} = \mu_{\text{DNA no radiation}}\]</span> <span class="math display">\[\text{H}_1: \mu_{\text{DNA radiation}} \ne \mu_{\text{DNA no radiation}}\]</span></p>
+<p><img src="which-stats-method_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="example-3-2" class="section level3">
+<h3><span class="header-section-number">4.7.4</span> Example 3</h3>
+<p><span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(H_0:\)</span> <span class="math inline">\(H_1:\)</span></p>
+
+</div>
+<div id="example-4-2" class="section level3">
+<h3><span class="header-section-number">4.7.5</span> Example 4</h3>
+<p><span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(H_0:\)</span> <span class="math inline">\(H_1:\)</span></p>
+</div>
+<div id="non-parametric-equivalent-1" class="section level3">
+<h3><span class="header-section-number">4.7.6</span> Non-parametric equivalent</h3>
+<p>Mann–Whitney U test (also called the Mann–Whitney–Wilcoxon (MWW), Wilcoxon rank-sum test, or Wilcoxon–Mann–Whitney test). This should be used when the Normality assumption fails.</p>
+</div>
+</div>
+<div id="anova" class="section level2">
+<h2><span class="header-section-number">4.8</span> ANOVA</h2>
+<p>ANOVA is an extension of the two-sample unpaired t-test. We have X independent groups of participants, and we want to test if the mean of the outcome variable differs between groups.</p>
+<div id="aimoutcomeexposureparametricdependencies-4" class="section level3">
+<h3><span class="header-section-number">4.8.1</span> Aim/Outcome/Exposure/Parametric/Dependencies</h3>
+<p><strong>Aim</strong>: Hypothesis testing (test if the mean of a continuous variable differs between some groups)</p>
+<p><strong>Outcome</strong>: continuous variable</p>
+<p><strong>Exposure</strong>: <span class="math inline">\(\text{group}_1\)</span> vs <span class="math inline">\(\text{group}_2\)</span> (vs <span class="math inline">\(\text{group}_3\)</span> …)</p>
+<p><strong>Parametric assumptions</strong>: Outcomes for each group are distributed as a Normal distribution</p>
+<p><strong>Dependencies</strong>: None (all observations independent)</p>
+
+</div>
+<div id="example-1-3" class="section level3">
+<h3><span class="header-section-number">4.8.2</span> Example 1</h3>
+<p><span class="math inline">\(\rightarrow\)</span> Testing if average BMI levels differ across Scandinavia</p>
+<p><span class="math display">\[\text{H}_0: \mu_{\text{Norway}} = \mu_{\text{Denmark}} = \mu_{\text{Sweden}}\]</span> <span class="math display">\[\text{H}_1: \mu_{\text{Norway}} \ne \mu_{\text{Denmark}} \text{ and/or } \mu_{\text{Norway}} \ne \mu_{\text{Sweden}}  \text{ and/or } \mu_{\text{Denmark}} \ne \mu_{\text{Sweden}}\]</span></p>
+<p><img src="which-stats-method_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+
+</div>
+<div id="example-2-3" class="section level3">
+<h3><span class="header-section-number">4.8.3</span> Example 2</h3>
+<p><span class="math inline">\(\rightarrow\)</span> Testing if average water pH levels differ between East and West Oslo</p>
+<p><span class="math display">\[\text{H}_0: \mu_{\text{East Oslo}} = \mu_{\text{West Oslo}}\]</span> <span class="math display">\[\text{H}_1: \mu_{\text{East Oslo}} \ne \mu_{\text{West Oslo}}\]</span></p>
+<p><img src="which-stats-method_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="example-3-3" class="section level3">
+<h3><span class="header-section-number">4.8.4</span> Example 3</h3>
+<p><span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(H_0:\)</span> <span class="math inline">\(H_1:\)</span></p>
+
+</div>
+<div id="example-4-3" class="section level3">
+<h3><span class="header-section-number">4.8.5</span> Example 4</h3>
+<p><span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(H_0:\)</span> <span class="math inline">\(H_1:\)</span></p>
+</div>
+<div id="non-parametric-equivalent-2" class="section level3">
+<h3><span class="header-section-number">4.8.6</span> Non-parametric equivalent</h3>
+<p>Kruskal–Wallis test</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="variables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simple-regression-fixed-effects.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/raubreywhite/which_stats_method/edit/master/03-hypothesis.Rmd",
+"text": "Edit"
+},
+"download": ["which-stats-method.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
