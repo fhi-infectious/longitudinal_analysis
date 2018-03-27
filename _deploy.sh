@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd ~/git/which_stats_method/
+cd ~/git/longitudinal_analysis/
 
 rm -rf docs
 
