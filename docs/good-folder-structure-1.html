@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Longitudinal Analysis</title>
+  <meta name="description" content="A short course in learning which statistical methods should be applied where.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Longitudinal Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A short course in learning which statistical methods should be applied where." />
+  <meta name="github-repo" content="raubreywhite/longitudinal_analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Longitudinal Analysis" />
+  
+  <meta name="twitter:description" content="A short course in learning which statistical methods should be applied where." />
+  
+
+<meta name="author" content="Richard White">
+
+
+<meta name="date" content="2018-03-27">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="complicated-regression-1.html">
+<link rel="next" href="examples-3.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="/">Home</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Syllabus</a></li>
+<li class="chapter" data-level="2" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>2</b> Reference</a></li>
+<li class="chapter" data-level="3" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>3</b> Variables</a><ul>
+<li class="chapter" data-level="3.1" data-path="variables.html"><a href="variables.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="variables.html"><a href="variables.html#continuous-variables"><i class="fa fa-check"></i><b>3.2</b> Continuous Variables</a></li>
+<li class="chapter" data-level="3.3" data-path="variables.html"><a href="variables.html#binary-variables"><i class="fa fa-check"></i><b>3.3</b> Binary Variables</a></li>
+<li class="chapter" data-level="3.4" data-path="variables.html"><a href="variables.html#categorical-variable"><i class="fa fa-check"></i><b>3.4</b> Categorical Variable</a></li>
+<li class="chapter" data-level="3.5" data-path="variables.html"><a href="variables.html#censored-variables"><i class="fa fa-check"></i><b>3.5</b> Censored Variables</a></li>
+<li class="chapter" data-level="3.6" data-path="variables.html"><a href="variables.html#count-variables"><i class="fa fa-check"></i><b>3.6</b> Count Variables</a></li>
+<li class="chapter" data-level="3.7" data-path="variables.html"><a href="variables.html#independent-versus-dependent-variables"><i class="fa fa-check"></i><b>3.7</b> Independent Versus Dependent Variables</a></li>
+<li class="chapter" data-level="3.8" data-path="variables.html"><a href="variables.html#dataset-workflow-pipeline"><i class="fa fa-check"></i><b>3.8</b> Dataset workflow (pipeline)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><i class="fa fa-check"></i><b>4</b> Simple Hypothesis Testing: Chi-Squared, T-tests, and ANOVA</a><ul>
+<li class="chapter" data-level="4.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#hypothesis-testing"><i class="fa fa-check"></i><b>4.1</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="4.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#which-method-to-use"><i class="fa fa-check"></i><b>4.2</b> Which Method To Use?</a></li>
+<li class="chapter" data-level="4.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#chi-squared-test"><i class="fa fa-check"></i><b>4.3</b> Chi-Squared Test</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies"><i class="fa fa-check"></i><b>4.3.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="4.3.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#examples"><i class="fa fa-check"></i><b>4.3.2</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#one-sample-t-test"><i class="fa fa-check"></i><b>4.4</b> One Sample T-Test</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies-1"><i class="fa fa-check"></i><b>4.4.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="4.4.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-1"><i class="fa fa-check"></i><b>4.4.2</b> Example 1</a></li>
+<li class="chapter" data-level="4.4.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-2"><i class="fa fa-check"></i><b>4.4.3</b> Example 2</a></li>
+<li class="chapter" data-level="4.4.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-3"><i class="fa fa-check"></i><b>4.4.4</b> Example 3</a></li>
+<li class="chapter" data-level="4.4.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-4"><i class="fa fa-check"></i><b>4.4.5</b> Example 4</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#two-sample-t-tests"><i class="fa fa-check"></i><b>4.5</b> Two sample T-Tests</a></li>
+<li class="chapter" data-level="4.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#two-sample-paired-t-test"><i class="fa fa-check"></i><b>4.6</b> Two-sample Paired T-Test</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies-2"><i class="fa fa-check"></i><b>4.6.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="4.6.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-1-1"><i class="fa fa-check"></i><b>4.6.2</b> Example 1</a></li>
+<li class="chapter" data-level="4.6.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-2-1"><i class="fa fa-check"></i><b>4.6.3</b> Example 2</a></li>
+<li class="chapter" data-level="4.6.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-3-1"><i class="fa fa-check"></i><b>4.6.4</b> Example 3</a></li>
+<li class="chapter" data-level="4.6.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-4-1"><i class="fa fa-check"></i><b>4.6.5</b> Example 4</a></li>
+<li class="chapter" data-level="4.6.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#non-parametric-equivalent"><i class="fa fa-check"></i><b>4.6.6</b> Non-Parametric Equivalent</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#two-sample-unpaired-t-test"><i class="fa fa-check"></i><b>4.7</b> Two-sample Unpaired T-Test</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies-3"><i class="fa fa-check"></i><b>4.7.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="4.7.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-1-2"><i class="fa fa-check"></i><b>4.7.2</b> Example 1</a></li>
+<li class="chapter" data-level="4.7.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-2-2"><i class="fa fa-check"></i><b>4.7.3</b> Example 2</a></li>
+<li class="chapter" data-level="4.7.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-3-2"><i class="fa fa-check"></i><b>4.7.4</b> Example 3</a></li>
+<li class="chapter" data-level="4.7.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-4-2"><i class="fa fa-check"></i><b>4.7.5</b> Example 4</a></li>
+<li class="chapter" data-level="4.7.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#non-parametric-equivalent-1"><i class="fa fa-check"></i><b>4.7.6</b> Non-parametric equivalent</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#anova"><i class="fa fa-check"></i><b>4.8</b> ANOVA</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies-4"><i class="fa fa-check"></i><b>4.8.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="4.8.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-1-3"><i class="fa fa-check"></i><b>4.8.2</b> Example 1</a></li>
+<li class="chapter" data-level="4.8.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-2-3"><i class="fa fa-check"></i><b>4.8.3</b> Example 2</a></li>
+<li class="chapter" data-level="4.8.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-3-3"><i class="fa fa-check"></i><b>4.8.4</b> Example 3</a></li>
+<li class="chapter" data-level="4.8.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-4-3"><i class="fa fa-check"></i><b>4.8.5</b> Example 4</a></li>
+<li class="chapter" data-level="4.8.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#non-parametric-equivalent-2"><i class="fa fa-check"></i><b>4.8.6</b> Non-parametric equivalent</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html"><i class="fa fa-check"></i><b>5</b> Simple regression (fixed effects)</a><ul>
+<li class="chapter" data-level="5.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#regression-in-general"><i class="fa fa-check"></i><b>5.1</b> Regression in general</a></li>
+<li class="chapter" data-level="5.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#linear-regression"><i class="fa fa-check"></i><b>5.2</b> Linear regression</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#aimoutcomeexposureparametricdependencies-5"><i class="fa fa-check"></i><b>5.2.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="5.2.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-4"><i class="fa fa-check"></i><b>5.2.2</b> Example 1</a></li>
+<li class="chapter" data-level="5.2.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-4"><i class="fa fa-check"></i><b>5.2.3</b> Example 2</a></li>
+<li class="chapter" data-level="5.2.4" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-3-4"><i class="fa fa-check"></i><b>5.2.4</b> Example 3</a></li>
+<li class="chapter" data-level="5.2.5" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-4-4"><i class="fa fa-check"></i><b>5.2.5</b> Example 4</a></li>
+<li class="chapter" data-level="5.2.6" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-5"><i class="fa fa-check"></i><b>5.2.6</b> Example 5</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#similarities-between-t-tests-anova-and-linear-regression"><i class="fa fa-check"></i><b>5.3</b> Similarities between t-tests, ANOVA, and linear regression</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-5"><i class="fa fa-check"></i><b>5.3.1</b> Example 1</a></li>
+<li class="chapter" data-level="5.3.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-5"><i class="fa fa-check"></i><b>5.3.2</b> Example 2</a></li>
+<li class="chapter" data-level="5.3.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-3-5"><i class="fa fa-check"></i><b>5.3.3</b> Example 3</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#similarities-between-anova-and-linear-regression"><i class="fa fa-check"></i><b>5.4</b> Similarities between ANOVA and linear regression</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-6"><i class="fa fa-check"></i><b>5.4.1</b> Example 1</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-6"><i class="fa fa-check"></i><b>5.4.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#logistic-regression-models"><i class="fa fa-check"></i><b>5.5</b> Logistic regression models</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#aimoutcomeexposureparametricdependencies-6"><i class="fa fa-check"></i><b>5.5.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="5.5.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-7"><i class="fa fa-check"></i><b>5.5.2</b> Example 1</a></li>
+<li class="chapter" data-level="5.5.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-7"><i class="fa fa-check"></i><b>5.5.3</b> Example 2</a></li>
+<li class="chapter" data-level="5.5.4" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-3-6"><i class="fa fa-check"></i><b>5.5.4</b> Example 3</a></li>
+<li class="chapter" data-level="5.5.5" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-4-5"><i class="fa fa-check"></i><b>5.5.5</b> Example 4</a></li>
+<li class="chapter" data-level="5.5.6" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-5-1"><i class="fa fa-check"></i><b>5.5.6</b> Example 5</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#poissonnegative-binomial-regression-models"><i class="fa fa-check"></i><b>5.6</b> Poisson/negative-binomial regression models</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#aimoutcomeexposureparametricdependencies-7"><i class="fa fa-check"></i><b>5.6.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-8"><i class="fa fa-check"></i><b>5.6.2</b> Example 1</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-8"><i class="fa fa-check"></i><b>5.6.3</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#cox-regression-models"><i class="fa fa-check"></i><b>5.7</b> Cox regression models</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#aimoutcomeexposureparametricdependencies-8"><i class="fa fa-check"></i><b>5.7.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-9"><i class="fa fa-check"></i><b>5.7.2</b> Example 1</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-9"><i class="fa fa-check"></i><b>5.7.3</b> Example 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="complicated-regression.html"><a href="complicated-regression.html"><i class="fa fa-check"></i><b>6</b> Complicated regression</a><ul>
+<li class="chapter" data-level="6.1" data-path="complicated-regression.html"><a href="complicated-regression.html#dependencies-in-your-data"><i class="fa fa-check"></i><b>6.1</b> Dependencies in your data</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="complicated-regression.html"><a href="complicated-regression.html#what-is-independent-data"><i class="fa fa-check"></i><b>6.1.1</b> What is independent data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="complicated-regression.html"><a href="complicated-regression.html#what-is-data-with-dependencies"><i class="fa fa-check"></i><b>6.1.2</b> What is data with dependencies</a></li>
+<li class="chapter" data-level="6.1.3" data-path="complicated-regression.html"><a href="complicated-regression.html#repeated-measureslongitudinal-data"><i class="fa fa-check"></i><b>6.1.3</b> Repeated measures/longitudinal data</a></li>
+<li class="chapter" data-level="6.1.4" data-path="complicated-regression.html"><a href="complicated-regression.html#matched-data"><i class="fa fa-check"></i><b>6.1.4</b> Matched data</a></li>
+<li class="chapter" data-level="6.1.5" data-path="complicated-regression.html"><a href="complicated-regression.html#groupedclustered-data"><i class="fa fa-check"></i><b>6.1.5</b> Grouped/clustered data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="complicated-regression.html"><a href="complicated-regression.html#analysing-data-with-dependencies"><i class="fa fa-check"></i><b>6.2</b> Analysing data with dependencies</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="complicated-regression.html"><a href="complicated-regression.html#mixed-effects-regression"><i class="fa fa-check"></i><b>6.2.1</b> Mixed effects regression</a></li>
+<li class="chapter" data-level="6.2.2" data-path="complicated-regression.html"><a href="complicated-regression.html#conditional-logistic-regression"><i class="fa fa-check"></i><b>6.2.2</b> Conditional logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="complicated-regression.html"><a href="complicated-regression.html#tbd-understanding-the-best-practices-for-data-files-and-project-folders"><i class="fa fa-check"></i><b>6.3</b> (TBD) Understanding the best practices for data files and project folders</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="good-folder-structure.html"><a href="good-folder-structure.html"><i class="fa fa-check"></i><b>7</b> Good folder structure</a><ul>
+<li class="chapter" data-level="7.1" data-path="good-folder-structure.html"><a href="good-folder-structure.html#data-and-results"><i class="fa fa-check"></i><b>7.1</b> Data and results</a></li>
+<li class="chapter" data-level="7.2" data-path="good-folder-structure.html"><a href="good-folder-structure.html#keep-your-source-code-separate-from-data"><i class="fa fa-check"></i><b>7.2</b> Keep your source code separate from data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="examples-1.html"><a href="examples-1.html"><i class="fa fa-check"></i><b>8</b> Examples</a><ul>
+<li class="chapter" data-level="8.1" data-path="examples-1.html"><a href="examples-1.html#poisons-information-center"><i class="fa fa-check"></i><b>8.1</b> Poisons Information Center</a></li>
+<li class="chapter" data-level="8.2" data-path="examples-1.html"><a href="examples-1.html#norwegian-water-pipes"><i class="fa fa-check"></i><b>8.2</b> Norwegian Water Pipes</a></li>
+<li class="chapter" data-level="8.3" data-path="examples-1.html"><a href="examples-1.html#early-warning-system-ews-for-waterborne-outbreaks-part-1"><i class="fa fa-check"></i><b>8.3</b> Early warning system (EWS) for waterborne outbreaks (part 1)</a></li>
+<li class="chapter" data-level="8.4" data-path="examples-1.html"><a href="examples-1.html#early-warning-system-ews-for-waterborne-outbreaks-part-2"><i class="fa fa-check"></i><b>8.4</b> Early warning system (EWS) for waterborne outbreaks (part 2)</a></li>
+<li class="chapter" data-level="8.5" data-path="examples-1.html"><a href="examples-1.html#incidents-in-the-water-supply-system-and-illness"><i class="fa fa-check"></i><b>8.5</b> Incidents in the water supply system and illness</a></li>
+<li class="chapter" data-level="8.6" data-path="examples-1.html"><a href="examples-1.html#compliance-with-boil-water-advisories-and-perception-of-risks"><i class="fa fa-check"></i><b>8.6</b> Compliance with boil water advisories and perception of risks</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i><b>9</b> Solutions</a><ul>
+<li class="chapter" data-level="9.1" data-path="solutions.html"><a href="solutions.html#poisons-information-center-1"><i class="fa fa-check"></i><b>9.1</b> Poisons Information Center</a></li>
+<li class="chapter" data-level="9.2" data-path="solutions.html"><a href="solutions.html#norwegian-water-pipes-1"><i class="fa fa-check"></i><b>9.2</b> Norwegian Water Pipes</a></li>
+<li class="chapter" data-level="9.3" data-path="solutions.html"><a href="solutions.html#early-warning-system-ews-for-waterborne-outbreaks-part-1-1"><i class="fa fa-check"></i><b>9.3</b> Early warning system (EWS) for waterborne outbreaks (part 1)</a></li>
+<li class="chapter" data-level="9.4" data-path="solutions.html"><a href="solutions.html#early-warning-system-ews-for-waterborne-outbreaks-part-2-1"><i class="fa fa-check"></i><b>9.4</b> Early warning system (EWS) for waterborne outbreaks (part 2)</a></li>
+<li class="chapter" data-level="9.5" data-path="solutions.html"><a href="solutions.html#incidents-in-the-water-supply-system-and-illness-1"><i class="fa fa-check"></i><b>9.5</b> Incidents in the water supply system and illness</a></li>
+<li class="chapter" data-level="9.6" data-path="solutions.html"><a href="solutions.html#compliance-with-boil-water-advisories-and-perception-of-risks-1"><i class="fa fa-check"></i><b>9.6</b> Compliance with boil water advisories and perception of risks</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="syllabus-1.html"><a href="syllabus-1.html"><i class="fa fa-check"></i><b>10</b> Syllabus</a></li>
+<li class="chapter" data-level="11" data-path="reference-1.html"><a href="reference-1.html"><i class="fa fa-check"></i><b>11</b> Reference</a></li>
+<li class="chapter" data-level="12" data-path="variables-1.html"><a href="variables-1.html"><i class="fa fa-check"></i><b>12</b> Variables</a><ul>
+<li class="chapter" data-level="12.1" data-path="variables-1.html"><a href="variables-1.html#introduction-1"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="variables-1.html"><a href="variables-1.html#continuous-variables-1"><i class="fa fa-check"></i><b>12.2</b> Continuous Variables</a></li>
+<li class="chapter" data-level="12.3" data-path="variables-1.html"><a href="variables-1.html#binary-variables-1"><i class="fa fa-check"></i><b>12.3</b> Binary Variables</a></li>
+<li class="chapter" data-level="12.4" data-path="variables-1.html"><a href="variables-1.html#categorical-variable-1"><i class="fa fa-check"></i><b>12.4</b> Categorical Variable</a></li>
+<li class="chapter" data-level="12.5" data-path="variables-1.html"><a href="variables-1.html#censored-variables-1"><i class="fa fa-check"></i><b>12.5</b> Censored Variables</a></li>
+<li class="chapter" data-level="12.6" data-path="variables-1.html"><a href="variables-1.html#count-variables-1"><i class="fa fa-check"></i><b>12.6</b> Count Variables</a></li>
+<li class="chapter" data-level="12.7" data-path="variables-1.html"><a href="variables-1.html#independent-versus-dependent-variables-1"><i class="fa fa-check"></i><b>12.7</b> Independent Versus Dependent Variables</a></li>
+<li class="chapter" data-level="12.8" data-path="variables-1.html"><a href="variables-1.html#dataset-workflow-pipeline-1"><i class="fa fa-check"></i><b>12.8</b> Dataset workflow (pipeline)</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><i class="fa fa-check"></i><b>13</b> Simple Hypothesis Testing: Chi-Squared, T-tests, and ANOVA</a><ul>
+<li class="chapter" data-level="13.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#hypothesis-testing-1"><i class="fa fa-check"></i><b>13.1</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="13.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#which-method-to-use-1"><i class="fa fa-check"></i><b>13.2</b> Which Method To Use?</a></li>
+<li class="chapter" data-level="13.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#chi-squared-test-1"><i class="fa fa-check"></i><b>13.3</b> Chi-Squared Test</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#aimoutcomeexposureparametricdependencies-9"><i class="fa fa-check"></i><b>13.3.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="13.3.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#examples-2"><i class="fa fa-check"></i><b>13.3.2</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#one-sample-t-test-1"><i class="fa fa-check"></i><b>13.4</b> One Sample T-Test</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#aimoutcomeexposureparametricdependencies-10"><i class="fa fa-check"></i><b>13.4.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="13.4.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-1-10"><i class="fa fa-check"></i><b>13.4.2</b> Example 1</a></li>
+<li class="chapter" data-level="13.4.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-2-10"><i class="fa fa-check"></i><b>13.4.3</b> Example 2</a></li>
+<li class="chapter" data-level="13.4.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-3-7"><i class="fa fa-check"></i><b>13.4.4</b> Example 3</a></li>
+<li class="chapter" data-level="13.4.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-4-6"><i class="fa fa-check"></i><b>13.4.5</b> Example 4</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#two-sample-t-tests-1"><i class="fa fa-check"></i><b>13.5</b> Two sample T-Tests</a></li>
+<li class="chapter" data-level="13.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#two-sample-paired-t-test-1"><i class="fa fa-check"></i><b>13.6</b> Two-sample Paired T-Test</a><ul>
+<li class="chapter" data-level="13.6.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#aimoutcomeexposureparametricdependencies-11"><i class="fa fa-check"></i><b>13.6.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="13.6.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-1-11"><i class="fa fa-check"></i><b>13.6.2</b> Example 1</a></li>
+<li class="chapter" data-level="13.6.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-2-11"><i class="fa fa-check"></i><b>13.6.3</b> Example 2</a></li>
+<li class="chapter" data-level="13.6.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-3-8"><i class="fa fa-check"></i><b>13.6.4</b> Example 3</a></li>
+<li class="chapter" data-level="13.6.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-4-7"><i class="fa fa-check"></i><b>13.6.5</b> Example 4</a></li>
+<li class="chapter" data-level="13.6.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#non-parametric-equivalent-3"><i class="fa fa-check"></i><b>13.6.6</b> Non-Parametric Equivalent</a></li>
+</ul></li>
+<li class="chapter" data-level="13.7" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#two-sample-unpaired-t-test-1"><i class="fa fa-check"></i><b>13.7</b> Two-sample Unpaired T-Test</a><ul>
+<li class="chapter" data-level="13.7.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#aimoutcomeexposureparametricdependencies-12"><i class="fa fa-check"></i><b>13.7.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="13.7.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-1-12"><i class="fa fa-check"></i><b>13.7.2</b> Example 1</a></li>
+<li class="chapter" data-level="13.7.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-2-12"><i class="fa fa-check"></i><b>13.7.3</b> Example 2</a></li>
+<li class="chapter" data-level="13.7.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-3-9"><i class="fa fa-check"></i><b>13.7.4</b> Example 3</a></li>
+<li class="chapter" data-level="13.7.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-4-8"><i class="fa fa-check"></i><b>13.7.5</b> Example 4</a></li>
+<li class="chapter" data-level="13.7.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#non-parametric-equivalent-4"><i class="fa fa-check"></i><b>13.7.6</b> Non-parametric equivalent</a></li>
+</ul></li>
+<li class="chapter" data-level="13.8" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#anova-1"><i class="fa fa-check"></i><b>13.8</b> ANOVA</a><ul>
+<li class="chapter" data-level="13.8.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#aimoutcomeexposureparametricdependencies-13"><i class="fa fa-check"></i><b>13.8.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="13.8.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-1-13"><i class="fa fa-check"></i><b>13.8.2</b> Example 1</a></li>
+<li class="chapter" data-level="13.8.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-2-13"><i class="fa fa-check"></i><b>13.8.3</b> Example 2</a></li>
+<li class="chapter" data-level="13.8.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-3-10"><i class="fa fa-check"></i><b>13.8.4</b> Example 3</a></li>
+<li class="chapter" data-level="13.8.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-4-9"><i class="fa fa-check"></i><b>13.8.5</b> Example 4</a></li>
+<li class="chapter" data-level="13.8.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#non-parametric-equivalent-5"><i class="fa fa-check"></i><b>13.8.6</b> Non-parametric equivalent</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html"><i class="fa fa-check"></i><b>14</b> Simple regression (fixed effects)</a><ul>
+<li class="chapter" data-level="14.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#regression-in-general-1"><i class="fa fa-check"></i><b>14.1</b> Regression in general</a></li>
+<li class="chapter" data-level="14.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#linear-regression-1"><i class="fa fa-check"></i><b>14.2</b> Linear regression</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#aimoutcomeexposureparametricdependencies-14"><i class="fa fa-check"></i><b>14.2.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="14.2.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-1-14"><i class="fa fa-check"></i><b>14.2.2</b> Example 1</a></li>
+<li class="chapter" data-level="14.2.3" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-2-14"><i class="fa fa-check"></i><b>14.2.3</b> Example 2</a></li>
+<li class="chapter" data-level="14.2.4" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-3-11"><i class="fa fa-check"></i><b>14.2.4</b> Example 3</a></li>
+<li class="chapter" data-level="14.2.5" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-4-10"><i class="fa fa-check"></i><b>14.2.5</b> Example 4</a></li>
+<li class="chapter" data-level="14.2.6" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-5-2"><i class="fa fa-check"></i><b>14.2.6</b> Example 5</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#similarities-between-t-tests-anova-and-linear-regression-1"><i class="fa fa-check"></i><b>14.3</b> Similarities between t-tests, ANOVA, and linear regression</a><ul>
+<li class="chapter" data-level="14.3.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-1-15"><i class="fa fa-check"></i><b>14.3.1</b> Example 1</a></li>
+<li class="chapter" data-level="14.3.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-2-15"><i class="fa fa-check"></i><b>14.3.2</b> Example 2</a></li>
+<li class="chapter" data-level="14.3.3" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-3-12"><i class="fa fa-check"></i><b>14.3.3</b> Example 3</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#similarities-between-anova-and-linear-regression-1"><i class="fa fa-check"></i><b>14.4</b> Similarities between ANOVA and linear regression</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-1-16"><i class="fa fa-check"></i><b>14.4.1</b> Example 1</a></li>
+<li class="chapter" data-level="14.4.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-2-16"><i class="fa fa-check"></i><b>14.4.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#logistic-regression-models-1"><i class="fa fa-check"></i><b>14.5</b> Logistic regression models</a><ul>
+<li class="chapter" data-level="14.5.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#aimoutcomeexposureparametricdependencies-15"><i class="fa fa-check"></i><b>14.5.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="14.5.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-1-17"><i class="fa fa-check"></i><b>14.5.2</b> Example 1</a></li>
+<li class="chapter" data-level="14.5.3" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-2-17"><i class="fa fa-check"></i><b>14.5.3</b> Example 2</a></li>
+<li class="chapter" data-level="14.5.4" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-3-13"><i class="fa fa-check"></i><b>14.5.4</b> Example 3</a></li>
+<li class="chapter" data-level="14.5.5" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-4-11"><i class="fa fa-check"></i><b>14.5.5</b> Example 4</a></li>
+<li class="chapter" data-level="14.5.6" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-5-3"><i class="fa fa-check"></i><b>14.5.6</b> Example 5</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#poissonnegative-binomial-regression-models-1"><i class="fa fa-check"></i><b>14.6</b> Poisson/negative-binomial regression models</a><ul>
+<li class="chapter" data-level="14.6.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#aimoutcomeexposureparametricdependencies-16"><i class="fa fa-check"></i><b>14.6.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="14.6.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-1-18"><i class="fa fa-check"></i><b>14.6.2</b> Example 1</a></li>
+<li class="chapter" data-level="14.6.3" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-2-18"><i class="fa fa-check"></i><b>14.6.3</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#cox-regression-models-1"><i class="fa fa-check"></i><b>14.7</b> Cox regression models</a><ul>
+<li class="chapter" data-level="14.7.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#aimoutcomeexposureparametricdependencies-17"><i class="fa fa-check"></i><b>14.7.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
+<li class="chapter" data-level="14.7.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-1-19"><i class="fa fa-check"></i><b>14.7.2</b> Example 1</a></li>
+<li class="chapter" data-level="14.7.3" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-2-19"><i class="fa fa-check"></i><b>14.7.3</b> Example 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html"><i class="fa fa-check"></i><b>15</b> Complicated regression</a><ul>
+<li class="chapter" data-level="15.1" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#dependencies-in-your-data-1"><i class="fa fa-check"></i><b>15.1</b> Dependencies in your data</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#what-is-independent-data-1"><i class="fa fa-check"></i><b>15.1.1</b> What is independent data</a></li>
+<li class="chapter" data-level="15.1.2" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#what-is-data-with-dependencies-1"><i class="fa fa-check"></i><b>15.1.2</b> What is data with dependencies</a></li>
+<li class="chapter" data-level="15.1.3" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#repeated-measureslongitudinal-data-1"><i class="fa fa-check"></i><b>15.1.3</b> Repeated measures/longitudinal data</a></li>
+<li class="chapter" data-level="15.1.4" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#matched-data-1"><i class="fa fa-check"></i><b>15.1.4</b> Matched data</a></li>
+<li class="chapter" data-level="15.1.5" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#groupedclustered-data-1"><i class="fa fa-check"></i><b>15.1.5</b> Grouped/clustered data</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#analysing-data-with-dependencies-1"><i class="fa fa-check"></i><b>15.2</b> Analysing data with dependencies</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#mixed-effects-regression-1"><i class="fa fa-check"></i><b>15.2.1</b> Mixed effects regression</a></li>
+<li class="chapter" data-level="15.2.2" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#conditional-logistic-regression-1"><i class="fa fa-check"></i><b>15.2.2</b> Conditional logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#tbd-understanding-the-best-practices-for-data-files-and-project-folders-1"><i class="fa fa-check"></i><b>15.3</b> (TBD) Understanding the best practices for data files and project folders</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="good-folder-structure-1.html"><a href="good-folder-structure-1.html"><i class="fa fa-check"></i><b>16</b> Good folder structure</a><ul>
+<li class="chapter" data-level="16.1" data-path="good-folder-structure-1.html"><a href="good-folder-structure-1.html#data-and-results-1"><i class="fa fa-check"></i><b>16.1</b> Data and results</a></li>
+<li class="chapter" data-level="16.2" data-path="good-folder-structure-1.html"><a href="good-folder-structure-1.html#keep-your-source-code-separate-from-data-1"><i class="fa fa-check"></i><b>16.2</b> Keep your source code separate from data</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="examples-3.html"><a href="examples-3.html"><i class="fa fa-check"></i><b>17</b> Examples</a><ul>
+<li class="chapter" data-level="17.1" data-path="examples-3.html"><a href="examples-3.html#poisons-information-center-2"><i class="fa fa-check"></i><b>17.1</b> Poisons Information Center</a></li>
+<li class="chapter" data-level="17.2" data-path="examples-3.html"><a href="examples-3.html#norwegian-water-pipes-2"><i class="fa fa-check"></i><b>17.2</b> Norwegian Water Pipes</a></li>
+<li class="chapter" data-level="17.3" data-path="examples-3.html"><a href="examples-3.html#early-warning-system-ews-for-waterborne-outbreaks-part-1-2"><i class="fa fa-check"></i><b>17.3</b> Early warning system (EWS) for waterborne outbreaks (part 1)</a></li>
+<li class="chapter" data-level="17.4" data-path="examples-3.html"><a href="examples-3.html#early-warning-system-ews-for-waterborne-outbreaks-part-2-2"><i class="fa fa-check"></i><b>17.4</b> Early warning system (EWS) for waterborne outbreaks (part 2)</a></li>
+<li class="chapter" data-level="17.5" data-path="examples-3.html"><a href="examples-3.html#incidents-in-the-water-supply-system-and-illness-2"><i class="fa fa-check"></i><b>17.5</b> Incidents in the water supply system and illness</a></li>
+<li class="chapter" data-level="17.6" data-path="examples-3.html"><a href="examples-3.html#compliance-with-boil-water-advisories-and-perception-of-risks-2"><i class="fa fa-check"></i><b>17.6</b> Compliance with boil water advisories and perception of risks</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="solutions-1.html"><a href="solutions-1.html"><i class="fa fa-check"></i><b>18</b> Solutions</a><ul>
+<li class="chapter" data-level="18.1" data-path="solutions-1.html"><a href="solutions-1.html#poisons-information-center-3"><i class="fa fa-check"></i><b>18.1</b> Poisons Information Center</a></li>
+<li class="chapter" data-level="18.2" data-path="solutions-1.html"><a href="solutions-1.html#norwegian-water-pipes-3"><i class="fa fa-check"></i><b>18.2</b> Norwegian Water Pipes</a></li>
+<li class="chapter" data-level="18.3" data-path="solutions-1.html"><a href="solutions-1.html#early-warning-system-ews-for-waterborne-outbreaks-part-1-3"><i class="fa fa-check"></i><b>18.3</b> Early warning system (EWS) for waterborne outbreaks (part 1)</a></li>
+<li class="chapter" data-level="18.4" data-path="solutions-1.html"><a href="solutions-1.html#early-warning-system-ews-for-waterborne-outbreaks-part-2-3"><i class="fa fa-check"></i><b>18.4</b> Early warning system (EWS) for waterborne outbreaks (part 2)</a></li>
+<li class="chapter" data-level="18.5" data-path="solutions-1.html"><a href="solutions-1.html#incidents-in-the-water-supply-system-and-illness-3"><i class="fa fa-check"></i><b>18.5</b> Incidents in the water supply system and illness</a></li>
+<li class="chapter" data-level="18.6" data-path="solutions-1.html"><a href="solutions-1.html#compliance-with-boil-water-advisories-and-perception-of-risks-3"><i class="fa fa-check"></i><b>18.6</b> Compliance with boil water advisories and perception of risks</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Longitudinal Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="good-folder-structure-1" class="section level1">
+<h1><span class="header-section-number">Chapter 16</span> Good folder structure</h1>
+<div id="data-and-results-1" class="section level2">
+<h2><span class="header-section-number">16.1</span> Data and results</h2>
+<ul>
+<li>One folder for raw data</li>
+<li>One folder for temporary data (if needed)</li>
+<li>One folder for clean data</li>
+</ul>
+<div class="figure">
+<img src="resources/folder_raw.png" alt="img" />
+<p class="caption">img</p>
+</div>
+<ul>
+<li>One folder for shared results (dropbox)</li>
+<li>Every time you run your analyses, you should store your new results in a new day’s folder, allowing you to always access your previous results</li>
+<li>Labelling by date (year-month-day) is a lot more intuitive than “results_1”, “results_2”, “results_final”, “results_final_final”</li>
+<li>Label in the format 2017-09-01 so that your computer can easily sort the results (the padding/leading 0s are important for sorting!)</li>
+<li>Do not label folders using the format 2017-SEP-1 (it doesn’t sort well)</li>
+<li>Do not label folders using the format 1-SEP-17 (it doesn’t sort well)</li>
+</ul>
+<div class="figure">
+<img src="resources/folder_shared.png" alt="img" />
+<p class="caption">img</p>
+</div>
+</div>
+<div id="keep-your-source-code-separate-from-data-1" class="section level2">
+<h2><span class="header-section-number">16.2</span> Keep your source code separate from data</h2>
+<p>Source code is:</p>
+<ul>
+<li>Not sensitive</li>
+<li>Very easy to accidentally delete and/or overwrite</li>
+</ul>
+<p>This means it is perfect to be uploaded to <a href="http://github.com" class="uri">http://github.com</a> where you can store every version of your code, and never have to worry about losing an old copy</p>
+<div class="figure">
+<img src="resources/git_commit.png" alt="img" />
+<p class="caption">img</p>
+</div>
+<p>You can also see the differences between your versions:</p>
+<div class="figure">
+<img src="resources/git_changes.png" alt="img" />
+<p class="caption">img</p>
+</div>
+<p>It is best to keep each project in it’s own folder. Within each folder, there should be a masterfile (“Run”) that will perform all of the necessary tasks in the entire analysis:</p>
+<ul>
+<li>Clean data</li>
+<li>Run analyses</li>
+</ul>
+<div class="figure">
+<img src="resources/folder_git.png" alt="img" />
+<p class="caption">img</p>
+</div>
+<p>Do files/scripts should be numbered:</p>
+<ul>
+<li>0_run_all.do</li>
+<li>1_clean_lab_data.do</li>
+<li>2_clean_lifestyle_data.do</li>
+<li>3_merge_lab_lifestyle_data.do</li>
+<li>4_descriptive_analyses.do</li>
+<li>5_regression_analyses.do</li>
+</ul>
+<p>It is very very very important that analysis files only use the “clean” data (from the clean data folder), and perform ZERO changes to the data. All necessary changes and/or variable creations must be done in the data cleaning do files.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="complicated-regression-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="examples-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/raubreywhite/longitudinal_analysis/edit/master/06_folder_structure.Rmd",
+"text": "Edit"
+},
+"download": ["longitudinal-analysis.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

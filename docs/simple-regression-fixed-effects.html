@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Longitudinal Analysis</title>
   <meta name="description" content="A short course in learning which statistical methods should be applied where.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Longitudinal Analysis" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Richard White">
 
 
-<meta name="date" content="2018-03-27">
+<meta name="date" content="2018-04-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -49,6 +49,43 @@
 
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -69,14 +106,7 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Syllabus</a></li>
 <li class="chapter" data-level="2" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>2</b> Reference</a></li>
 <li class="chapter" data-level="3" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>3</b> Variables</a><ul>
-<li class="chapter" data-level="3.1" data-path="variables.html"><a href="variables.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="variables.html"><a href="variables.html#continuous-variables"><i class="fa fa-check"></i><b>3.2</b> Continuous Variables</a></li>
-<li class="chapter" data-level="3.3" data-path="variables.html"><a href="variables.html#binary-variables"><i class="fa fa-check"></i><b>3.3</b> Binary Variables</a></li>
-<li class="chapter" data-level="3.4" data-path="variables.html"><a href="variables.html#categorical-variable"><i class="fa fa-check"></i><b>3.4</b> Categorical Variable</a></li>
-<li class="chapter" data-level="3.5" data-path="variables.html"><a href="variables.html#censored-variables"><i class="fa fa-check"></i><b>3.5</b> Censored Variables</a></li>
-<li class="chapter" data-level="3.6" data-path="variables.html"><a href="variables.html#count-variables"><i class="fa fa-check"></i><b>3.6</b> Count Variables</a></li>
-<li class="chapter" data-level="3.7" data-path="variables.html"><a href="variables.html#independent-versus-dependent-variables"><i class="fa fa-check"></i><b>3.7</b> Independent Versus Dependent Variables</a></li>
-<li class="chapter" data-level="3.8" data-path="variables.html"><a href="variables.html#dataset-workflow-pipeline"><i class="fa fa-check"></i><b>3.8</b> Dataset workflow (pipeline)</a></li>
+<li class="chapter" data-level="3.1" data-path="variables.html"><a href="variables.html#showing-that-tscounttsglm-gets-the-same-results-as-massglmmpql"><i class="fa fa-check"></i><b>3.1</b> Showing that tscount::tsglm gets the same results as MASS::glmmPQL</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><i class="fa fa-check"></i><b>4</b> Simple Hypothesis Testing: Chi-Squared, T-tests, and ANOVA</a><ul>
 <li class="chapter" data-level="4.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#hypothesis-testing"><i class="fa fa-check"></i><b>4.1</b> Hypothesis Testing</a></li>
@@ -170,26 +200,6 @@
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="complicated-regression.html"><a href="complicated-regression.html#tbd-understanding-the-best-practices-for-data-files-and-project-folders"><i class="fa fa-check"></i><b>6.3</b> (TBD) Understanding the best practices for data files and project folders</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="good-folder-structure.html"><a href="good-folder-structure.html"><i class="fa fa-check"></i><b>7</b> Good folder structure</a><ul>
-<li class="chapter" data-level="7.1" data-path="good-folder-structure.html"><a href="good-folder-structure.html#data-and-results"><i class="fa fa-check"></i><b>7.1</b> Data and results</a></li>
-<li class="chapter" data-level="7.2" data-path="good-folder-structure.html"><a href="good-folder-structure.html#keep-your-source-code-separate-from-data"><i class="fa fa-check"></i><b>7.2</b> Keep your source code separate from data</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="examples-1.html"><a href="examples-1.html"><i class="fa fa-check"></i><b>8</b> Examples</a><ul>
-<li class="chapter" data-level="8.1" data-path="examples-1.html"><a href="examples-1.html#poisons-information-center"><i class="fa fa-check"></i><b>8.1</b> Poisons Information Center</a></li>
-<li class="chapter" data-level="8.2" data-path="examples-1.html"><a href="examples-1.html#norwegian-water-pipes"><i class="fa fa-check"></i><b>8.2</b> Norwegian Water Pipes</a></li>
-<li class="chapter" data-level="8.3" data-path="examples-1.html"><a href="examples-1.html#early-warning-system-ews-for-waterborne-outbreaks-part-1"><i class="fa fa-check"></i><b>8.3</b> Early warning system (EWS) for waterborne outbreaks (part 1)</a></li>
-<li class="chapter" data-level="8.4" data-path="examples-1.html"><a href="examples-1.html#early-warning-system-ews-for-waterborne-outbreaks-part-2"><i class="fa fa-check"></i><b>8.4</b> Early warning system (EWS) for waterborne outbreaks (part 2)</a></li>
-<li class="chapter" data-level="8.5" data-path="examples-1.html"><a href="examples-1.html#incidents-in-the-water-supply-system-and-illness"><i class="fa fa-check"></i><b>8.5</b> Incidents in the water supply system and illness</a></li>
-<li class="chapter" data-level="8.6" data-path="examples-1.html"><a href="examples-1.html#compliance-with-boil-water-advisories-and-perception-of-risks"><i class="fa fa-check"></i><b>8.6</b> Compliance with boil water advisories and perception of risks</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i><b>9</b> Solutions</a><ul>
-<li class="chapter" data-level="9.1" data-path="solutions.html"><a href="solutions.html#poisons-information-center-1"><i class="fa fa-check"></i><b>9.1</b> Poisons Information Center</a></li>
-<li class="chapter" data-level="9.2" data-path="solutions.html"><a href="solutions.html#norwegian-water-pipes-1"><i class="fa fa-check"></i><b>9.2</b> Norwegian Water Pipes</a></li>
-<li class="chapter" data-level="9.3" data-path="solutions.html"><a href="solutions.html#early-warning-system-ews-for-waterborne-outbreaks-part-1-1"><i class="fa fa-check"></i><b>9.3</b> Early warning system (EWS) for waterborne outbreaks (part 1)</a></li>
-<li class="chapter" data-level="9.4" data-path="solutions.html"><a href="solutions.html#early-warning-system-ews-for-waterborne-outbreaks-part-2-1"><i class="fa fa-check"></i><b>9.4</b> Early warning system (EWS) for waterborne outbreaks (part 2)</a></li>
-<li class="chapter" data-level="9.5" data-path="solutions.html"><a href="solutions.html#incidents-in-the-water-supply-system-and-illness-1"><i class="fa fa-check"></i><b>9.5</b> Incidents in the water supply system and illness</a></li>
-<li class="chapter" data-level="9.6" data-path="solutions.html"><a href="solutions.html#compliance-with-boil-water-advisories-and-perception-of-risks-1"><i class="fa fa-check"></i><b>9.6</b> Compliance with boil water advisories and perception of risks</a></li>
-</ul></li>
 </ul>
 
       </nav>
@@ -214,7 +224,7 @@
 <p>Regression is the explicit modelling of a parametric association between an outcome and an exposure.</p>
 <p>One such parametric association might be the following:</p>
 <p><span class="math display">\[\text{outcome} = 3 + 2 \times \text{exposure}\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Depending on the type of outcome, different types of regression will need to be used.</p>
 <p>For all regressions, the exposure can be:</p>
 <ul>
@@ -236,11 +246,11 @@
 <p>Where we aim to estimate values for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
 <p>For example, if we run an ice cream shop:</p>
 <p><span class="math display">\[\text{number of ice creams sold} = 5 + 3 \times \text{temperature} + \text{error}\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>If today’s temperature is 30C, we can expect our shop to sell <span class="math inline">\(5 + 3 \times 30 = 95\)</span> ice creams. Because <span class="math inline">\(\beta_1\)</span> (<span class="math inline">\(=3\)</span>) was not zero, we have a significant association between temperature and number of ice creams sold.</p>
 <p>Another example, if we work as a midwife:</p>
 <p><span class="math display">\[\text{Child&#39;s birthweight} = 3 + 0 \times \text{temperature at day of delivery} + \text{error}\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>If today’s temperature is 30C, we can expect that children born today will be (on average) <span class="math inline">\(3 + 0 \times 30 = 3\)</span> kg. If tomorrow’s temperature is 10C, we can expect that children born today will be (on average) <span class="math inline">\(3 + 0 \times 10 = 3\)</span> kg. Because <span class="math inline">\(\beta_1\)</span> was zero, we do not have a significant association between temperature and birthweight.</p>
 <div id="aimoutcomeexposureparametricdependencies-5" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Aim/Outcome/Exposure/Parametric/Dependencies</h3>
@@ -256,7 +266,7 @@
 <p><span class="math inline">\(\rightarrow\)</span> Testing if average birth weight (continuous outcome) is associated with parents’ income (continuous exposure)</p>
 <p><span class="math display">\[\text{birth weight} = \beta_0 + \beta_1 \times \text{parent&#39;s income} + \text{error}\]</span></p>
 <p><span class="math display">\[\text{H}_0: \beta_1 = 0\]</span> <span class="math display">\[\text{H}_1: \beta_1 \ne 0\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 
 </div>
 <div id="example-2-4" class="section level3">
@@ -264,7 +274,7 @@
 <p><span class="math inline">\(\rightarrow\)</span> Testing if average birth weight (continuous outcome) is associated with child’s sex (binary exposure)</p>
 <p><span class="math display">\[\text{birth weight} = \beta_0 + \beta_1 \times \text{is boy} + \text{error}\]</span></p>
 <p><span class="math display">\[\text{H}_0: \beta_1 = 0\]</span> <span class="math display">\[\text{H}_1: \beta_1 \ne 0\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 
 </div>
 <div id="example-3-4" class="section level3">
@@ -272,7 +282,7 @@
 <p><span class="math inline">\(\rightarrow\)</span> Testing if average BMI levels (continuous outcome) differ across Scandinavia (categorical exposure)</p>
 <p><span class="math display">\[\text{bmi} = \beta_0 + \beta_1 \times \text{is Norway} + \beta_2 \times \text{is Sweden} + \text{error}\]</span></p>
 <p><span class="math display">\[\text{H}_0: \beta_1 = \beta_2 = 0\]</span> <span class="math display">\[\text{H}_1: \beta_1 \ne 0 \text{ and/or } \beta_2 \ne 0\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 </div>
 <div id="example-4-4" class="section level3">
 <h3><span class="header-section-number">5.2.5</span> Example 4</h3>
@@ -291,17 +301,17 @@
 <p><strong>Two-sample unpaired t-test</strong>:</p>
 <p><span class="math inline">\(\rightarrow\)</span> Testing if average birth weight (continuous outcome) is different in female children versus male children</p>
 <p><span class="math display">\[\text{H}_0: \mu_{\text{boys}} = \mu_{\text{girls}}\]</span> <span class="math display">\[\text{H}_1: \mu_{\text{boys}} \ne \mu_{\text{girls}}\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 
 <p><strong>ANOVA</strong>:</p>
 <p><span class="math inline">\(\rightarrow\)</span> Testing if average birth weight (continuous outcome) is different in female children versus male children</p>
 <p><span class="math display">\[\text{H}_0: \mu_{\text{boys}} = \mu_{\text{girls}}\]</span> <span class="math display">\[\text{H}_1: \mu_{\text{boys}} \ne \mu_{\text{girls}}\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 
 <p><strong>Linear regression</strong>:</p>
 <p><span class="math inline">\(\rightarrow\)</span> Testing if the effect of child’s sex on average birth weight (continuous outcome) is different than zero</p>
 <p><span class="math display">\[\text{birth weight} = \beta_0 + \beta_1 \times \text{is boy} + \text{error}\]</span> <span class="math display">\[\text{H}_0: \beta_1 = 0\]</span> <span class="math display">\[\text{H}_1: \beta_1 \ne 0\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p><strong>Conclusion</strong>:</p>
 <ul>
 <li>Two-sample unpaired t-tests are ANOVAs with only two groups</li>
@@ -315,17 +325,17 @@
 <p><strong>Two-sample unpaired t-test</strong>:</p>
 <p><span class="math inline">\(\rightarrow\)</span> Testing if average number of hours sleep (continuous outcome) is different in adults who are parents versus those who are childless</p>
 <p><span class="math display">\[\text{H}_0: \mu_{\text{parents}} = \mu_{\text{childless}}\]</span> <span class="math display">\[\text{H}_1: \mu_{\text{parents}} \ne \mu_{\text{childless}}\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 
 <p><strong>ANOVA</strong>:</p>
 <p><span class="math inline">\(\rightarrow\)</span> Testing if average number of hours sleep (continuous outcome) is different in adults who are parents versus those who are childless</p>
 <p><span class="math display">\[\text{H}_0: \mu_{\text{parents}} = \mu_{\text{childless}}\]</span> <span class="math display">\[\text{H}_1: \mu_{\text{parents}} \ne \mu_{\text{childless}}\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 
 <p><strong>Linear regression</strong>:</p>
 <p><span class="math inline">\(\rightarrow\)</span> Testing if the effect of being a parent on average number of hours sleep (continuous outcome) is different than zero</p>
 <p><span class="math display">\[\text{birth weight} = \beta_0 + \beta_1 \times \text{is parent} + \text{error}\]</span> <span class="math display">\[\text{H}_0: \beta_1 = 0\]</span> <span class="math display">\[\text{H}_1: \beta_1 \ne 0\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <p><strong>Conclusion</strong>:</p>
 <ul>
 <li>Two-sample unpaired t-tests are ANOVAs with only two groups</li>
@@ -352,12 +362,12 @@
 <p><strong>ANOVA</strong>:</p>
 <p><span class="math inline">\(\rightarrow\)</span> Testing if average birth weight (continuous outcome) differs between Scandinavian countries</p>
 <p><span class="math display">\[\text{H}_0: \mu_{\text{Norway}} = \mu_{\text{Denmark}} = \mu_{\text{Sweden}}\]</span> <span class="math display">\[\text{H}_1: \mu_{\text{Norway}} \ne \mu_{\text{Denmark}} \text{ and/or } \mu_{\text{Norway}} \ne \mu_{\text{Sweden}}  \text{ and/or } \mu_{\text{Denmark}} \ne \mu_{\text{Sweden}}\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 
 <p><strong>Linear regression</strong>:</p>
 <p><span class="math inline">\(\rightarrow\)</span> Testing if the effect of country on average birth weight (continuous outcome) is different than zero</p>
 <p><span class="math display">\[\text{birth weight} = \beta_0 + \beta_1 \times \text{is Norway} + \beta_2 \times \text{is Denmark} + \text{error}\]</span> <span class="math display">\[\text{H}_0: \beta_1 = \beta_2 = 0\]</span> <span class="math display">\[\text{H}_1: \beta_1 \ne 0 \text{ and/or } \beta_2 \ne 0\]</span></p>
-<p><img src="which-stats-method_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <p><strong>Conclusion</strong>:</p>
 <ul>
 <li>ANOVA is a linear regression with a categorical exposure</li>
@@ -493,10 +503,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -504,10 +515,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/raubreywhite/which_stats_method/edit/master/04-simple-regression.Rmd",
+"link": "https://github.com/raubreywhite/longitudinal_analysis/edit/master/04-multiple-areas-no-autocorrelation.Rmd",
 "text": "Edit"
 },
-"download": ["which-stats-method.pdf"],
+"download": ["longitudinal-analysis.pdf"],
 "toc": {
 "collapse": "subsection",
 "scroll_highlight": true
@@ -522,9 +533,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
