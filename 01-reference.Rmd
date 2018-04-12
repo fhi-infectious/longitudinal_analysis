@@ -24,17 +24,22 @@ In this course we will consider 5 scenarios where we have multiple observations 
 - Panel data: Multiple geographical areas, no autocorrelation
 - Panel data: Multiple geographical areas, with autocorrelation
 
+Note, the following scenario can be covered by normal regressions:
+
+- Multiple geographical areas, one time point/observation per geographical area
+
+
 ## Identifying your scenario
 
-Step 1: Do you have panel data?
+### Step 1: Do you have panel data?
 
 This step should be fairly simple. If your data has equally spaced intervals between them, you have panel data.
 
-Step 2: Do you have multiple geographical areas?
+### Step 2: Do you have multiple geographical areas?
 
 Again, fairly simple, just look at your data.
 
-Step 3: Do you have autocorrelation?
+### Step 3: Do you have autocorrelation?
 
 Firstly, you must run a model pretending that you do not have autocorrelation. You then inspect the residuals from the model and see if autocorrelation exists. This is done with two statistical procedures: `pacf` (for `autoregressive models`, the most common type of autocorrelation), and `acf` (for `moving average models`, a less common type of autocorrelation).
 
@@ -86,7 +91,7 @@ With `moving average` data, an `acf` plot contains a number of sharp significant
 acf(y)
 ```
 
-### MA(1) data
+### MA(2) data
 
 ```{r}
 y <- round(as.numeric(arima.sim(model=list("ma"=c(0.9,0.6)), rand.gen = rnorm, n=1000)))

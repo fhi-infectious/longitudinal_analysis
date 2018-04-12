@@ -107,10 +107,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>2</b> Reference</a><ul>
 <li class="chapter" data-level="2.1" data-path="reference.html"><a href="reference.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
 <li class="chapter" data-level="2.2" data-path="reference.html"><a href="reference.html#identifying-your-scenario"><i class="fa fa-check"></i><b>2.2</b> Identifying your scenario</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="reference.html"><a href="reference.html#ar1-data"><i class="fa fa-check"></i><b>2.2.1</b> AR(1) data</a></li>
-<li class="chapter" data-level="2.2.2" data-path="reference.html"><a href="reference.html#ar2-data"><i class="fa fa-check"></i><b>2.2.2</b> AR(2) data</a></li>
-<li class="chapter" data-level="2.2.3" data-path="reference.html"><a href="reference.html#ma1-data"><i class="fa fa-check"></i><b>2.2.3</b> MA(1) data</a></li>
-<li class="chapter" data-level="2.2.4" data-path="reference.html"><a href="reference.html#ma1-data-1"><i class="fa fa-check"></i><b>2.2.4</b> MA(1) data</a></li>
+<li class="chapter" data-level="2.2.1" data-path="reference.html"><a href="reference.html#step-1-do-you-have-panel-data"><i class="fa fa-check"></i><b>2.2.1</b> Step 1: Do you have panel data?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="reference.html"><a href="reference.html#step-2-do-you-have-multiple-geographical-areas"><i class="fa fa-check"></i><b>2.2.2</b> Step 2: Do you have multiple geographical areas?</a></li>
+<li class="chapter" data-level="2.2.3" data-path="reference.html"><a href="reference.html#step-3-do-you-have-autocorrelation"><i class="fa fa-check"></i><b>2.2.3</b> Step 3: Do you have autocorrelation?</a></li>
+<li class="chapter" data-level="2.2.4" data-path="reference.html"><a href="reference.html#ar1-data"><i class="fa fa-check"></i><b>2.2.4</b> AR(1) data</a></li>
+<li class="chapter" data-level="2.2.5" data-path="reference.html"><a href="reference.html#ar2-data"><i class="fa fa-check"></i><b>2.2.5</b> AR(2) data</a></li>
+<li class="chapter" data-level="2.2.6" data-path="reference.html"><a href="reference.html#ma1-data"><i class="fa fa-check"></i><b>2.2.6</b> MA(1) data</a></li>
+<li class="chapter" data-level="2.2.7" data-path="reference.html"><a href="reference.html#ma2-data"><i class="fa fa-check"></i><b>2.2.7</b> MA(2) data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="panel-data-one-area-without-autocorrelation.html"><a href="panel-data-one-area-without-autocorrelation.html"><i class="fa fa-check"></i><b>3</b> Panel data: One area without autocorrelation</a></li>
@@ -154,17 +157,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Panel data: Multiple geographical areas, no autocorrelation</li>
 <li>Panel data: Multiple geographical areas, with autocorrelation</li>
 </ul>
+<p>Note, the following scenario can be covered by normal regressions:</p>
+<ul>
+<li>Multiple geographical areas, one time point/observation per geographical area</li>
+</ul>
 </div>
 <div id="identifying-your-scenario" class="section level2">
 <h2><span class="header-section-number">2.2</span> Identifying your scenario</h2>
-<p>Step 1: Do you have panel data?</p>
+<div id="step-1-do-you-have-panel-data" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Step 1: Do you have panel data?</h3>
 <p>This step should be fairly simple. If your data has equally spaced intervals between them, you have panel data.</p>
-<p>Step 2: Do you have multiple geographical areas?</p>
+</div>
+<div id="step-2-do-you-have-multiple-geographical-areas" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Step 2: Do you have multiple geographical areas?</h3>
 <p>Again, fairly simple, just look at your data.</p>
-<p>Step 3: Do you have autocorrelation?</p>
+</div>
+<div id="step-3-do-you-have-autocorrelation" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Step 3: Do you have autocorrelation?</h3>
 <p>Firstly, you must run a model pretending that you do not have autocorrelation. You then inspect the residuals from the model and see if autocorrelation exists. This is done with two statistical procedures: <code>pacf</code> (for <code>autoregressive models</code>, the most common type of autocorrelation), and <code>acf</code> (for <code>moving average models</code>, a less common type of autocorrelation).</p>
+</div>
 <div id="ar1-data" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> AR(1) data</h3>
+<h3><span class="header-section-number">2.2.4</span> AR(1) data</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">as.numeric</span>(<span class="kw">arima.sim</span>(<span class="dt">model=</span><span class="kw">list</span>(<span class="st">&quot;ar&quot;</span>=<span class="kw">c</span>(<span class="fl">0.5</span>)), <span class="dt">rand.gen =</span> rnorm, <span class="dt">n=</span><span class="dv">1000</span>)))</code></pre></div>
 <p>With <code>autoregressive</code> data, a <code>pacf</code> plot contains a number of sharp significant lines, demarking how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation. If two lines are significant, it means that each observation is correlated with its two preecing observations. The following plot represents <code>AR(1)</code> data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(y)</code></pre></div>
@@ -174,7 +187,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="ar2-data" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> AR(2) data</h3>
+<h3><span class="header-section-number">2.2.5</span> AR(2) data</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">as.numeric</span>(<span class="kw">arima.sim</span>(<span class="dt">model=</span><span class="kw">list</span>(<span class="st">&quot;ar&quot;</span>=<span class="kw">c</span>(<span class="fl">0.5</span>,<span class="fl">0.4</span>)), <span class="dt">rand.gen =</span> rnorm, <span class="dt">n=</span><span class="dv">1000</span>)))</code></pre></div>
 <p>With <code>autoregressive</code> data, a <code>pacf</code> plot contains a number of sharp significant lines, demarking how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation. If two lines are significant, it means that each observation is correlated with its two preecing observations. The following plot represents <code>AR(2)</code> data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(y)</code></pre></div>
@@ -184,7 +197,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="ma1-data" class="section level3">
-<h3><span class="header-section-number">2.2.3</span> MA(1) data</h3>
+<h3><span class="header-section-number">2.2.6</span> MA(1) data</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">as.numeric</span>(<span class="kw">arima.sim</span>(<span class="dt">model=</span><span class="kw">list</span>(<span class="st">&quot;ma&quot;</span>=<span class="kw">c</span>(<span class="fl">0.9</span>)), <span class="dt">rand.gen =</span> rnorm, <span class="dt">n=</span><span class="dv">1000</span>)))</code></pre></div>
 <p>With <code>moving average</code> data, a <code>pacf</code> plot contains a number of decreasing lines. The following plot represents some sort of <code>MA</code> data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(y)</code></pre></div>
@@ -193,8 +206,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(y)</code></pre></div>
 <p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
-<div id="ma1-data-1" class="section level3">
-<h3><span class="header-section-number">2.2.4</span> MA(1) data</h3>
+<div id="ma2-data" class="section level3">
+<h3><span class="header-section-number">2.2.7</span> MA(2) data</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">as.numeric</span>(<span class="kw">arima.sim</span>(<span class="dt">model=</span><span class="kw">list</span>(<span class="st">&quot;ma&quot;</span>=<span class="kw">c</span>(<span class="fl">0.9</span>,<span class="fl">0.6</span>)), <span class="dt">rand.gen =</span> rnorm, <span class="dt">n=</span><span class="dv">1000</span>)))</code></pre></div>
 <p>With <code>moving average</code> data, a <code>pacf</code> plot contains a number of decreasing lines. The following plot represents some sort of <code>MA</code> data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(y)</code></pre></div>
