@@ -1,0 +1,92 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# Variables
+
+```{r}
+library(data.table)
+library(ggplot2)
+set.seed(4)
+
+AMPLITUDE <- 1.5
+SEASONAL_HORIZONTAL_SHIFT <- 20
+
+fylkeIntercepts <- data.table(fylke=1:20,fylkeIntercepts=rnorm(20))
+
+d <- data.table(date=seq.Date(
+  from=as.Date("2010-01-01"),
+  to=as.Date("2015-12-31"),
+  by=1))
+d[,year:=as.numeric(format.Date(date,"%G"))]
+d[,week:=as.numeric(format.Date(date,"%V"))]
+d[,month:=as.numeric(format.Date(date,"%m"))]
+
+temp <- vector("list",length=20)
+for(i in 1:20){
+  temp[[i]] <- copy(d)
+  temp[[i]][,fylke:=i]
+}
+d <- rbindlist(temp)
+
+d[,yearMinus2000:=year-2000]
+d[,dayOfSeries:=1:.N]
+
+d[,dayOfYear:=as.numeric(format.Date(date,"%j"))]
+d[,seasonalEffect:=sin(2*pi*(dayOfYear-SEASONAL_HORIZONTAL_SHIFT)/365)]
+d[,mu := exp(0.1 + yearMinus2000*0.1 + seasonalEffect*AMPLITUDE)]
+d[,y:=rpois(.N,mu)]
+#d[,y:=round(as.numeric(arima.sim(model=list("ar"=c(0.5)), rand.gen = rpois, n=nrow(d), lambda=mu)))]
+
+```
+
+We then drill down into a few years, and see a clear seasonal trend
+```{r}
+q <- ggplot(d[fylke==1],aes(x=dayOfYear,y=y))
+q <- q + facet_wrap(~year)
+q <- q + geom_point()
+q <- q + stat_smooth(colour="red")
+q
+```
+
+The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days
+```{r}
+lomb::lsp(d$y,from=100,to=500,ofac=1,type="period")
+```
+
+```{r}
+d[,cos365:=cos(dayOfYear*2*pi/365)]
+d[,sin365:=sin(dayOfYear*2*pi/365)]
+
+fit <- MASS::glmmPQL(y~yearMinus2000+sin365 + cos365, random = ~ 1 | fylke,
+                family = poisson, data = d,
+                correlation=nlme::corAR1(form=~dayOfSeries|fylke))
+summary(fit)
+pacf(residuals(fit, type = "normalized")) # this is for AR
+acf(residuals(fit, type = "normalized")) # this is for MA
+```
+
+```{r}
+b1 <- 1.4007640 # sin coefficient
+b2 <- -0.5234863 # cos coefficient
+amplitude <- sqrt(b1^2 + b2^2)
+p <- atan(b1/b2) * 365/2/pi
+if (p > 0) {
+    peak <- p
+    trough <- p + 365/2
+} else {
+    peak <- p + 365/2
+    trough <- p + 365
+}
+if (b1 < 0) {
+    g <- peak
+    peak <- trough
+    trough <- g
+}
+print(sprintf("amplitude is estimated as %s, peak is estimated as %s, trough is estimated as %s",round(amplitude,2),round(peak),round(trough)))
+
+print(sprintf("true values are: amplitude: %s, peak: %s, trough: %s",round(AMPLITUDE,2),round(365/4+SEASONAL_HORIZONTAL_SHIFT),round(3*365/4+SEASONAL_HORIZONTAL_SHIFT)))
+
+```
+

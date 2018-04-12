@@ -7,7 +7,11 @@ editor_options:
 
 ```{r}
 library(data.table)
+library(ggplot2)
 set.seed(4)
+
+AMPLITUDE <- 1.5
+SEASONAL_HORIZONTAL_SHIFT <- 20
 
 d <- data.table(date=seq.Date(
   from=as.Date("2000-01-01"),
@@ -16,8 +20,128 @@ d <- data.table(date=seq.Date(
 d[,year:=as.numeric(format.Date(date,"%G"))]
 d[,week:=as.numeric(format.Date(date,"%V"))]
 d[,month:=as.numeric(format.Date(date,"%m"))]
+d[,yearMinus2000:=year-2000]
+
+d[,dayOfYear:=as.numeric(format.Date(date,"%j"))]
+d[,seasonalEffect:=sin(2*pi*(dayOfYear-SEASONAL_HORIZONTAL_SHIFT)/365)]
+d[,mu := exp(0.1 + yearMinus2000*0.1 + seasonalEffect*AMPLITUDE)]
+d[,y:=rpois(.N,mu)]
+```
+
+Showing the true data
+```{r}
+q <- ggplot(d,aes(x=date))
+q <- q + geom_point(mapping=aes(y=y))
+q <- q + geom_line(mapping=aes(y=mu),colour="red")
+q
+```
+
+Investigating the data
+
+We take a quick look, but don't see much
+```{r}
+q <- ggplot(d,aes(x=date,y=y))
+q <- q + geom_point()
+q <- q + stat_smooth(colour="red")
+q
+```
+
+We then drill down into a few years, and see a clear seasonal trend
+```{r}
+q <- ggplot(d[year %in% c(2005:2010)],aes(x=dayOfYear,y=y))
+q <- q + facet_wrap(~year)
+q <- q + geom_point()
+q <- q + stat_smooth(colour="red")
+q
+```
+
+The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days
+```{r}
+lomb::lsp(d$y,from=100,to=500,ofac=1,type="period")
+```
+
+We then generate two new variables `cos365` and `sin365` and perform a simple poisson regression:
+```{r}
+d[,cos365:=cos(dayOfYear*2*pi/365)]
+d[,sin365:=sin(dayOfYear*2*pi/365)]
+
+fit0 <- glm(y~yearMinus2000, data=d, family=poisson())
+fit1 <- glm(y~yearMinus2000+sin365 + cos365, data=d, family=poisson())
+
+print(lmtest::lrtest(fit0, fit1))
+print(summary(fit1))
+```
+
+We see a clear significant seasonal effect. We can then use trigonometry to back-calculate the `cos365` and `sin365` variables to amplitude and location of peak/troughs:
+
+```{r}
+b1 <- 1.428417 # sin coefficient
+b2 <- -0.512912 # cos coefficient
+amplitude <- sqrt(b1^2 + b2^2)
+p <- atan(b1/b2) * 365/2/pi
+if (p > 0) {
+    peak <- p
+    trough <- p + 365/2
+} else {
+    peak <- p + 365/2
+    trough <- p + 365
+}
+if (b1 < 0) {
+    g <- peak
+    peak <- trough
+    trough <- g
+}
+print(sprintf("amplitude is estimated as %s, peak is estimated as %s, trough is estimated as %s",round(amplitude,2),round(peak),round(trough)))
+
+print(sprintf("true values are: amplitude: %s, peak: %s, trough: %s",round(AMPLITUDE,2),round(365/4+SEASONAL_HORIZONTAL_SHIFT),round(3*365/4+SEASONAL_HORIZONTAL_SHIFT)))
 
 ```
+
+We now investigate our residuals to determine if we have a good fit:
+
+```{r}
+d[,residuals:=residuals(fit1, type = "response")]
+d[,predicted:=predict(fit1, type = "response")]
+q <- ggplot(d,aes(x=predicted,y=residuals))
+q <- q + geom_point()
+q <- q + stat_smooth(colour="red")
+q
+```
+
+```{r}
+# this is for AR
+pacf(d$residuals)
+```
+
+```{r}
+# this is for MA
+acf(d$residuals)
+```
+
+We see a clear significant seasonal effect. We can then use trigonometry to back-calculate the `cos365` and `sin365` variables to amplitude and location of peak/troughs:
+
+```{r}
+b1 <- 0.1934 # sin coefficient
+b2 <- 0.1018 # cos coefficient
+amplitude <- sqrt(b1^2 + b2^2)
+p <- atan(b1/b2) * 365/2/pi
+if (p > 0) {
+    peak <- p
+    trough <- p + 365/2
+} else {
+    peak <- p + 365/2
+    trough <- p + 365
+}
+if (b1 < 0) {
+    g <- peak
+    peak <- trough
+    trough <- g
+}
+print(sprintf("amplitude is %s, peak is at %s, trough is at %s",round(amplitude,2),round(peak),round(trough)))
+
+```
+
+
 
 
 ## Showing that tscount::tsglm gets the same results as MASS::glmmPQL

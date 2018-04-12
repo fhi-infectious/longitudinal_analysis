@@ -1,0 +1,28 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# Variables
+
+```{r}
+library(data.table)
+library(lme4)
+set.seed(4)
+
+fylkeIntercepts <- data.table(fylke=1:20,fylkeIntercepts=rnorm(20))
+
+d <- data.table(fylke=rep(1:20,each=100))
+d <- merge(d,fylkeIntercepts,by="fylke")
+d[,mainIntercept:=3]
+d[,x:=runif(.N)]
+d[,mu := exp(mainIntercept + fylkeIntercepts + 3*x)]
+d[,y:=rpois(.N,mu)]
+```
+
+```{r}
+summary(fit <- lme4::glmer(y~x + (1|fylke),data=d,family=poisson()))
+```
+
+
+

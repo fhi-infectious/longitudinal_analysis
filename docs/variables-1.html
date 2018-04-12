@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Longitudinal Analysis</title>
   <meta name="description" content="A short course in learning which statistical methods should be applied where.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Longitudinal Analysis" />
   <meta property="og:type" content="book" />
@@ -25,15 +25,15 @@
 <meta name="author" content="Richard White">
 
 
-<meta name="date" content="2018-03-27">
+<meta name="date" content="2018-04-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="reference-1.html">
-<link rel="next" href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html">
+<link rel="prev" href="variables.html">
+<link rel="next" href="variables-2.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,6 +49,43 @@
 
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -69,251 +106,14 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Syllabus</a></li>
 <li class="chapter" data-level="2" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>2</b> Reference</a></li>
 <li class="chapter" data-level="3" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>3</b> Variables</a><ul>
-<li class="chapter" data-level="3.1" data-path="variables.html"><a href="variables.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="variables.html"><a href="variables.html#continuous-variables"><i class="fa fa-check"></i><b>3.2</b> Continuous Variables</a></li>
-<li class="chapter" data-level="3.3" data-path="variables.html"><a href="variables.html#binary-variables"><i class="fa fa-check"></i><b>3.3</b> Binary Variables</a></li>
-<li class="chapter" data-level="3.4" data-path="variables.html"><a href="variables.html#categorical-variable"><i class="fa fa-check"></i><b>3.4</b> Categorical Variable</a></li>
-<li class="chapter" data-level="3.5" data-path="variables.html"><a href="variables.html#censored-variables"><i class="fa fa-check"></i><b>3.5</b> Censored Variables</a></li>
-<li class="chapter" data-level="3.6" data-path="variables.html"><a href="variables.html#count-variables"><i class="fa fa-check"></i><b>3.6</b> Count Variables</a></li>
-<li class="chapter" data-level="3.7" data-path="variables.html"><a href="variables.html#independent-versus-dependent-variables"><i class="fa fa-check"></i><b>3.7</b> Independent Versus Dependent Variables</a></li>
-<li class="chapter" data-level="3.8" data-path="variables.html"><a href="variables.html#dataset-workflow-pipeline"><i class="fa fa-check"></i><b>3.8</b> Dataset workflow (pipeline)</a></li>
+<li class="chapter" data-level="3.1" data-path="variables.html"><a href="variables.html#showing-that-tscounttsglm-gets-the-same-results-as-massglmmpql"><i class="fa fa-check"></i><b>3.1</b> Showing that tscount::tsglm gets the same results as MASS::glmmPQL</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><i class="fa fa-check"></i><b>4</b> Simple Hypothesis Testing: Chi-Squared, T-tests, and ANOVA</a><ul>
-<li class="chapter" data-level="4.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#hypothesis-testing"><i class="fa fa-check"></i><b>4.1</b> Hypothesis Testing</a></li>
-<li class="chapter" data-level="4.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#which-method-to-use"><i class="fa fa-check"></i><b>4.2</b> Which Method To Use?</a></li>
-<li class="chapter" data-level="4.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#chi-squared-test"><i class="fa fa-check"></i><b>4.3</b> Chi-Squared Test</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies"><i class="fa fa-check"></i><b>4.3.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="4.3.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#examples"><i class="fa fa-check"></i><b>4.3.2</b> Examples</a></li>
+<li class="chapter" data-level="4" data-path="variables-1.html"><a href="variables-1.html"><i class="fa fa-check"></i><b>4</b> Variables</a><ul>
+<li class="chapter" data-level="4.1" data-path="variables-1.html"><a href="variables-1.html#showing-that-tscounttsglm-gets-the-same-results-as-massglmmpql-1"><i class="fa fa-check"></i><b>4.1</b> Showing that tscount::tsglm gets the same results as MASS::glmmPQL</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#one-sample-t-test"><i class="fa fa-check"></i><b>4.4</b> One Sample T-Test</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies-1"><i class="fa fa-check"></i><b>4.4.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="4.4.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-1"><i class="fa fa-check"></i><b>4.4.2</b> Example 1</a></li>
-<li class="chapter" data-level="4.4.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-2"><i class="fa fa-check"></i><b>4.4.3</b> Example 2</a></li>
-<li class="chapter" data-level="4.4.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-3"><i class="fa fa-check"></i><b>4.4.4</b> Example 3</a></li>
-<li class="chapter" data-level="4.4.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-4"><i class="fa fa-check"></i><b>4.4.5</b> Example 4</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#two-sample-t-tests"><i class="fa fa-check"></i><b>4.5</b> Two sample T-Tests</a></li>
-<li class="chapter" data-level="4.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#two-sample-paired-t-test"><i class="fa fa-check"></i><b>4.6</b> Two-sample Paired T-Test</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies-2"><i class="fa fa-check"></i><b>4.6.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="4.6.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-1-1"><i class="fa fa-check"></i><b>4.6.2</b> Example 1</a></li>
-<li class="chapter" data-level="4.6.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-2-1"><i class="fa fa-check"></i><b>4.6.3</b> Example 2</a></li>
-<li class="chapter" data-level="4.6.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-3-1"><i class="fa fa-check"></i><b>4.6.4</b> Example 3</a></li>
-<li class="chapter" data-level="4.6.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-4-1"><i class="fa fa-check"></i><b>4.6.5</b> Example 4</a></li>
-<li class="chapter" data-level="4.6.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#non-parametric-equivalent"><i class="fa fa-check"></i><b>4.6.6</b> Non-Parametric Equivalent</a></li>
-</ul></li>
-<li class="chapter" data-level="4.7" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#two-sample-unpaired-t-test"><i class="fa fa-check"></i><b>4.7</b> Two-sample Unpaired T-Test</a><ul>
-<li class="chapter" data-level="4.7.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies-3"><i class="fa fa-check"></i><b>4.7.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="4.7.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-1-2"><i class="fa fa-check"></i><b>4.7.2</b> Example 1</a></li>
-<li class="chapter" data-level="4.7.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-2-2"><i class="fa fa-check"></i><b>4.7.3</b> Example 2</a></li>
-<li class="chapter" data-level="4.7.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-3-2"><i class="fa fa-check"></i><b>4.7.4</b> Example 3</a></li>
-<li class="chapter" data-level="4.7.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-4-2"><i class="fa fa-check"></i><b>4.7.5</b> Example 4</a></li>
-<li class="chapter" data-level="4.7.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#non-parametric-equivalent-1"><i class="fa fa-check"></i><b>4.7.6</b> Non-parametric equivalent</a></li>
-</ul></li>
-<li class="chapter" data-level="4.8" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#anova"><i class="fa fa-check"></i><b>4.8</b> ANOVA</a><ul>
-<li class="chapter" data-level="4.8.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#aimoutcomeexposureparametricdependencies-4"><i class="fa fa-check"></i><b>4.8.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="4.8.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-1-3"><i class="fa fa-check"></i><b>4.8.2</b> Example 1</a></li>
-<li class="chapter" data-level="4.8.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-2-3"><i class="fa fa-check"></i><b>4.8.3</b> Example 2</a></li>
-<li class="chapter" data-level="4.8.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-3-3"><i class="fa fa-check"></i><b>4.8.4</b> Example 3</a></li>
-<li class="chapter" data-level="4.8.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#example-4-3"><i class="fa fa-check"></i><b>4.8.5</b> Example 4</a></li>
-<li class="chapter" data-level="4.8.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova.html#non-parametric-equivalent-2"><i class="fa fa-check"></i><b>4.8.6</b> Non-parametric equivalent</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html"><i class="fa fa-check"></i><b>5</b> Simple regression (fixed effects)</a><ul>
-<li class="chapter" data-level="5.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#regression-in-general"><i class="fa fa-check"></i><b>5.1</b> Regression in general</a></li>
-<li class="chapter" data-level="5.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#linear-regression"><i class="fa fa-check"></i><b>5.2</b> Linear regression</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#aimoutcomeexposureparametricdependencies-5"><i class="fa fa-check"></i><b>5.2.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="5.2.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-4"><i class="fa fa-check"></i><b>5.2.2</b> Example 1</a></li>
-<li class="chapter" data-level="5.2.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-4"><i class="fa fa-check"></i><b>5.2.3</b> Example 2</a></li>
-<li class="chapter" data-level="5.2.4" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-3-4"><i class="fa fa-check"></i><b>5.2.4</b> Example 3</a></li>
-<li class="chapter" data-level="5.2.5" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-4-4"><i class="fa fa-check"></i><b>5.2.5</b> Example 4</a></li>
-<li class="chapter" data-level="5.2.6" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-5"><i class="fa fa-check"></i><b>5.2.6</b> Example 5</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#similarities-between-t-tests-anova-and-linear-regression"><i class="fa fa-check"></i><b>5.3</b> Similarities between t-tests, ANOVA, and linear regression</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-5"><i class="fa fa-check"></i><b>5.3.1</b> Example 1</a></li>
-<li class="chapter" data-level="5.3.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-5"><i class="fa fa-check"></i><b>5.3.2</b> Example 2</a></li>
-<li class="chapter" data-level="5.3.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-3-5"><i class="fa fa-check"></i><b>5.3.3</b> Example 3</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#similarities-between-anova-and-linear-regression"><i class="fa fa-check"></i><b>5.4</b> Similarities between ANOVA and linear regression</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-6"><i class="fa fa-check"></i><b>5.4.1</b> Example 1</a></li>
-<li class="chapter" data-level="5.4.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-6"><i class="fa fa-check"></i><b>5.4.2</b> Example 2</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#logistic-regression-models"><i class="fa fa-check"></i><b>5.5</b> Logistic regression models</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#aimoutcomeexposureparametricdependencies-6"><i class="fa fa-check"></i><b>5.5.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="5.5.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-7"><i class="fa fa-check"></i><b>5.5.2</b> Example 1</a></li>
-<li class="chapter" data-level="5.5.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-7"><i class="fa fa-check"></i><b>5.5.3</b> Example 2</a></li>
-<li class="chapter" data-level="5.5.4" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-3-6"><i class="fa fa-check"></i><b>5.5.4</b> Example 3</a></li>
-<li class="chapter" data-level="5.5.5" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-4-5"><i class="fa fa-check"></i><b>5.5.5</b> Example 4</a></li>
-<li class="chapter" data-level="5.5.6" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-5-1"><i class="fa fa-check"></i><b>5.5.6</b> Example 5</a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#poissonnegative-binomial-regression-models"><i class="fa fa-check"></i><b>5.6</b> Poisson/negative-binomial regression models</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#aimoutcomeexposureparametricdependencies-7"><i class="fa fa-check"></i><b>5.6.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="5.6.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-8"><i class="fa fa-check"></i><b>5.6.2</b> Example 1</a></li>
-<li class="chapter" data-level="5.6.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-8"><i class="fa fa-check"></i><b>5.6.3</b> Example 2</a></li>
-</ul></li>
-<li class="chapter" data-level="5.7" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#cox-regression-models"><i class="fa fa-check"></i><b>5.7</b> Cox regression models</a><ul>
-<li class="chapter" data-level="5.7.1" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#aimoutcomeexposureparametricdependencies-8"><i class="fa fa-check"></i><b>5.7.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="5.7.2" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-1-9"><i class="fa fa-check"></i><b>5.7.2</b> Example 1</a></li>
-<li class="chapter" data-level="5.7.3" data-path="simple-regression-fixed-effects.html"><a href="simple-regression-fixed-effects.html#example-2-9"><i class="fa fa-check"></i><b>5.7.3</b> Example 2</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="complicated-regression.html"><a href="complicated-regression.html"><i class="fa fa-check"></i><b>6</b> Complicated regression</a><ul>
-<li class="chapter" data-level="6.1" data-path="complicated-regression.html"><a href="complicated-regression.html#dependencies-in-your-data"><i class="fa fa-check"></i><b>6.1</b> Dependencies in your data</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="complicated-regression.html"><a href="complicated-regression.html#what-is-independent-data"><i class="fa fa-check"></i><b>6.1.1</b> What is independent data</a></li>
-<li class="chapter" data-level="6.1.2" data-path="complicated-regression.html"><a href="complicated-regression.html#what-is-data-with-dependencies"><i class="fa fa-check"></i><b>6.1.2</b> What is data with dependencies</a></li>
-<li class="chapter" data-level="6.1.3" data-path="complicated-regression.html"><a href="complicated-regression.html#repeated-measureslongitudinal-data"><i class="fa fa-check"></i><b>6.1.3</b> Repeated measures/longitudinal data</a></li>
-<li class="chapter" data-level="6.1.4" data-path="complicated-regression.html"><a href="complicated-regression.html#matched-data"><i class="fa fa-check"></i><b>6.1.4</b> Matched data</a></li>
-<li class="chapter" data-level="6.1.5" data-path="complicated-regression.html"><a href="complicated-regression.html#groupedclustered-data"><i class="fa fa-check"></i><b>6.1.5</b> Grouped/clustered data</a></li>
-</ul></li>
-<li class="chapter" data-level="6.2" data-path="complicated-regression.html"><a href="complicated-regression.html#analysing-data-with-dependencies"><i class="fa fa-check"></i><b>6.2</b> Analysing data with dependencies</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="complicated-regression.html"><a href="complicated-regression.html#mixed-effects-regression"><i class="fa fa-check"></i><b>6.2.1</b> Mixed effects regression</a></li>
-<li class="chapter" data-level="6.2.2" data-path="complicated-regression.html"><a href="complicated-regression.html#conditional-logistic-regression"><i class="fa fa-check"></i><b>6.2.2</b> Conditional logistic regression</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="complicated-regression.html"><a href="complicated-regression.html#tbd-understanding-the-best-practices-for-data-files-and-project-folders"><i class="fa fa-check"></i><b>6.3</b> (TBD) Understanding the best practices for data files and project folders</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="good-folder-structure.html"><a href="good-folder-structure.html"><i class="fa fa-check"></i><b>7</b> Good folder structure</a><ul>
-<li class="chapter" data-level="7.1" data-path="good-folder-structure.html"><a href="good-folder-structure.html#data-and-results"><i class="fa fa-check"></i><b>7.1</b> Data and results</a></li>
-<li class="chapter" data-level="7.2" data-path="good-folder-structure.html"><a href="good-folder-structure.html#keep-your-source-code-separate-from-data"><i class="fa fa-check"></i><b>7.2</b> Keep your source code separate from data</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="examples-1.html"><a href="examples-1.html"><i class="fa fa-check"></i><b>8</b> Examples</a><ul>
-<li class="chapter" data-level="8.1" data-path="examples-1.html"><a href="examples-1.html#poisons-information-center"><i class="fa fa-check"></i><b>8.1</b> Poisons Information Center</a></li>
-<li class="chapter" data-level="8.2" data-path="examples-1.html"><a href="examples-1.html#norwegian-water-pipes"><i class="fa fa-check"></i><b>8.2</b> Norwegian Water Pipes</a></li>
-<li class="chapter" data-level="8.3" data-path="examples-1.html"><a href="examples-1.html#early-warning-system-ews-for-waterborne-outbreaks-part-1"><i class="fa fa-check"></i><b>8.3</b> Early warning system (EWS) for waterborne outbreaks (part 1)</a></li>
-<li class="chapter" data-level="8.4" data-path="examples-1.html"><a href="examples-1.html#early-warning-system-ews-for-waterborne-outbreaks-part-2"><i class="fa fa-check"></i><b>8.4</b> Early warning system (EWS) for waterborne outbreaks (part 2)</a></li>
-<li class="chapter" data-level="8.5" data-path="examples-1.html"><a href="examples-1.html#incidents-in-the-water-supply-system-and-illness"><i class="fa fa-check"></i><b>8.5</b> Incidents in the water supply system and illness</a></li>
-<li class="chapter" data-level="8.6" data-path="examples-1.html"><a href="examples-1.html#compliance-with-boil-water-advisories-and-perception-of-risks"><i class="fa fa-check"></i><b>8.6</b> Compliance with boil water advisories and perception of risks</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i><b>9</b> Solutions</a><ul>
-<li class="chapter" data-level="9.1" data-path="solutions.html"><a href="solutions.html#poisons-information-center-1"><i class="fa fa-check"></i><b>9.1</b> Poisons Information Center</a></li>
-<li class="chapter" data-level="9.2" data-path="solutions.html"><a href="solutions.html#norwegian-water-pipes-1"><i class="fa fa-check"></i><b>9.2</b> Norwegian Water Pipes</a></li>
-<li class="chapter" data-level="9.3" data-path="solutions.html"><a href="solutions.html#early-warning-system-ews-for-waterborne-outbreaks-part-1-1"><i class="fa fa-check"></i><b>9.3</b> Early warning system (EWS) for waterborne outbreaks (part 1)</a></li>
-<li class="chapter" data-level="9.4" data-path="solutions.html"><a href="solutions.html#early-warning-system-ews-for-waterborne-outbreaks-part-2-1"><i class="fa fa-check"></i><b>9.4</b> Early warning system (EWS) for waterborne outbreaks (part 2)</a></li>
-<li class="chapter" data-level="9.5" data-path="solutions.html"><a href="solutions.html#incidents-in-the-water-supply-system-and-illness-1"><i class="fa fa-check"></i><b>9.5</b> Incidents in the water supply system and illness</a></li>
-<li class="chapter" data-level="9.6" data-path="solutions.html"><a href="solutions.html#compliance-with-boil-water-advisories-and-perception-of-risks-1"><i class="fa fa-check"></i><b>9.6</b> Compliance with boil water advisories and perception of risks</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="syllabus-1.html"><a href="syllabus-1.html"><i class="fa fa-check"></i><b>10</b> Syllabus</a></li>
-<li class="chapter" data-level="11" data-path="reference-1.html"><a href="reference-1.html"><i class="fa fa-check"></i><b>11</b> Reference</a></li>
-<li class="chapter" data-level="12" data-path="variables-1.html"><a href="variables-1.html"><i class="fa fa-check"></i><b>12</b> Variables</a><ul>
-<li class="chapter" data-level="12.1" data-path="variables-1.html"><a href="variables-1.html#introduction-1"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
-<li class="chapter" data-level="12.2" data-path="variables-1.html"><a href="variables-1.html#continuous-variables-1"><i class="fa fa-check"></i><b>12.2</b> Continuous Variables</a></li>
-<li class="chapter" data-level="12.3" data-path="variables-1.html"><a href="variables-1.html#binary-variables-1"><i class="fa fa-check"></i><b>12.3</b> Binary Variables</a></li>
-<li class="chapter" data-level="12.4" data-path="variables-1.html"><a href="variables-1.html#categorical-variable-1"><i class="fa fa-check"></i><b>12.4</b> Categorical Variable</a></li>
-<li class="chapter" data-level="12.5" data-path="variables-1.html"><a href="variables-1.html#censored-variables-1"><i class="fa fa-check"></i><b>12.5</b> Censored Variables</a></li>
-<li class="chapter" data-level="12.6" data-path="variables-1.html"><a href="variables-1.html#count-variables-1"><i class="fa fa-check"></i><b>12.6</b> Count Variables</a></li>
-<li class="chapter" data-level="12.7" data-path="variables-1.html"><a href="variables-1.html#independent-versus-dependent-variables-1"><i class="fa fa-check"></i><b>12.7</b> Independent Versus Dependent Variables</a></li>
-<li class="chapter" data-level="12.8" data-path="variables-1.html"><a href="variables-1.html#dataset-workflow-pipeline-1"><i class="fa fa-check"></i><b>12.8</b> Dataset workflow (pipeline)</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><i class="fa fa-check"></i><b>13</b> Simple Hypothesis Testing: Chi-Squared, T-tests, and ANOVA</a><ul>
-<li class="chapter" data-level="13.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#hypothesis-testing-1"><i class="fa fa-check"></i><b>13.1</b> Hypothesis Testing</a></li>
-<li class="chapter" data-level="13.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#which-method-to-use-1"><i class="fa fa-check"></i><b>13.2</b> Which Method To Use?</a></li>
-<li class="chapter" data-level="13.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#chi-squared-test-1"><i class="fa fa-check"></i><b>13.3</b> Chi-Squared Test</a><ul>
-<li class="chapter" data-level="13.3.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#aimoutcomeexposureparametricdependencies-9"><i class="fa fa-check"></i><b>13.3.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="13.3.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#examples-2"><i class="fa fa-check"></i><b>13.3.2</b> Examples</a></li>
-</ul></li>
-<li class="chapter" data-level="13.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#one-sample-t-test-1"><i class="fa fa-check"></i><b>13.4</b> One Sample T-Test</a><ul>
-<li class="chapter" data-level="13.4.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#aimoutcomeexposureparametricdependencies-10"><i class="fa fa-check"></i><b>13.4.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="13.4.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-1-10"><i class="fa fa-check"></i><b>13.4.2</b> Example 1</a></li>
-<li class="chapter" data-level="13.4.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-2-10"><i class="fa fa-check"></i><b>13.4.3</b> Example 2</a></li>
-<li class="chapter" data-level="13.4.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-3-7"><i class="fa fa-check"></i><b>13.4.4</b> Example 3</a></li>
-<li class="chapter" data-level="13.4.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-4-6"><i class="fa fa-check"></i><b>13.4.5</b> Example 4</a></li>
-</ul></li>
-<li class="chapter" data-level="13.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#two-sample-t-tests-1"><i class="fa fa-check"></i><b>13.5</b> Two sample T-Tests</a></li>
-<li class="chapter" data-level="13.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#two-sample-paired-t-test-1"><i class="fa fa-check"></i><b>13.6</b> Two-sample Paired T-Test</a><ul>
-<li class="chapter" data-level="13.6.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#aimoutcomeexposureparametricdependencies-11"><i class="fa fa-check"></i><b>13.6.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="13.6.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-1-11"><i class="fa fa-check"></i><b>13.6.2</b> Example 1</a></li>
-<li class="chapter" data-level="13.6.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-2-11"><i class="fa fa-check"></i><b>13.6.3</b> Example 2</a></li>
-<li class="chapter" data-level="13.6.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-3-8"><i class="fa fa-check"></i><b>13.6.4</b> Example 3</a></li>
-<li class="chapter" data-level="13.6.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-4-7"><i class="fa fa-check"></i><b>13.6.5</b> Example 4</a></li>
-<li class="chapter" data-level="13.6.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#non-parametric-equivalent-3"><i class="fa fa-check"></i><b>13.6.6</b> Non-Parametric Equivalent</a></li>
-</ul></li>
-<li class="chapter" data-level="13.7" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#two-sample-unpaired-t-test-1"><i class="fa fa-check"></i><b>13.7</b> Two-sample Unpaired T-Test</a><ul>
-<li class="chapter" data-level="13.7.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#aimoutcomeexposureparametricdependencies-12"><i class="fa fa-check"></i><b>13.7.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="13.7.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-1-12"><i class="fa fa-check"></i><b>13.7.2</b> Example 1</a></li>
-<li class="chapter" data-level="13.7.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-2-12"><i class="fa fa-check"></i><b>13.7.3</b> Example 2</a></li>
-<li class="chapter" data-level="13.7.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-3-9"><i class="fa fa-check"></i><b>13.7.4</b> Example 3</a></li>
-<li class="chapter" data-level="13.7.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-4-8"><i class="fa fa-check"></i><b>13.7.5</b> Example 4</a></li>
-<li class="chapter" data-level="13.7.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#non-parametric-equivalent-4"><i class="fa fa-check"></i><b>13.7.6</b> Non-parametric equivalent</a></li>
-</ul></li>
-<li class="chapter" data-level="13.8" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#anova-1"><i class="fa fa-check"></i><b>13.8</b> ANOVA</a><ul>
-<li class="chapter" data-level="13.8.1" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#aimoutcomeexposureparametricdependencies-13"><i class="fa fa-check"></i><b>13.8.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="13.8.2" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-1-13"><i class="fa fa-check"></i><b>13.8.2</b> Example 1</a></li>
-<li class="chapter" data-level="13.8.3" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-2-13"><i class="fa fa-check"></i><b>13.8.3</b> Example 2</a></li>
-<li class="chapter" data-level="13.8.4" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-3-10"><i class="fa fa-check"></i><b>13.8.4</b> Example 3</a></li>
-<li class="chapter" data-level="13.8.5" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#example-4-9"><i class="fa fa-check"></i><b>13.8.5</b> Example 4</a></li>
-<li class="chapter" data-level="13.8.6" data-path="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html"><a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html#non-parametric-equivalent-5"><i class="fa fa-check"></i><b>13.8.6</b> Non-parametric equivalent</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="14" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html"><i class="fa fa-check"></i><b>14</b> Simple regression (fixed effects)</a><ul>
-<li class="chapter" data-level="14.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#regression-in-general-1"><i class="fa fa-check"></i><b>14.1</b> Regression in general</a></li>
-<li class="chapter" data-level="14.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#linear-regression-1"><i class="fa fa-check"></i><b>14.2</b> Linear regression</a><ul>
-<li class="chapter" data-level="14.2.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#aimoutcomeexposureparametricdependencies-14"><i class="fa fa-check"></i><b>14.2.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="14.2.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-1-14"><i class="fa fa-check"></i><b>14.2.2</b> Example 1</a></li>
-<li class="chapter" data-level="14.2.3" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-2-14"><i class="fa fa-check"></i><b>14.2.3</b> Example 2</a></li>
-<li class="chapter" data-level="14.2.4" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-3-11"><i class="fa fa-check"></i><b>14.2.4</b> Example 3</a></li>
-<li class="chapter" data-level="14.2.5" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-4-10"><i class="fa fa-check"></i><b>14.2.5</b> Example 4</a></li>
-<li class="chapter" data-level="14.2.6" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-5-2"><i class="fa fa-check"></i><b>14.2.6</b> Example 5</a></li>
-</ul></li>
-<li class="chapter" data-level="14.3" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#similarities-between-t-tests-anova-and-linear-regression-1"><i class="fa fa-check"></i><b>14.3</b> Similarities between t-tests, ANOVA, and linear regression</a><ul>
-<li class="chapter" data-level="14.3.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-1-15"><i class="fa fa-check"></i><b>14.3.1</b> Example 1</a></li>
-<li class="chapter" data-level="14.3.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-2-15"><i class="fa fa-check"></i><b>14.3.2</b> Example 2</a></li>
-<li class="chapter" data-level="14.3.3" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-3-12"><i class="fa fa-check"></i><b>14.3.3</b> Example 3</a></li>
-</ul></li>
-<li class="chapter" data-level="14.4" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#similarities-between-anova-and-linear-regression-1"><i class="fa fa-check"></i><b>14.4</b> Similarities between ANOVA and linear regression</a><ul>
-<li class="chapter" data-level="14.4.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-1-16"><i class="fa fa-check"></i><b>14.4.1</b> Example 1</a></li>
-<li class="chapter" data-level="14.4.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-2-16"><i class="fa fa-check"></i><b>14.4.2</b> Example 2</a></li>
-</ul></li>
-<li class="chapter" data-level="14.5" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#logistic-regression-models-1"><i class="fa fa-check"></i><b>14.5</b> Logistic regression models</a><ul>
-<li class="chapter" data-level="14.5.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#aimoutcomeexposureparametricdependencies-15"><i class="fa fa-check"></i><b>14.5.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="14.5.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-1-17"><i class="fa fa-check"></i><b>14.5.2</b> Example 1</a></li>
-<li class="chapter" data-level="14.5.3" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-2-17"><i class="fa fa-check"></i><b>14.5.3</b> Example 2</a></li>
-<li class="chapter" data-level="14.5.4" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-3-13"><i class="fa fa-check"></i><b>14.5.4</b> Example 3</a></li>
-<li class="chapter" data-level="14.5.5" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-4-11"><i class="fa fa-check"></i><b>14.5.5</b> Example 4</a></li>
-<li class="chapter" data-level="14.5.6" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-5-3"><i class="fa fa-check"></i><b>14.5.6</b> Example 5</a></li>
-</ul></li>
-<li class="chapter" data-level="14.6" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#poissonnegative-binomial-regression-models-1"><i class="fa fa-check"></i><b>14.6</b> Poisson/negative-binomial regression models</a><ul>
-<li class="chapter" data-level="14.6.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#aimoutcomeexposureparametricdependencies-16"><i class="fa fa-check"></i><b>14.6.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="14.6.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-1-18"><i class="fa fa-check"></i><b>14.6.2</b> Example 1</a></li>
-<li class="chapter" data-level="14.6.3" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-2-18"><i class="fa fa-check"></i><b>14.6.3</b> Example 2</a></li>
-</ul></li>
-<li class="chapter" data-level="14.7" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#cox-regression-models-1"><i class="fa fa-check"></i><b>14.7</b> Cox regression models</a><ul>
-<li class="chapter" data-level="14.7.1" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#aimoutcomeexposureparametricdependencies-17"><i class="fa fa-check"></i><b>14.7.1</b> Aim/Outcome/Exposure/Parametric/Dependencies</a></li>
-<li class="chapter" data-level="14.7.2" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-1-19"><i class="fa fa-check"></i><b>14.7.2</b> Example 1</a></li>
-<li class="chapter" data-level="14.7.3" data-path="simple-regression-fixed-effects-1.html"><a href="simple-regression-fixed-effects-1.html#example-2-19"><i class="fa fa-check"></i><b>14.7.3</b> Example 2</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="15" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html"><i class="fa fa-check"></i><b>15</b> Complicated regression</a><ul>
-<li class="chapter" data-level="15.1" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#dependencies-in-your-data-1"><i class="fa fa-check"></i><b>15.1</b> Dependencies in your data</a><ul>
-<li class="chapter" data-level="15.1.1" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#what-is-independent-data-1"><i class="fa fa-check"></i><b>15.1.1</b> What is independent data</a></li>
-<li class="chapter" data-level="15.1.2" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#what-is-data-with-dependencies-1"><i class="fa fa-check"></i><b>15.1.2</b> What is data with dependencies</a></li>
-<li class="chapter" data-level="15.1.3" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#repeated-measureslongitudinal-data-1"><i class="fa fa-check"></i><b>15.1.3</b> Repeated measures/longitudinal data</a></li>
-<li class="chapter" data-level="15.1.4" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#matched-data-1"><i class="fa fa-check"></i><b>15.1.4</b> Matched data</a></li>
-<li class="chapter" data-level="15.1.5" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#groupedclustered-data-1"><i class="fa fa-check"></i><b>15.1.5</b> Grouped/clustered data</a></li>
-</ul></li>
-<li class="chapter" data-level="15.2" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#analysing-data-with-dependencies-1"><i class="fa fa-check"></i><b>15.2</b> Analysing data with dependencies</a><ul>
-<li class="chapter" data-level="15.2.1" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#mixed-effects-regression-1"><i class="fa fa-check"></i><b>15.2.1</b> Mixed effects regression</a></li>
-<li class="chapter" data-level="15.2.2" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#conditional-logistic-regression-1"><i class="fa fa-check"></i><b>15.2.2</b> Conditional logistic regression</a></li>
-</ul></li>
-<li class="chapter" data-level="15.3" data-path="complicated-regression-1.html"><a href="complicated-regression-1.html#tbd-understanding-the-best-practices-for-data-files-and-project-folders-1"><i class="fa fa-check"></i><b>15.3</b> (TBD) Understanding the best practices for data files and project folders</a></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="good-folder-structure-1.html"><a href="good-folder-structure-1.html"><i class="fa fa-check"></i><b>16</b> Good folder structure</a><ul>
-<li class="chapter" data-level="16.1" data-path="good-folder-structure-1.html"><a href="good-folder-structure-1.html#data-and-results-1"><i class="fa fa-check"></i><b>16.1</b> Data and results</a></li>
-<li class="chapter" data-level="16.2" data-path="good-folder-structure-1.html"><a href="good-folder-structure-1.html#keep-your-source-code-separate-from-data-1"><i class="fa fa-check"></i><b>16.2</b> Keep your source code separate from data</a></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="examples-3.html"><a href="examples-3.html"><i class="fa fa-check"></i><b>17</b> Examples</a><ul>
-<li class="chapter" data-level="17.1" data-path="examples-3.html"><a href="examples-3.html#poisons-information-center-2"><i class="fa fa-check"></i><b>17.1</b> Poisons Information Center</a></li>
-<li class="chapter" data-level="17.2" data-path="examples-3.html"><a href="examples-3.html#norwegian-water-pipes-2"><i class="fa fa-check"></i><b>17.2</b> Norwegian Water Pipes</a></li>
-<li class="chapter" data-level="17.3" data-path="examples-3.html"><a href="examples-3.html#early-warning-system-ews-for-waterborne-outbreaks-part-1-2"><i class="fa fa-check"></i><b>17.3</b> Early warning system (EWS) for waterborne outbreaks (part 1)</a></li>
-<li class="chapter" data-level="17.4" data-path="examples-3.html"><a href="examples-3.html#early-warning-system-ews-for-waterborne-outbreaks-part-2-2"><i class="fa fa-check"></i><b>17.4</b> Early warning system (EWS) for waterborne outbreaks (part 2)</a></li>
-<li class="chapter" data-level="17.5" data-path="examples-3.html"><a href="examples-3.html#incidents-in-the-water-supply-system-and-illness-2"><i class="fa fa-check"></i><b>17.5</b> Incidents in the water supply system and illness</a></li>
-<li class="chapter" data-level="17.6" data-path="examples-3.html"><a href="examples-3.html#compliance-with-boil-water-advisories-and-perception-of-risks-2"><i class="fa fa-check"></i><b>17.6</b> Compliance with boil water advisories and perception of risks</a></li>
-</ul></li>
-<li class="chapter" data-level="18" data-path="solutions-1.html"><a href="solutions-1.html"><i class="fa fa-check"></i><b>18</b> Solutions</a><ul>
-<li class="chapter" data-level="18.1" data-path="solutions-1.html"><a href="solutions-1.html#poisons-information-center-3"><i class="fa fa-check"></i><b>18.1</b> Poisons Information Center</a></li>
-<li class="chapter" data-level="18.2" data-path="solutions-1.html"><a href="solutions-1.html#norwegian-water-pipes-3"><i class="fa fa-check"></i><b>18.2</b> Norwegian Water Pipes</a></li>
-<li class="chapter" data-level="18.3" data-path="solutions-1.html"><a href="solutions-1.html#early-warning-system-ews-for-waterborne-outbreaks-part-1-3"><i class="fa fa-check"></i><b>18.3</b> Early warning system (EWS) for waterborne outbreaks (part 1)</a></li>
-<li class="chapter" data-level="18.4" data-path="solutions-1.html"><a href="solutions-1.html#early-warning-system-ews-for-waterborne-outbreaks-part-2-3"><i class="fa fa-check"></i><b>18.4</b> Early warning system (EWS) for waterborne outbreaks (part 2)</a></li>
-<li class="chapter" data-level="18.5" data-path="solutions-1.html"><a href="solutions-1.html#incidents-in-the-water-supply-system-and-illness-3"><i class="fa fa-check"></i><b>18.5</b> Incidents in the water supply system and illness</a></li>
-<li class="chapter" data-level="18.6" data-path="solutions-1.html"><a href="solutions-1.html#compliance-with-boil-water-advisories-and-perception-of-risks-3"><i class="fa fa-check"></i><b>18.6</b> Compliance with boil water advisories and perception of risks</a></li>
-</ul></li>
+<li class="chapter" data-level="5" data-path="variables-2.html"><a href="variables-2.html"><i class="fa fa-check"></i><b>5</b> Variables</a></li>
+<li class="chapter" data-level="6" data-path="variables-3.html"><a href="variables-3.html"><i class="fa fa-check"></i><b>6</b> Variables</a></li>
+<li class="chapter" data-level="7" data-path="variables-4.html"><a href="variables-4.html"><i class="fa fa-check"></i><b>7</b> Variables</a></li>
 </ul>
 
       </nav>
@@ -332,112 +132,389 @@
 
             <section class="normal" id="section-">
 <div id="variables-1" class="section level1">
-<h1><span class="header-section-number">Chapter 12</span> Variables</h1>
-<div id="introduction-1" class="section level2">
-<h2><span class="header-section-number">12.1</span> Introduction</h2>
-<p>A variable is anything that can be measured or counted. In general, we think of our datasets as a rectangle, with a column for each variable and a row for each observation (there are some exceptions when discussing long/wide formatted data, but that is out of the scope of this course).</p>
-<p>We care about four attributes of the variables:</p>
-<ul>
-<li>the variable’s type (statistical relevance)</li>
-<li>the different values the variable can take (statistical relevance)</li>
-<li>is the variable clean (i.e. ready to use in an analysis?) (statistical relevance)</li>
-<li>the name of the variable (useful for us)</li>
-</ul>
-<p>We can use the fourth attribute to help us remember the first three.</p>
-</div>
-<div id="continuous-variables-1" class="section level2">
-<h2><span class="header-section-number">12.2</span> Continuous Variables</h2>
-<p>A variable is continuous there is a meaningful “distance” between values.</p>
-<p>For example:</p>
-<ul>
-<li>Temperature</li>
-<li>Weight</li>
-<li>Height</li>
-<li>BMI</li>
-<li>Blood pressure</li>
-<li></li>
-<li></li>
-</ul>
-<p>Clean continuous variables can be given the prefix <code>con_</code> to denote that they are clean. For example, <code>temperature</code> could be called <code>con_temperature</code> after it has been cleaned and is ready for analysis.</p>
-</div>
-<div id="binary-variables-1" class="section level2">
-<h2><span class="header-section-number">12.3</span> Binary Variables</h2>
-<p>A variable is binary if it can only hold two values.</p>
-<p>For example:</p>
-<ul>
-<li>0 or 1</li>
-<li>True or false</li>
-<li>Male or female</li>
-<li>Sick or healthy</li>
-<li>Born in Norway vs Born outside of Norway</li>
-<li></li>
-<li></li>
-</ul>
-<p>Clean binary variables can be given the prefix <code>is_</code> to denote that they are clean, binary, and reference the “active state”. For example, an unclean variable called <code>sex</code> could be recoded as 0 for female and 1 for male, then called <code>is_male</code> to denote that it is clean (ready for analysis), binary, and “male” is the active state when <code>is_male=1</code>.</p>
-</div>
-<div id="categorical-variable-1" class="section level2">
-<h2><span class="header-section-number">12.4</span> Categorical Variable</h2>
-<p>A variable is categorical if there is no meaningful “distance” between values.</p>
-<p>For example:</p>
-<ul>
-<li>Sick or healthy</li>
-<li>Born in Norway vs Born outside of Norway</li>
-<li>Cancer stage (I, II, III, or IV)</li>
-<li>BMI category (underweight, normal, or overweight)</li>
-<li></li>
-<li></li>
-</ul>
-<p>Clean categorical variables can be given the prefix <code>cat_</code> to denote that they are clean. For example, <code>BMI category</code> could be called <code>cat_bmi</code> after it has been cleaned and is ready for analysis.</p>
-</div>
-<div id="censored-variables-1" class="section level2">
-<h2><span class="header-section-number">12.5</span> Censored Variables</h2>
-<p>Censored variables are a subset of continuous variables. They are artificially cutoff (“censored”) at some point.</p>
-<p>For example:</p>
-<ul>
-<li>Height – if everyone over 175cm is recorded as “175+”</li>
-<li>Age – if everyone under 10 years old is recorded as “&lt;=10”</li>
-<li>Time alive since receiving illness diagnosis if there is loss to followup (i.e. we know that the person has lived at least 4 years before we lost track of them)</li>
-<li></li>
-<li></li>
-</ul>
-<p>Clean censored variables can be given the prefix <code>cen_</code> to denote that they are clean. For example, <code>time alive since receiving illness diagnosis</code> could be called <code>cen_time_alive</code> after it has been cleaned and is ready for analysis.</p>
-</div>
-<div id="count-variables-1" class="section level2">
-<h2><span class="header-section-number">12.6</span> Count Variables</h2>
-<p>Count variables are a subset of continuous variables. They can only have integer values (e.g. 0, 1, 2, 3).</p>
-<p>For example:</p>
-<ul>
-<li>Number of cars that use the parking lot in a day</li>
-<li>Number of influenza patients who use the hospital every day</li>
-<li>Number of tuberculosis patients who are screened every year</li>
-<li></li>
-<li></li>
-</ul>
-<p>Clean count variables can be given the prefix <code>cou_</code> to denote that they are clean. For example, <code>number of cars</code> could be called <code>cou_num_cars</code> after it has been cleaned and is ready for analysis.</p>
-</div>
-<div id="independent-versus-dependent-variables-1" class="section level2">
-<h2><span class="header-section-number">12.7</span> Independent Versus Dependent Variables</h2>
-<p>An independent variable is often called an exposure or predictor variable. In an experiment, this variable is manipulated by the researcher.</p>
-<p>A dependent variable is often called the outcome. In research, we generally want to see if (the following all mean the same thing):</p>
-<ul>
-<li>The dependent variable is dependent on the independent variable</li>
-<li>The predictor variable predicts the outcome.</li>
-<li>The exposure affects the outcome</li>
-</ul>
-<p>For ease of understanding, we will use the terms “outcome” and “exposure” for the rest of this course.</p>
-</div>
-<div id="dataset-workflow-pipeline-1" class="section level2">
-<h2><span class="header-section-number">12.8</span> Dataset workflow (pipeline)</h2>
-<ul>
-<li>We begin with a raw dataset (this is never altered)</li>
-<li>We clean the raw dataset and create new variables as needed</li>
-<li>We save a “clean” dataset (all variables have the prefixes <code>c_</code> or <code>is_</code>)</li>
-<li>We ONLY run analyses on the clean dataset</li>
-</ul>
-<p>We do all of this in “do files” that allow us to recreate the clean dataset from the raw dataset.</p>
-<p>Think of our analysis as making dinner, with the <code>do files</code> as our <code>recipe</code> and the <code>raw dataset</code> as our <code>raw ingredients</code>. The <code>recipe</code> tells us how to prepare the <code>raw ingredients</code> (<code>clean dataset</code>) and how to <code>cook</code> (<code>analyse</code>) the <code>prepared ingredients</code> (<code>clean dataset</code>) to produce the <code>food</code> (<code>results</code>).</p>
-<p>All we need are <code>raw ingredients</code> and the <code>recipe</code>! The <code>prepared ingredients</code> and the <code>food</code> are downstream by-products!</p>
-<p>This means that if our code is written correctly, we can delete our <code>clean datasets</code> and <code>results</code> without any worry, because the <code>raw dataset</code> and <code>do files</code> are sufficient.</p>
+<h1><span class="header-section-number">Chapter 4</span> Variables</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">set.seed</span>(<span class="dv">4</span>)
+
+AMPLITUDE &lt;-<span class="st"> </span><span class="fl">1.5</span>
+SEASONAL_HORIZONTAL_SHIFT &lt;-<span class="st"> </span><span class="dv">20</span>
+
+d &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">date=</span><span class="kw">seq.Date</span>(
+  <span class="dt">from=</span><span class="kw">as.Date</span>(<span class="st">&quot;2000-01-01&quot;</span>),
+  <span class="dt">to=</span><span class="kw">as.Date</span>(<span class="st">&quot;2018-12-31&quot;</span>),
+  <span class="dt">by=</span><span class="dv">1</span>))
+d[,year<span class="op">:</span><span class="er">=</span><span class="kw">as.numeric</span>(<span class="kw">format.Date</span>(date,<span class="st">&quot;%G&quot;</span>))]
+d[,week<span class="op">:</span><span class="er">=</span><span class="kw">as.numeric</span>(<span class="kw">format.Date</span>(date,<span class="st">&quot;%V&quot;</span>))]
+d[,month<span class="op">:</span><span class="er">=</span><span class="kw">as.numeric</span>(<span class="kw">format.Date</span>(date,<span class="st">&quot;%m&quot;</span>))]
+d[,yearMinus2000<span class="op">:</span><span class="er">=</span>year<span class="op">-</span><span class="dv">2000</span>]
+d[,dayOfSeries<span class="op">:</span><span class="er">=</span><span class="dv">1</span><span class="op">:</span>.N]
+
+d[,dayOfYear<span class="op">:</span><span class="er">=</span><span class="kw">as.numeric</span>(<span class="kw">format.Date</span>(date,<span class="st">&quot;%j&quot;</span>))]
+d[,seasonalEffect<span class="op">:</span><span class="er">=</span><span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>(dayOfYear<span class="op">-</span>SEASONAL_HORIZONTAL_SHIFT)<span class="op">/</span><span class="dv">365</span>)]
+d[,mu <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">exp</span>(<span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>yearMinus2000<span class="op">*</span><span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>seasonalEffect<span class="op">*</span>AMPLITUDE)]
+d[,y<span class="op">:</span><span class="er">=</span><span class="kw">rpois</span>(.N,mu)]
+d[,y<span class="op">:</span><span class="er">=</span><span class="kw">round</span>(<span class="kw">as.numeric</span>(<span class="kw">arima.sim</span>(<span class="dt">model=</span><span class="kw">list</span>(<span class="st">&quot;ar&quot;</span>=<span class="kw">c</span>(<span class="fl">0.5</span>)), <span class="dt">rand.gen =</span> rpois, <span class="dt">n=</span><span class="kw">nrow</span>(d), <span class="dt">lambda=</span>mu)))]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q &lt;-<span class="st"> </span><span class="kw">ggplot</span>(d[year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2005</span><span class="op">:</span><span class="dv">2010</span>)],<span class="kw">aes</span>(<span class="dt">x=</span>dayOfYear,<span class="dt">y=</span>y))
+q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>year)
+q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)
+q</code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lomb<span class="op">::</span><span class="kw">lsp</span>(d<span class="op">$</span>y,<span class="dt">from=</span><span class="dv">50</span>,<span class="dt">to=</span><span class="dv">500</span>,<span class="dt">ofac=</span><span class="dv">1</span>,<span class="dt">type=</span><span class="st">&quot;period&quot;</span>)</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d[,cos365<span class="op">:</span><span class="er">=</span><span class="kw">cos</span>(dayOfYear<span class="op">*</span><span class="dv">2</span><span class="op">*</span>pi<span class="op">/</span><span class="dv">365</span>)]
+d[,sin365<span class="op">:</span><span class="er">=</span><span class="kw">sin</span>(dayOfYear<span class="op">*</span><span class="dv">2</span><span class="op">*</span>pi<span class="op">/</span><span class="dv">365</span>)]
+
+fit0 &lt;-<span class="st"> </span><span class="kw">glm</span>(y<span class="op">~</span>yearMinus2000, <span class="dt">data=</span>d, <span class="dt">family=</span><span class="kw">poisson</span>())
+fit1 &lt;-<span class="st"> </span><span class="kw">glm</span>(y<span class="op">~</span>yearMinus2000<span class="op">+</span>sin365 <span class="op">+</span><span class="st"> </span>cos365, <span class="dt">data=</span>d, <span class="dt">family=</span><span class="kw">poisson</span>())
+
+<span class="kw">print</span>(lmtest<span class="op">::</span><span class="kw">lrtest</span>(fit0, fit1))</code></pre></div>
+<pre><code>## Likelihood ratio test
+## 
+## Model 1: y ~ yearMinus2000
+## Model 2: y ~ yearMinus2000 + sin365 + cos365
+##   #Df LogLik Df Chisq Pr(&gt;Chisq)    
+## 1   2 -43124                        
+## 2   4 -14542  2 57163  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">summary</span>(fit1))</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ yearMinus2000 + sin365 + cos365, family = poisson(), 
+##     data = d)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.6774  -0.6738  -0.0503   0.4920   3.5820  
+## 
+## Coefficients:
+##                 Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)    0.7981246  0.0105300   75.80   &lt;2e-16 ***
+## yearMinus2000  0.0991480  0.0007416  133.70   &lt;2e-16 ***
+## sin365         1.4074818  0.0073418  191.71   &lt;2e-16 ***
+## cos365        -0.5390314  0.0061513  -87.63   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 81832.6  on 6939  degrees of freedom
+## Residual deviance:  5217.8  on 6936  degrees of freedom
+## AIC: 29093
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d[,residuals<span class="op">:</span><span class="er">=</span><span class="kw">residuals</span>(fit1, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)]
+d[,predicted<span class="op">:</span><span class="er">=</span><span class="kw">predict</span>(fit1, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this is for AR</span>
+<span class="kw">pacf</span>(d<span class="op">$</span>residuals)</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this is for MA</span>
+<span class="kw">acf</span>(d<span class="op">$</span>residuals)</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>This means our model is bad, we have autocorrelation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d[,ID<span class="op">:</span><span class="er">=</span><span class="dv">1</span>]
+<span class="co"># this is for MA</span>
+fit &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(y<span class="op">~</span>yearMinus2000<span class="op">+</span>sin365 <span class="op">+</span><span class="st"> </span>cos365, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ID,
+                <span class="dt">family =</span> poisson, <span class="dt">data =</span> d,
+                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>(<span class="dt">form=</span><span class="op">~</span>dayOfSeries<span class="op">|</span>ID))</code></pre></div>
+<pre><code>## iteration 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit)</code></pre></div>
+<pre><code>## Linear mixed-effects model fit by maximum likelihood
+##  Data: d 
+##   AIC BIC logLik
+##    NA  NA     NA
+## 
+## Random effects:
+##  Formula: ~1 | ID
+##          (Intercept) Residual
+## StdDev: 1.149069e-05 0.841689
+## 
+## Correlation Structure: AR(1)
+##  Formula: ~dayOfSeries | ID 
+##  Parameter estimate(s):
+##       Phi 
+## 0.4926123 
+## Variance function:
+##  Structure: fixed weights
+##  Formula: ~invwt 
+## Fixed effects: y ~ yearMinus2000 + sin365 + cos365 
+##                    Value   Std.Error   DF   t-value p-value
+## (Intercept)    0.7980540 0.015203158 6936  52.49265       0
+## yearMinus2000  0.0991582 0.001070583 6936  92.62077       0
+## sin365         1.4074339 0.010596649 6936 132.81876       0
+## cos365        -0.5389807 0.008876447 6936 -60.72031       0
+##  Correlation: 
+##               (Intr) yM2000 sin365
+## yearMinus2000 -0.832              
+## sin365        -0.409  0.000       
+## cos365         0.186  0.000 -0.158
+## 
+## Standardized Within-Group Residuals:
+##         Min          Q1         Med          Q3         Max 
+## -2.89886753 -0.75775062 -0.05982255  0.60730690  6.49964494 
+## 
+## Number of Observations: 6940
+## Number of Groups: 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for AR</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for MA</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-21-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b1 &lt;-<span class="st"> </span><span class="fl">1.3936185</span> <span class="co"># sin coefficient</span>
+b2 &lt;-<span class="st"> </span><span class="op">-</span><span class="fl">0.5233866</span> <span class="co"># cos coefficient</span>
+amplitude &lt;-<span class="st"> </span><span class="kw">sqrt</span>(b1<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>b2<span class="op">^</span><span class="dv">2</span>)
+p &lt;-<span class="st"> </span><span class="kw">atan</span>(b1<span class="op">/</span>b2) <span class="op">*</span><span class="st"> </span><span class="dv">365</span><span class="op">/</span><span class="dv">2</span><span class="op">/</span>pi
+<span class="cf">if</span> (p <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {
+    peak &lt;-<span class="st"> </span>p
+    trough &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="dv">365</span><span class="op">/</span><span class="dv">2</span>
+} <span class="cf">else</span> {
+    peak &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="dv">365</span><span class="op">/</span><span class="dv">2</span>
+    trough &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="dv">365</span>
+}
+<span class="cf">if</span> (b1 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {
+    g &lt;-<span class="st"> </span>peak
+    peak &lt;-<span class="st"> </span>trough
+    trough &lt;-<span class="st"> </span>g
+}
+<span class="kw">print</span>(<span class="kw">sprintf</span>(<span class="st">&quot;amplitude is estimated as %s, peak is estimated as %s, trough is estimated as %s&quot;</span>,<span class="kw">round</span>(amplitude,<span class="dv">2</span>),<span class="kw">round</span>(peak),<span class="kw">round</span>(trough)))</code></pre></div>
+<pre><code>## [1] &quot;amplitude is estimated as 1.49, peak is estimated as 112, trough is estimated as 295&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sprintf</span>(<span class="st">&quot;true values are: amplitude: %s, peak: %s, trough: %s&quot;</span>,<span class="kw">round</span>(AMPLITUDE,<span class="dv">2</span>),<span class="kw">round</span>(<span class="dv">365</span><span class="op">/</span><span class="dv">4</span><span class="op">+</span>SEASONAL_HORIZONTAL_SHIFT),<span class="kw">round</span>(<span class="dv">3</span><span class="op">*</span><span class="dv">365</span><span class="op">/</span><span class="dv">4</span><span class="op">+</span>SEASONAL_HORIZONTAL_SHIFT)))</code></pre></div>
+<pre><code>## [1] &quot;true values are: amplitude: 1.5, peak: 111, trough: 294&quot;</code></pre>
+<div id="showing-that-tscounttsglm-gets-the-same-results-as-massglmmpql-1" class="section level2">
+<h2><span class="header-section-number">4.1</span> Showing that tscount::tsglm gets the same results as MASS::glmmPQL</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS)
+correlatedError &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">arima.sim</span>(<span class="dt">model=</span><span class="kw">list</span>(<span class="st">&quot;ar&quot;</span>=<span class="kw">c</span>(<span class="op">-</span><span class="fl">0.9</span>)), <span class="dt">n=</span><span class="dv">1000</span>, <span class="dt">rand.gen =</span> rnorm))
+<span class="kw">pacf</span>(correlatedError) <span class="co"># this is for AR</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(correlatedError) <span class="co"># this is for MA</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(correlatedError)
+d<span class="op">$</span>independentError &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">nrow</span>(d))
+d<span class="op">$</span>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">nrow</span>(d))
+d<span class="op">$</span>yCorrelated &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>d<span class="op">$</span>x<span class="op">+</span>d<span class="op">$</span>correlatedError
+d<span class="op">$</span>yIndependent &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>d<span class="op">$</span>x<span class="op">+</span>d<span class="op">$</span>independentError
+d<span class="op">$</span>ID &lt;-<span class="st"> </span><span class="dv">1</span>
+d<span class="op">$</span>time &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(d)
+
+<span class="kw">summary</span>(<span class="kw">lm</span>(yIndependent<span class="op">~</span>x,<span class="dt">data=</span>d))</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yIndependent ~ x, data = d)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.7055 -0.6919  0.0129  0.6823  2.8945 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.01133    0.03139  -0.361    0.718    
+## x            2.06473    0.03103  66.541   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9922 on 998 degrees of freedom
+## Multiple R-squared:  0.8161, Adjusted R-squared:  0.8159 
+## F-statistic:  4428 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit &lt;-<span class="st"> </span><span class="kw">lm</span>(yCorrelated<span class="op">~</span>x,<span class="dt">data=</span>d))</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yCorrelated ~ x, data = d)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.8825 -1.3737 -0.0576  1.4968  7.4766 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.03095    0.07241  -0.427    0.669    
+## x            1.95682    0.07158  27.337   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.289 on 998 degrees of freedom
+## Multiple R-squared:  0.4282, Adjusted R-squared:  0.4276 
+## F-statistic: 747.3 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit)) <span class="co"># this is for AR</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-3.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit)) <span class="co"># this is for MA</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-4.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># independent data, no correlation structure needed</span>
+fit &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(yIndependent <span class="op">~</span><span class="st"> </span>x, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ID,
+                <span class="dt">family =</span> gaussian, <span class="dt">data =</span> d,
+                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>())</code></pre></div>
+<pre><code>## iteration 1</code></pre>
+<pre><code>## iteration 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit)</code></pre></div>
+<pre><code>## Linear mixed-effects model fit by maximum likelihood
+##  Data: d 
+##   AIC BIC logLik
+##    NA  NA     NA
+## 
+## Random effects:
+##  Formula: ~1 | ID
+##          (Intercept)  Residual
+## StdDev: 3.140954e-05 0.9912063
+## 
+## Correlation Structure: AR(1)
+##  Formula: ~1 | ID 
+##  Parameter estimate(s):
+##        Phi 
+## 0.04573347 
+## Variance function:
+##  Structure: fixed weights
+##  Formula: ~invwt 
+## Fixed effects: yIndependent ~ x 
+##                  Value  Std.Error  DF  t-value p-value
+## (Intercept) -0.0112317 0.03285689 998 -0.34184  0.7325
+## x            2.0682689 0.03099327 998 66.73283  0.0000
+##  Correlation: 
+##   (Intr)
+## x 0.028 
+## 
+## Standardized Within-Group Residuals:
+##         Min          Q1         Med          Q3         Max 
+## -3.74008252 -0.69738448  0.01047609  0.68729125  2.92537677 
+## 
+## Number of Observations: 1000
+## Number of Groups: 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)) <span class="co"># this is for AR</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-5.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)) <span class="co"># this is for MA</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-6.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for AR</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-7.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for MA</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-8.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dependent data, needs correlation structure, no correlation structure</span>
+fit &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(yCorrelated <span class="op">~</span><span class="st"> </span>x, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ID,
+                <span class="dt">family =</span> gaussian, <span class="dt">data =</span> d)</code></pre></div>
+<pre><code>## iteration 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit)</code></pre></div>
+<pre><code>## Linear mixed-effects model fit by maximum likelihood
+##  Data: d 
+##   AIC BIC logLik
+##    NA  NA     NA
+## 
+## Random effects:
+##  Formula: ~1 | ID
+##          (Intercept) Residual
+## StdDev: 7.486629e-05 2.286563
+## 
+## Variance function:
+##  Structure: fixed weights
+##  Formula: ~invwt 
+## Fixed effects: yCorrelated ~ x 
+##                  Value  Std.Error  DF   t-value p-value
+## (Intercept) -0.0309491 0.07241167 998 -0.427404  0.6692
+## x            1.9568162 0.07158024 998 27.337380  0.0000
+##  Correlation: 
+##   (Intr)
+## x 0.03  
+## 
+## Standardized Within-Group Residuals:
+##         Min          Q1         Med          Q3         Max 
+## -3.44731225 -0.60078114 -0.02520784  0.65459886  3.26978586 
+## 
+## Number of Observations: 1000
+## Number of Groups: 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)) <span class="co"># this is for AR</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-9.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)) <span class="co"># this is for MA</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-10.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for AR</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-11.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for MA</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-12.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dependent data, correct correlation structure</span>
+fit &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(yCorrelated <span class="op">~</span><span class="st"> </span>x, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ID,
+                <span class="dt">family =</span> gaussian, <span class="dt">data =</span> d,
+                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>())</code></pre></div>
+<pre><code>## iteration 1
+## iteration 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit)</code></pre></div>
+<pre><code>## Linear mixed-effects model fit by maximum likelihood
+##  Data: d 
+##   AIC BIC logLik
+##    NA  NA     NA
+## 
+## Random effects:
+##  Formula: ~1 | ID
+##          (Intercept) Residual
+## StdDev: 1.643326e-05 2.282467
+## 
+## Correlation Structure: AR(1)
+##  Formula: ~1 | ID 
+##  Parameter estimate(s):
+##        Phi 
+## -0.9031247 
+## Variance function:
+##  Structure: fixed weights
+##  Formula: ~invwt 
+## Fixed effects: yCorrelated ~ x 
+##                  Value  Std.Error  DF  t-value p-value
+## (Intercept) -0.0296893 0.01632325 998 -1.81883  0.0692
+## x            2.0072905 0.02255834 998 88.98217  0.0000
+##  Correlation: 
+##   (Intr)
+## x 0.042 
+## 
+## Standardized Within-Group Residuals:
+##         Min          Q1         Med          Q3         Max 
+## -3.46470223 -0.60212874 -0.01867443  0.66118043  3.29397505 
+## 
+## Number of Observations: 1000
+## Number of Groups: 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)) <span class="co"># this is for AR</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-13.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)) <span class="co"># this is for MA</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-14.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for AR</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-15.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for MA</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-23-16.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS)
+
+bacteria<span class="op">$</span>x &lt;-<span class="st"> </span><span class="dv">1</span>
+fit &lt;-<span class="st"> </span><span class="kw">glmmPQL</span>(<span class="kw">as.numeric</span>(y) <span class="op">~</span><span class="st"> </span>trt <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(week <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x,
+                <span class="dt">family =</span> poisson, <span class="dt">data =</span> bacteria)</code></pre></div>
+<pre><code>## iteration 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit,<span class="dt">type=</span><span class="st">&quot;normalized&quot;</span>))</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit,<span class="dt">type=</span><span class="st">&quot;normalized&quot;</span>))</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bacteria<span class="op">$</span>x &lt;-<span class="st"> </span><span class="dv">1</span>
+fit &lt;-<span class="st"> </span><span class="kw">glmmPQL</span>(<span class="kw">as.numeric</span>(y) <span class="op">~</span><span class="st"> </span>trt <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(week <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x,
+                <span class="dt">family =</span> poisson, <span class="dt">data =</span> bacteria,
+                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>())</code></pre></div>
+<pre><code>## iteration 1</code></pre>
+<pre><code>## iteration 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit,<span class="dt">type=</span><span class="st">&quot;normalized&quot;</span>))</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-24-3.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit,<span class="dt">type=</span><span class="st">&quot;normalized&quot;</span>))</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-24-4.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit &lt;-<span class="st"> </span><span class="kw">glmmPQL</span>(<span class="kw">as.numeric</span>(y) <span class="op">~</span><span class="st"> </span>trt <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(week <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ID,
+                <span class="dt">family =</span> poisson, <span class="dt">data =</span> bacteria)</code></pre></div>
+<pre><code>## iteration 1
+## iteration 2</code></pre>
+<pre><code>## iteration 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit,<span class="dt">type=</span><span class="st">&quot;normalized&quot;</span>))</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-24-5.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit,<span class="dt">type=</span><span class="st">&quot;normalized&quot;</span>))</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-24-6.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit &lt;-<span class="st"> </span><span class="kw">glmmPQL</span>(<span class="kw">as.numeric</span>(y) <span class="op">~</span><span class="st"> </span>trt <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(week <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ID,
+                <span class="dt">family =</span> poisson, <span class="dt">data =</span> bacteria,
+                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>(<span class="dt">form=</span><span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ID))</code></pre></div>
+<pre><code>## iteration 1</code></pre>
+<pre><code>## iteration 2</code></pre>
+<pre><code>## iteration 3</code></pre>
+<pre><code>## iteration 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit,<span class="dt">type=</span><span class="st">&quot;normalized&quot;</span>))</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-24-7.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit,<span class="dt">type=</span><span class="st">&quot;normalized&quot;</span>))</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-24-8.png" width="672" /></p>
 
 </div>
 </div>
@@ -446,8 +523,8 @@
           </div>
         </div>
       </div>
-<a href="reference-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="simple-hypothesis-testing-chi-squared-t-tests-and-anova-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="variables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="variables-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -465,10 +542,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -476,7 +554,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/raubreywhite/longitudinal_analysis/edit/master/02-variables.Rmd",
+"link": "https://github.com/raubreywhite/longitudinal_analysis/edit/master/03-one-area-with-autocorrelation.Rmd",
 "text": "Edit"
 },
 "download": ["longitudinal-analysis.pdf"],
@@ -489,17 +567,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

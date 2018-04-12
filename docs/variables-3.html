@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Longitudinal Analysis</title>
+  <meta name="description" content="A short course in learning which statistical methods should be applied where.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Longitudinal Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A short course in learning which statistical methods should be applied where." />
+  <meta name="github-repo" content="raubreywhite/longitudinal_analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Longitudinal Analysis" />
+  
+  <meta name="twitter:description" content="A short course in learning which statistical methods should be applied where." />
+  
+
+<meta name="author" content="Richard White">
+
+
+<meta name="date" content="2018-04-12">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="variables-2.html">
+<link rel="next" href="variables-4.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="/">Home</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Syllabus</a></li>
+<li class="chapter" data-level="2" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>2</b> Reference</a></li>
+<li class="chapter" data-level="3" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>3</b> Variables</a><ul>
+<li class="chapter" data-level="3.1" data-path="variables.html"><a href="variables.html#showing-that-tscounttsglm-gets-the-same-results-as-massglmmpql"><i class="fa fa-check"></i><b>3.1</b> Showing that tscount::tsglm gets the same results as MASS::glmmPQL</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="variables-1.html"><a href="variables-1.html"><i class="fa fa-check"></i><b>4</b> Variables</a><ul>
+<li class="chapter" data-level="4.1" data-path="variables-1.html"><a href="variables-1.html#showing-that-tscounttsglm-gets-the-same-results-as-massglmmpql-1"><i class="fa fa-check"></i><b>4.1</b> Showing that tscount::tsglm gets the same results as MASS::glmmPQL</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="variables-2.html"><a href="variables-2.html"><i class="fa fa-check"></i><b>5</b> Variables</a></li>
+<li class="chapter" data-level="6" data-path="variables-3.html"><a href="variables-3.html"><i class="fa fa-check"></i><b>6</b> Variables</a></li>
+<li class="chapter" data-level="7" data-path="variables-4.html"><a href="variables-4.html"><i class="fa fa-check"></i><b>7</b> Variables</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Longitudinal Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="variables-3" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Variables</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">set.seed</span>(<span class="dv">4</span>)
+
+AMPLITUDE &lt;-<span class="st"> </span><span class="fl">1.5</span>
+SEASONAL_HORIZONTAL_SHIFT &lt;-<span class="st"> </span><span class="dv">20</span>
+
+fylkeIntercepts &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">fylke=</span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span>,<span class="dt">fylkeIntercepts=</span><span class="kw">rnorm</span>(<span class="dv">20</span>))
+
+d &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">date=</span><span class="kw">seq.Date</span>(
+  <span class="dt">from=</span><span class="kw">as.Date</span>(<span class="st">&quot;2010-01-01&quot;</span>),
+  <span class="dt">to=</span><span class="kw">as.Date</span>(<span class="st">&quot;2015-12-31&quot;</span>),
+  <span class="dt">by=</span><span class="dv">1</span>))
+d[,year<span class="op">:</span><span class="er">=</span><span class="kw">as.numeric</span>(<span class="kw">format.Date</span>(date,<span class="st">&quot;%G&quot;</span>))]
+d[,week<span class="op">:</span><span class="er">=</span><span class="kw">as.numeric</span>(<span class="kw">format.Date</span>(date,<span class="st">&quot;%V&quot;</span>))]
+d[,month<span class="op">:</span><span class="er">=</span><span class="kw">as.numeric</span>(<span class="kw">format.Date</span>(date,<span class="st">&quot;%m&quot;</span>))]
+
+temp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>,<span class="dt">length=</span><span class="dv">20</span>)
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>){
+  temp[[i]] &lt;-<span class="st"> </span><span class="kw">copy</span>(d)
+  temp[[i]][,fylke<span class="op">:</span><span class="er">=</span>i]
+}
+d &lt;-<span class="st"> </span><span class="kw">rbindlist</span>(temp)
+
+d[,yearMinus2000<span class="op">:</span><span class="er">=</span>year<span class="op">-</span><span class="dv">2000</span>]
+d[,dayOfSeries<span class="op">:</span><span class="er">=</span><span class="dv">1</span><span class="op">:</span>.N]
+
+d[,dayOfYear<span class="op">:</span><span class="er">=</span><span class="kw">as.numeric</span>(<span class="kw">format.Date</span>(date,<span class="st">&quot;%j&quot;</span>))]
+d[,seasonalEffect<span class="op">:</span><span class="er">=</span><span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>(dayOfYear<span class="op">-</span>SEASONAL_HORIZONTAL_SHIFT)<span class="op">/</span><span class="dv">365</span>)]
+d[,mu <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">exp</span>(<span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>yearMinus2000<span class="op">*</span><span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>seasonalEffect<span class="op">*</span>AMPLITUDE)]
+d[,y<span class="op">:</span><span class="er">=</span><span class="kw">rpois</span>(.N,mu)]
+<span class="co">#d[,y:=round(as.numeric(arima.sim(model=list(&quot;ar&quot;=c(0.5)), rand.gen = rpois, n=nrow(d), lambda=mu)))]</span></code></pre></div>
+<p>We then drill down into a few years, and see a clear seasonal trend</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q &lt;-<span class="st"> </span><span class="kw">ggplot</span>(d[fylke<span class="op">==</span><span class="dv">1</span>],<span class="kw">aes</span>(<span class="dt">x=</span>dayOfYear,<span class="dt">y=</span>y))
+q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>year)
+q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)
+q</code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : span too small. fewer data values than degrees of freedom.</code></pre>
+<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at 0.99</code></pre>
+<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 1.01</code></pre>
+<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 0</code></pre>
+<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : There are other near singularities as well. 1.0201</code></pre>
+<pre><code>## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : span too small.
+## fewer data values than degrees of freedom.</code></pre>
+<pre><code>## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used
+## at 0.99</code></pre>
+<pre><code>## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
+## 1.01</code></pre>
+<pre><code>## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : reciprocal
+## condition number 0</code></pre>
+<pre><code>## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : There are other
+## near singularities as well. 1.0201</code></pre>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lomb<span class="op">::</span><span class="kw">lsp</span>(d<span class="op">$</span>y,<span class="dt">from=</span><span class="dv">100</span>,<span class="dt">to=</span><span class="dv">500</span>,<span class="dt">ofac=</span><span class="dv">1</span>,<span class="dt">type=</span><span class="st">&quot;period&quot;</span>)</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d[,cos365<span class="op">:</span><span class="er">=</span><span class="kw">cos</span>(dayOfYear<span class="op">*</span><span class="dv">2</span><span class="op">*</span>pi<span class="op">/</span><span class="dv">365</span>)]
+d[,sin365<span class="op">:</span><span class="er">=</span><span class="kw">sin</span>(dayOfYear<span class="op">*</span><span class="dv">2</span><span class="op">*</span>pi<span class="op">/</span><span class="dv">365</span>)]
+
+fit &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(y<span class="op">~</span>yearMinus2000<span class="op">+</span>sin365 <span class="op">+</span><span class="st"> </span>cos365, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>fylke,
+                <span class="dt">family =</span> poisson, <span class="dt">data =</span> d,
+                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>(<span class="dt">form=</span><span class="op">~</span>dayOfSeries<span class="op">|</span>fylke))</code></pre></div>
+<pre><code>## iteration 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit)</code></pre></div>
+<pre><code>## Linear mixed-effects model fit by maximum likelihood
+##  Data: d 
+##   AIC BIC logLik
+##    NA  NA     NA
+## 
+## Random effects:
+##  Formula: ~1 | fylke
+##          (Intercept)  Residual
+## StdDev: 1.708256e-05 0.9976713
+## 
+## Correlation Structure: AR(1)
+##  Formula: ~dayOfSeries | fylke 
+##  Parameter estimate(s):
+##         Phi 
+## 0.002841665 
+## Variance function:
+##  Structure: fixed weights
+##  Formula: ~invwt 
+## Fixed effects: y ~ yearMinus2000 + sin365 + cos365 
+##                    Value   Std.Error    DF   t-value p-value
+## (Intercept)    0.1122528 0.014529606 43797    7.7258       0
+## yearMinus2000  0.0989047 0.001112632 43797   88.8926       0
+## sin365         1.4095094 0.003705852 43797  380.3469       0
+## cos365        -0.5109372 0.003092449 43797 -165.2209       0
+##  Correlation: 
+##               (Intr) yM2000 sin365
+## yearMinus2000 -0.979              
+## sin365        -0.150  0.000       
+## cos365         0.065 -0.001 -0.151
+## 
+## Standardized Within-Group Residuals:
+##        Min         Q1        Med         Q3        Max 
+## -3.1968230 -0.8238741 -0.0750183  0.6340046  5.8245241 
+## 
+## Number of Observations: 43820
+## Number of Groups: 20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for AR</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for MA</span></code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-30-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b1 &lt;-<span class="st"> </span><span class="fl">1.4007640</span> <span class="co"># sin coefficient</span>
+b2 &lt;-<span class="st"> </span><span class="op">-</span><span class="fl">0.5234863</span> <span class="co"># cos coefficient</span>
+amplitude &lt;-<span class="st"> </span><span class="kw">sqrt</span>(b1<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>b2<span class="op">^</span><span class="dv">2</span>)
+p &lt;-<span class="st"> </span><span class="kw">atan</span>(b1<span class="op">/</span>b2) <span class="op">*</span><span class="st"> </span><span class="dv">365</span><span class="op">/</span><span class="dv">2</span><span class="op">/</span>pi
+<span class="cf">if</span> (p <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {
+    peak &lt;-<span class="st"> </span>p
+    trough &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="dv">365</span><span class="op">/</span><span class="dv">2</span>
+} <span class="cf">else</span> {
+    peak &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="dv">365</span><span class="op">/</span><span class="dv">2</span>
+    trough &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="dv">365</span>
+}
+<span class="cf">if</span> (b1 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {
+    g &lt;-<span class="st"> </span>peak
+    peak &lt;-<span class="st"> </span>trough
+    trough &lt;-<span class="st"> </span>g
+}
+<span class="kw">print</span>(<span class="kw">sprintf</span>(<span class="st">&quot;amplitude is estimated as %s, peak is estimated as %s, trough is estimated as %s&quot;</span>,<span class="kw">round</span>(amplitude,<span class="dv">2</span>),<span class="kw">round</span>(peak),<span class="kw">round</span>(trough)))</code></pre></div>
+<pre><code>## [1] &quot;amplitude is estimated as 1.5, peak is estimated as 112, trough is estimated as 295&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sprintf</span>(<span class="st">&quot;true values are: amplitude: %s, peak: %s, trough: %s&quot;</span>,<span class="kw">round</span>(AMPLITUDE,<span class="dv">2</span>),<span class="kw">round</span>(<span class="dv">365</span><span class="op">/</span><span class="dv">4</span><span class="op">+</span>SEASONAL_HORIZONTAL_SHIFT),<span class="kw">round</span>(<span class="dv">3</span><span class="op">*</span><span class="dv">365</span><span class="op">/</span><span class="dv">4</span><span class="op">+</span>SEASONAL_HORIZONTAL_SHIFT)))</code></pre></div>
+<pre><code>## [1] &quot;true values are: amplitude: 1.5, peak: 111, trough: 294&quot;</code></pre>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="variables-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="variables-4.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/raubreywhite/longitudinal_analysis/edit/master/05-multiple-areas-no-autocorrelation.Rmd",
+"text": "Edit"
+},
+"download": ["longitudinal-analysis.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>
