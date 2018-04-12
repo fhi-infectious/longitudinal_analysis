@@ -1,438 +1,109 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Reference
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=7}
-library(data.table)
-library(ggplot2)
-data <- vector("list",100)
-data[[1]] <- data.frame(
-  "Method"="Chi-Squared",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="No",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="No",
-  "Binary"="No",
-  "Categorical"="Yes",
-  "Censored"="No",
-  "Count"="No",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="No",
-  "Binary"="No",
-  "Categorical"="Yes",
-  "Censored"="No",
-  "Count"="No",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data"="No"
-  )
+## Introduction
 
-data[[2]] <- data.frame(
-  "Method"="One Sample T-Test",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="No",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="Yes",
-  "Binary"="No",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="No",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="No",
-  "Binary"="No",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="No",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data"="No"
-  )
+There are two important definitions in this course:
 
-data[[3]] <- data.frame(
-  "Method"="Two Sample Paired T-Test",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="No",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="Yes",
-  "Binary"="No",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="No",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="No",
-  "Binary"="Yes",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="No",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data"="Yes"
-  )
+- Panel data
+- Autocorrelation
 
-data[[4]] <- data.frame(
-  "Method"="Two Sample Unpaired T-Test",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="No",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="Yes",
-  "Binary"="No",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="No",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="No",
-  "Binary"="Yes",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="No",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data"="No"
-  )
+Panel data is a set of data with measurements repeated at equally spaced points. For example, weight data recorded every day, or every week, or every year would be considered panel data. A person who records three weight measurements "sometime" in 2018 would not be considered panel data.
 
-data[[5]] <- data.frame(
-  "Method"="ANOVA",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="No",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="Yes",
-  "Binary"="No",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="No",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="No",
-  "Binary"="Yes",
-  "Categorical"="Yes",
-  "Censored"="No",
-  "Count"="No",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data"="No"
-  )
+When you have panel data, autocorrelation is the correlation between subsequent observations. For example, if you have daily observations, then the 1 day autocorrelation is the correlation between observations 1 day apart, and likewise the 2 day autocorrelation is the correlation between observations 2 days apart.
 
-data[[6]] <- data.frame(
-  "Method"="Linear regression",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="Yes",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="Yes",
-  "Binary"="No",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="No",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="Yes",
-  "Binary"="Yes",
-  "Categorical"="Yes",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data"="No"
-  )
+In this course we will consider 5 scenarios where we have multiple observations for each geographical area:
 
-data[[7]] <- data.frame(
-  "Method"="Logistic regression",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="Yes",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="No",
-  "Binary"="Yes",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="No",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="Yes",
-  "Binary"="Yes",
-  "Categorical"="Yes",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data"="No"
-  )
+- Panel data: One geographical area, no autocorrelation
+- Panel data: One geographical area, with autocorrelation
+- Not panel data: Multiple geographical areas
+- Panel data: Multiple geographical areas, no autocorrelation
+- Panel data: Multiple geographical areas, with autocorrelation
 
-data[[8]] <- data.frame(
-  "Method"="Poisson regression",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="Yes",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="No",
-  "Binary"="No",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="Yes",
-  "Binary"="Yes",
-  "Categorical"="Yes",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data"="No"
-  )
+## Identifying your scenario
 
-data[[9]] <- data.frame(
-  "Method"="Negative-binomial regression",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="Yes",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="No",
-  "Binary"="No",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="Yes",
-  "Binary"="Yes",
-  "Categorical"="Yes",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data - Dependencies"="No"
-  )
+Step 1: Do you have panel data?
 
-data[[10]] <- data.frame(
-  "Method"="Cox regression",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="Yes",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="No",
-  "Binary"="No",
-  "Categorical"="No",
-  "Censored"="Yes",
-  "Count"="No",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="Yes",
-  "Binary"="Yes",
-  "Categorical"="Yes",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "***DEPENDENCIES***"="No"
-  )
+This step should be fairly simple. If your data has equally spaced intervals between them, you have panel data.
 
-data[[11]] <- data.frame(
-  "Method"="Mixed effects linear regression",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="Yes",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="Yes",
-  "Binary"="No",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="No",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="Yes",
-  "Binary"="Yes",
-  "Categorical"="Yes",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data"="Yes"
-  )
+Step 2: Do you have multiple geographical areas?
 
-data[[12]] <- data.frame(
-  "Method"="Mixed effects logistic regression",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="Yes",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="No",
-  "Binary"="Yes",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="No",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="Yes",
-  "Binary"="Yes",
-  "Categorical"="Yes",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data"="Yes"
-  )
+Again, fairly simple, just look at your data.
 
-data[[13]] <- data.frame(
-  "Method"="Mixed effects Poisson regression",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="Yes",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="No",
-  "Binary"="No",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="Yes",
-  "Binary"="Yes",
-  "Categorical"="Yes",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data"="Yes"
-  )
+Step 3: Do you have autocorrelation?
 
-data[[14]] <- data.frame(
-  "Method"="Mixed effects negative-binomial regression",
-  
-  "***AIM***"=" ",
-  "Hypothesis Testing"="Yes",
-  "Effect estimation"="Yes",
-  
-  " "=" ",
-  "***OUTCOME***"=" ",
-  "Continuous"="No",
-  "Binary"="No",
-  "Categorical"="No",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "  "=" ",
-  "***EXPOSURE***"=" ",
-  "Continuous"="Yes",
-  "Binary"="Yes",
-  "Categorical"="Yes",
-  "Censored"="No",
-  "Count"="Yes",
-  
-  "   "=" ",
-  "***DEPENDENCIES***"=" ",
-  "Data - Dependencies"="Yes"
-  )
+Firstly, you must run a model pretending that you do not have autocorrelation. You then inspect the residuals from the model and see if autocorrelation exists. This is done with two statistical procedures: `pacf` (for `autoregressive models`, the most common type of autocorrelation), and `acf` (for `moving average models`, a less common type of autocorrelation).
 
-data <- rbindlist(data)
-variableNames <- c(
-  "Method",
-  "***AIM***",
-  "Hypothesis Testing",
-  "Effect estimation",
-  " ",
-  "***OUTCOME***",
-  "Continuous",
-  "Binary",
-  "Categorical",
-  "Censored",
-  "Count",
-  "  ",
-  "***EXPOSURE***",
-  " Continuous",
-  " Binary",
-  " Categorical",
-  " Censored",
-  " Count",
-  "   ",
-  "***DEPENDENCIES***",
-  "Data")
-setnames(data,variableNames)
-data <- melt.data.table(data,id=c("Method"),variable.factor = FALSE)
-data[,variable:=factor(variable,levels=rev(variableNames))]
-data[,value:=factor(value,levels=c("Yes","No"," "))]
+### AR(1) data
 
-q <- ggplot(data,aes(x=Method,y=variable))
-q <- q + geom_tile(alpha=0)
-q <- q + geom_tile(data=data[value!=" "],alpha=0.8,aes(fill=value),colour="black")
-q <- q + scale_x_discrete("")
-q <- q + scale_y_discrete("")
-q <- q + scale_fill_manual("",values=c("green","white"))
-q <- q + theme(axis.text.x= element_text(angle=90,hjust=1,vjust=0.5))
-q <- q + theme(panel.background = element_rect(fill = "gray75", colour = "white"))
-q <- q + theme(panel.grid.major = element_blank())
-q <- q + theme(axis.ticks=element_blank())
-q
+```{r}
+y <- round(as.numeric(arima.sim(model=list("ar"=c(0.5)), rand.gen = rnorm, n=1000)))
 ```
+
+With `autoregressive` data, a `pacf` plot contains a number of sharp significant lines, demarking how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation. If two lines are significant, it means that each observation is correlated with its two preecing observations. The following plot represents `AR(1)` data.
+```{r}
+pacf(y)
+```
+
+With `autoregressive` data, an `acf` plot contains a number of decreasing lines. The following plot represents some sort of `AR` data. Note that the `acf` plot displays `lag 0` (which is pointless and can be ignored), while the `pacf` plot does not.
+```{r}
+acf(y)
+```
+
+### AR(2) data
+
+```{r}
+y <- round(as.numeric(arima.sim(model=list("ar"=c(0.5,0.4)), rand.gen = rnorm, n=1000)))
+```
+
+With `autoregressive` data, a `pacf` plot contains a number of sharp significant lines, demarking how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation. If two lines are significant, it means that each observation is correlated with its two preecing observations. The following plot represents `AR(2)` data.
+```{r}
+pacf(y)
+```
+
+With `autoregressive` data, an `acf` plot contains a number of decreasing lines. The following plot represents some sort of `AR` data. Note that the `acf` plot displays `lag 0` (which is pointless and can be ignored), while the `pacf` plot does not.
+```{r}
+acf(y)
+```
+
+### MA(1) data
+
+```{r}
+y <- round(as.numeric(arima.sim(model=list("ma"=c(0.9)), rand.gen = rnorm, n=1000)))
+```
+
+With `moving average` data, a `pacf` plot contains a number of decreasing lines. The following plot represents some sort of `MA` data. 
+```{r}
+pacf(y)
+```
+
+With `moving average` data, an `acf` plot contains a number of sharp significant lines, demarking how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation. If two lines are significant, it means that each observation is correlated with its two preecing observations.  The following plot represents `MA(1)` data. Note that the `acf` plot displays `lag 0` (which is pointless and can be ignored), while the `pacf` plot does not.
+```{r}
+acf(y)
+```
+
+### MA(1) data
+
+```{r}
+y <- round(as.numeric(arima.sim(model=list("ma"=c(0.9,0.6)), rand.gen = rnorm, n=1000)))
+```
+
+With `moving average` data, a `pacf` plot contains a number of decreasing lines. The following plot represents some sort of `MA` data. 
+```{r}
+pacf(y)
+```
+
+With `moving average` data, an `acf` plot contains a number of sharp significant lines, demarking how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation. If two lines are significant, it means that each observation is correlated with its two preecing observations.  The following plot represents `MA(2)` data. Note that the `acf` plot displays `lag 0` (which is pointless and can be ignored), while the `pacf` plot does not.
+```{r}
+acf(y)
+```
+
+
+
+
+
+

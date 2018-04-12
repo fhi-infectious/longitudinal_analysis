@@ -104,7 +104,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Syllabus</a></li>
-<li class="chapter" data-level="2" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>2</b> Reference</a></li>
+<li class="chapter" data-level="2" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>2</b> Reference</a><ul>
+<li class="chapter" data-level="2.1" data-path="reference.html"><a href="reference.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="reference.html"><a href="reference.html#identifying-your-scenario"><i class="fa fa-check"></i><b>2.2</b> Identifying your scenario</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="reference.html"><a href="reference.html#ar1-data"><i class="fa fa-check"></i><b>2.2.1</b> AR(1) data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="reference.html"><a href="reference.html#ar2-data"><i class="fa fa-check"></i><b>2.2.2</b> AR(2) data</a></li>
+<li class="chapter" data-level="2.2.3" data-path="reference.html"><a href="reference.html#ma1-data"><i class="fa fa-check"></i><b>2.2.3</b> MA(1) data</a></li>
+<li class="chapter" data-level="2.2.4" data-path="reference.html"><a href="reference.html#ma1-data-1"><i class="fa fa-check"></i><b>2.2.4</b> MA(1) data</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="panel-data-one-area-without-autocorrelation.html"><a href="panel-data-one-area-without-autocorrelation.html"><i class="fa fa-check"></i><b>3</b> Panel data: One area without autocorrelation</a></li>
 <li class="chapter" data-level="4" data-path="panel-data-one-area-with-autocorrelation.html"><a href="panel-data-one-area-with-autocorrelation.html"><i class="fa fa-check"></i><b>4</b> Panel data: One area with autocorrelation</a></li>
 <li class="chapter" data-level="5" data-path="not-panel-data-multiple-areas.html"><a href="not-panel-data-multiple-areas.html"><i class="fa fa-check"></i><b>5</b> Not panel data: Multiple areas</a></li>
@@ -154,7 +162,7 @@ d[,y<span class="op">:</span><span class="er">=</span><span class="kw">rpois</sp
 q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">y=</span>y))
 q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">y=</span>mu),<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)
 q</code></pre></div>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Investigating the data</p>
 <p>We take a quick look, but don’t see much</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q &lt;-<span class="st"> </span><span class="kw">ggplot</span>(d,<span class="kw">aes</span>(<span class="dt">x=</span>date,<span class="dt">y=</span>y))
@@ -162,7 +170,7 @@ q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </s
 q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)
 q</code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;gam&#39;</code></pre>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>We then drill down into a few years, and see a clear seasonal trend</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q &lt;-<span class="st"> </span><span class="kw">ggplot</span>(d[year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2005</span><span class="op">:</span><span class="dv">2010</span>)],<span class="kw">aes</span>(<span class="dt">x=</span>dayOfYear,<span class="dt">y=</span>y))
 q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>year)
@@ -170,10 +178,10 @@ q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </s
 q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)
 q</code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lomb<span class="op">::</span><span class="kw">lsp</span>(d<span class="op">$</span>y,<span class="dt">from=</span><span class="dv">100</span>,<span class="dt">to=</span><span class="dv">500</span>,<span class="dt">ofac=</span><span class="dv">1</span>,<span class="dt">type=</span><span class="st">&quot;period&quot;</span>)</code></pre></div>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>We then generate two new variables <code>cos365</code> and <code>sin365</code> and perform a simple poisson regression:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d[,cos365<span class="op">:</span><span class="er">=</span><span class="kw">cos</span>(dayOfYear<span class="op">*</span><span class="dv">2</span><span class="op">*</span>pi<span class="op">/</span><span class="dv">365</span>)]
 d[,sin365<span class="op">:</span><span class="er">=</span><span class="kw">sin</span>(dayOfYear<span class="op">*</span><span class="dv">2</span><span class="op">*</span>pi<span class="op">/</span><span class="dv">365</span>)]
@@ -246,13 +254,13 @@ q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </s
 q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)
 q</code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;gam&#39;</code></pre>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this is for AR</span>
 <span class="kw">pacf</span>(d<span class="op">$</span>residuals)</code></pre></div>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this is for MA</span>
 <span class="kw">acf</span>(d<span class="op">$</span>residuals)</code></pre></div>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>We see a clear significant seasonal effect. We can then use trigonometry to back-calculate the <code>cos365</code> and <code>sin365</code> variables to amplitude and location of peak/troughs:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b1 &lt;-<span class="st"> </span><span class="fl">0.1934</span> <span class="co"># sin coefficient</span>
 b2 &lt;-<span class="st"> </span><span class="fl">0.1018</span> <span class="co"># cos coefficient</span>

@@ -104,7 +104,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Syllabus</a></li>
-<li class="chapter" data-level="2" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>2</b> Reference</a></li>
+<li class="chapter" data-level="2" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>2</b> Reference</a><ul>
+<li class="chapter" data-level="2.1" data-path="reference.html"><a href="reference.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="reference.html"><a href="reference.html#identifying-your-scenario"><i class="fa fa-check"></i><b>2.2</b> Identifying your scenario</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="reference.html"><a href="reference.html#ar1-data"><i class="fa fa-check"></i><b>2.2.1</b> AR(1) data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="reference.html"><a href="reference.html#ar2-data"><i class="fa fa-check"></i><b>2.2.2</b> AR(2) data</a></li>
+<li class="chapter" data-level="2.2.3" data-path="reference.html"><a href="reference.html#ma1-data"><i class="fa fa-check"></i><b>2.2.3</b> MA(1) data</a></li>
+<li class="chapter" data-level="2.2.4" data-path="reference.html"><a href="reference.html#ma1-data-1"><i class="fa fa-check"></i><b>2.2.4</b> MA(1) data</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="panel-data-one-area-without-autocorrelation.html"><a href="panel-data-one-area-without-autocorrelation.html"><i class="fa fa-check"></i><b>3</b> Panel data: One area without autocorrelation</a></li>
 <li class="chapter" data-level="4" data-path="panel-data-one-area-with-autocorrelation.html"><a href="panel-data-one-area-with-autocorrelation.html"><i class="fa fa-check"></i><b>4</b> Panel data: One area with autocorrelation</a></li>
 <li class="chapter" data-level="5" data-path="not-panel-data-multiple-areas.html"><a href="not-panel-data-multiple-areas.html"><i class="fa fa-check"></i><b>5</b> Not panel data: Multiple areas</a></li>
@@ -157,10 +165,10 @@ q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </s
 q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)
 q</code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <p>The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lomb<span class="op">::</span><span class="kw">lsp</span>(d<span class="op">$</span>y,<span class="dt">from=</span><span class="dv">50</span>,<span class="dt">to=</span><span class="dv">500</span>,<span class="dt">ofac=</span><span class="dv">1</span>,<span class="dt">type=</span><span class="st">&quot;period&quot;</span>)</code></pre></div>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d[,cos365<span class="op">:</span><span class="er">=</span><span class="kw">cos</span>(dayOfYear<span class="op">*</span><span class="dv">2</span><span class="op">*</span>pi<span class="op">/</span><span class="dv">365</span>)]
 d[,sin365<span class="op">:</span><span class="er">=</span><span class="kw">sin</span>(dayOfYear<span class="op">*</span><span class="dv">2</span><span class="op">*</span>pi<span class="op">/</span><span class="dv">365</span>)]
 
@@ -207,10 +215,10 @@ fit1 &lt;-<span class="st"> </span><span class="kw">glm</span>(y<span class="op"
 d[,predicted<span class="op">:</span><span class="er">=</span><span class="kw">predict</span>(fit1, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this is for AR</span>
 <span class="kw">pacf</span>(d<span class="op">$</span>residuals)</code></pre></div>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this is for MA</span>
 <span class="kw">acf</span>(d<span class="op">$</span>residuals)</code></pre></div>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>This means our model is bad, we have autocorrelation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d[,ID<span class="op">:</span><span class="er">=</span><span class="dv">1</span>]
 <span class="co"># this is for MA</span>
@@ -256,9 +264,9 @@ fit &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw"
 ## Number of Observations: 6940
 ## Number of Groups: 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for AR</span></code></pre></div>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for MA</span></code></pre></div>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-30-2.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b1 &lt;-<span class="st"> </span><span class="fl">1.3936185</span> <span class="co"># sin coefficient</span>
 b2 &lt;-<span class="st"> </span><span class="op">-</span><span class="fl">0.5233866</span> <span class="co"># cos coefficient</span>
 amplitude &lt;-<span class="st"> </span><span class="kw">sqrt</span>(b1<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>b2<span class="op">^</span><span class="dv">2</span>)
