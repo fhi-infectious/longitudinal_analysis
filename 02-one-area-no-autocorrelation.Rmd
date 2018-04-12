@@ -3,7 +3,8 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
-# Variables
+
+# Panel data: One area without autocorrelation
 
 ```{r}
 library(data.table)
@@ -140,95 +141,4 @@ if (b1 < 0) {
 print(sprintf("amplitude is %s, peak is at %s, trough is at %s",round(amplitude,2),round(peak),round(trough)))
 
 ```
-
-
-
-
-## Showing that tscount::tsglm gets the same results as MASS::glmmPQL
-
-
-
-```{r}
-library(MASS)
-correlatedError <- as.numeric(arima.sim(model=list("ar"=c(-0.9)), n=1000, rand.gen = rnorm))
-pacf(correlatedError) # this is for AR
-acf(correlatedError) # this is for MA
-
-d <- data.frame(correlatedError)
-d$independentError <- rnorm(nrow(d))
-d$x <- rnorm(nrow(d))
-d$yCorrelated <- 2*d$x+d$correlatedError
-d$yIndependent <- 2*d$x+d$independentError
-d$ID <- 1
-d$time <- 1:nrow(d)
-
-summary(lm(yIndependent~x,data=d))
-summary(fit <- lm(yCorrelated~x,data=d))
-
-pacf(residuals(fit)) # this is for AR
-acf(residuals(fit)) # this is for MA
-
-# independent data, no correlation structure needed
-fit <- MASS::glmmPQL(yIndependent ~ x, random = ~ 1 | ID,
-                family = gaussian, data = d,
-                correlation=nlme::corAR1())
-summary(fit)
-pacf(residuals(fit, type = "response")) # this is for AR
-acf(residuals(fit, type = "response")) # this is for MA
-
-pacf(residuals(fit, type = "normalized")) # this is for AR
-acf(residuals(fit, type = "normalized")) # this is for MA
-
-# dependent data, needs correlation structure, no correlation structure
-fit <- MASS::glmmPQL(yCorrelated ~ x, random = ~ 1 | ID,
-                family = gaussian, data = d)
-summary(fit)
-pacf(residuals(fit, type = "response")) # this is for AR
-acf(residuals(fit, type = "response")) # this is for MA
-
-pacf(residuals(fit, type = "normalized")) # this is for AR
-acf(residuals(fit, type = "normalized")) # this is for MA
-
-# dependent data, correct correlation structure
-fit <- MASS::glmmPQL(yCorrelated ~ x, random = ~ 1 | ID,
-                family = gaussian, data = d,
-                correlation=nlme::corAR1())
-summary(fit)
-pacf(residuals(fit, type = "response")) # this is for AR
-acf(residuals(fit, type = "response")) # this is for MA
-
-pacf(residuals(fit, type = "normalized")) # this is for AR
-acf(residuals(fit, type = "normalized")) # this is for MA
-
-```
-
-
-```{r}
-library(MASS)
-
-bacteria$x <- 1
-fit <- glmmPQL(as.numeric(y) ~ trt + I(week > 2), random = ~ 1 | x,
-                family = poisson, data = bacteria)
-acf(residuals(fit,type="normalized"))
-pacf(residuals(fit,type="normalized"))
-
-bacteria$x <- 1
-fit <- glmmPQL(as.numeric(y) ~ trt + I(week > 2), random = ~ 1 | x,
-                family = poisson, data = bacteria,
-                correlation=nlme::corAR1())
-acf(residuals(fit,type="normalized"))
-pacf(residuals(fit,type="normalized"))
-
-fit <- glmmPQL(as.numeric(y) ~ trt + I(week > 2), random = ~ 1 | ID,
-                family = poisson, data = bacteria)
-acf(residuals(fit,type="normalized"))
-pacf(residuals(fit,type="normalized"))
-
-fit <- glmmPQL(as.numeric(y) ~ trt + I(week > 2), random = ~ 1 | ID,
-                family = poisson, data = bacteria,
-                correlation=nlme::corAR1(form=~ 1 | ID))
-acf(residuals(fit,type="normalized"))
-pacf(residuals(fit,type="normalized"))
-```
-
 

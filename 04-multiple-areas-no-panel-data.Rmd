@@ -3,7 +3,8 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
-# Variables
+
+# Not panel data: Multiple areas
 
 ```{r}
 library(data.table)

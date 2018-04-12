@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="variables-2.html">
-<link rel="next" href="variables-4.html">
+<link rel="prev" href="panel-data-one-area-without-autocorrelation.html">
+<link rel="next" href="not-panel-data-multiple-areas.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -105,15 +105,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Syllabus</a></li>
 <li class="chapter" data-level="2" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>2</b> Reference</a></li>
-<li class="chapter" data-level="3" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>3</b> Variables</a><ul>
-<li class="chapter" data-level="3.1" data-path="variables.html"><a href="variables.html#showing-that-tscounttsglm-gets-the-same-results-as-massglmmpql"><i class="fa fa-check"></i><b>3.1</b> Showing that tscount::tsglm gets the same results as MASS::glmmPQL</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="variables-1.html"><a href="variables-1.html"><i class="fa fa-check"></i><b>4</b> Variables</a><ul>
-<li class="chapter" data-level="4.1" data-path="variables-1.html"><a href="variables-1.html#showing-that-tscounttsglm-gets-the-same-results-as-massglmmpql-1"><i class="fa fa-check"></i><b>4.1</b> Showing that tscount::tsglm gets the same results as MASS::glmmPQL</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="variables-2.html"><a href="variables-2.html"><i class="fa fa-check"></i><b>5</b> Variables</a></li>
-<li class="chapter" data-level="6" data-path="variables-3.html"><a href="variables-3.html"><i class="fa fa-check"></i><b>6</b> Variables</a></li>
-<li class="chapter" data-level="7" data-path="variables-4.html"><a href="variables-4.html"><i class="fa fa-check"></i><b>7</b> Variables</a></li>
+<li class="chapter" data-level="3" data-path="panel-data-one-area-without-autocorrelation.html"><a href="panel-data-one-area-without-autocorrelation.html"><i class="fa fa-check"></i><b>3</b> Panel data: One area without autocorrelation</a></li>
+<li class="chapter" data-level="4" data-path="panel-data-one-area-with-autocorrelation.html"><a href="panel-data-one-area-with-autocorrelation.html"><i class="fa fa-check"></i><b>4</b> Panel data: One area with autocorrelation</a></li>
+<li class="chapter" data-level="5" data-path="not-panel-data-multiple-areas.html"><a href="not-panel-data-multiple-areas.html"><i class="fa fa-check"></i><b>5</b> Not panel data: Multiple areas</a></li>
+<li class="chapter" data-level="6" data-path="panel-data-multiple-areas-without-autocorrelation.html"><a href="panel-data-multiple-areas-without-autocorrelation.html"><i class="fa fa-check"></i><b>6</b> Panel data: multiple areas without autocorrelation</a></li>
+<li class="chapter" data-level="7" data-path="panel-data-multiple-areas-with-autocorrelation.html"><a href="panel-data-multiple-areas-with-autocorrelation.html"><i class="fa fa-check"></i><b>7</b> Panel data: multiple areas with autocorrelation</a></li>
 </ul>
 
       </nav>
@@ -131,8 +127,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="variables-3" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> Variables</h1>
+<div id="panel-data-one-area-with-autocorrelation" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Panel data: One area with autocorrelation</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
 <span class="kw">library</span>(ggplot2)
 <span class="kw">set.seed</span>(<span class="dv">4</span>)
@@ -140,23 +136,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 AMPLITUDE &lt;-<span class="st"> </span><span class="fl">1.5</span>
 SEASONAL_HORIZONTAL_SHIFT &lt;-<span class="st"> </span><span class="dv">20</span>
 
-fylkeIntercepts &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">fylke=</span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span>,<span class="dt">fylkeIntercepts=</span><span class="kw">rnorm</span>(<span class="dv">20</span>))
-
 d &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">date=</span><span class="kw">seq.Date</span>(
-  <span class="dt">from=</span><span class="kw">as.Date</span>(<span class="st">&quot;2010-01-01&quot;</span>),
-  <span class="dt">to=</span><span class="kw">as.Date</span>(<span class="st">&quot;2015-12-31&quot;</span>),
+  <span class="dt">from=</span><span class="kw">as.Date</span>(<span class="st">&quot;2000-01-01&quot;</span>),
+  <span class="dt">to=</span><span class="kw">as.Date</span>(<span class="st">&quot;2018-12-31&quot;</span>),
   <span class="dt">by=</span><span class="dv">1</span>))
 d[,year<span class="op">:</span><span class="er">=</span><span class="kw">as.numeric</span>(<span class="kw">format.Date</span>(date,<span class="st">&quot;%G&quot;</span>))]
 d[,week<span class="op">:</span><span class="er">=</span><span class="kw">as.numeric</span>(<span class="kw">format.Date</span>(date,<span class="st">&quot;%V&quot;</span>))]
 d[,month<span class="op">:</span><span class="er">=</span><span class="kw">as.numeric</span>(<span class="kw">format.Date</span>(date,<span class="st">&quot;%m&quot;</span>))]
-
-temp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>,<span class="dt">length=</span><span class="dv">20</span>)
-<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>){
-  temp[[i]] &lt;-<span class="st"> </span><span class="kw">copy</span>(d)
-  temp[[i]][,fylke<span class="op">:</span><span class="er">=</span>i]
-}
-d &lt;-<span class="st"> </span><span class="kw">rbindlist</span>(temp)
-
 d[,yearMinus2000<span class="op">:</span><span class="er">=</span>year<span class="op">-</span><span class="dv">2000</span>]
 d[,dayOfSeries<span class="op">:</span><span class="er">=</span><span class="dv">1</span><span class="op">:</span>.N]
 
@@ -164,54 +150,73 @@ d[,dayOfYear<span class="op">:</span><span class="er">=</span><span class="kw">a
 d[,seasonalEffect<span class="op">:</span><span class="er">=</span><span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>(dayOfYear<span class="op">-</span>SEASONAL_HORIZONTAL_SHIFT)<span class="op">/</span><span class="dv">365</span>)]
 d[,mu <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">exp</span>(<span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>yearMinus2000<span class="op">*</span><span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>seasonalEffect<span class="op">*</span>AMPLITUDE)]
 d[,y<span class="op">:</span><span class="er">=</span><span class="kw">rpois</span>(.N,mu)]
-<span class="co">#d[,y:=round(as.numeric(arima.sim(model=list(&quot;ar&quot;=c(0.5)), rand.gen = rpois, n=nrow(d), lambda=mu)))]</span></code></pre></div>
-<p>We then drill down into a few years, and see a clear seasonal trend</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q &lt;-<span class="st"> </span><span class="kw">ggplot</span>(d[fylke<span class="op">==</span><span class="dv">1</span>],<span class="kw">aes</span>(<span class="dt">x=</span>dayOfYear,<span class="dt">y=</span>y))
+d[,y<span class="op">:</span><span class="er">=</span><span class="kw">round</span>(<span class="kw">as.numeric</span>(<span class="kw">arima.sim</span>(<span class="dt">model=</span><span class="kw">list</span>(<span class="st">&quot;ar&quot;</span>=<span class="kw">c</span>(<span class="fl">0.5</span>)), <span class="dt">rand.gen =</span> rpois, <span class="dt">n=</span><span class="kw">nrow</span>(d), <span class="dt">lambda=</span>mu)))]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q &lt;-<span class="st"> </span><span class="kw">ggplot</span>(d[year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2005</span><span class="op">:</span><span class="dv">2010</span>)],<span class="kw">aes</span>(<span class="dt">x=</span>dayOfYear,<span class="dt">y=</span>y))
 q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>year)
 q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
 q &lt;-<span class="st"> </span>q <span class="op">+</span><span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)
 q</code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
-<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : span too small. fewer data values than degrees of freedom.</code></pre>
-<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : pseudoinverse used at 0.99</code></pre>
-<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : neighborhood radius 1.01</code></pre>
-<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : reciprocal condition number 0</code></pre>
-<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : There are other near singularities as well. 1.0201</code></pre>
-<pre><code>## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : span too small.
-## fewer data values than degrees of freedom.</code></pre>
-<pre><code>## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used
-## at 0.99</code></pre>
-<pre><code>## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
-## 1.01</code></pre>
-<pre><code>## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : reciprocal
-## condition number 0</code></pre>
-<pre><code>## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : There are other
-## near singularities as well. 1.0201</code></pre>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lomb<span class="op">::</span><span class="kw">lsp</span>(d<span class="op">$</span>y,<span class="dt">from=</span><span class="dv">100</span>,<span class="dt">to=</span><span class="dv">500</span>,<span class="dt">ofac=</span><span class="dv">1</span>,<span class="dt">type=</span><span class="st">&quot;period&quot;</span>)</code></pre></div>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lomb<span class="op">::</span><span class="kw">lsp</span>(d<span class="op">$</span>y,<span class="dt">from=</span><span class="dv">50</span>,<span class="dt">to=</span><span class="dv">500</span>,<span class="dt">ofac=</span><span class="dv">1</span>,<span class="dt">type=</span><span class="st">&quot;period&quot;</span>)</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d[,cos365<span class="op">:</span><span class="er">=</span><span class="kw">cos</span>(dayOfYear<span class="op">*</span><span class="dv">2</span><span class="op">*</span>pi<span class="op">/</span><span class="dv">365</span>)]
 d[,sin365<span class="op">:</span><span class="er">=</span><span class="kw">sin</span>(dayOfYear<span class="op">*</span><span class="dv">2</span><span class="op">*</span>pi<span class="op">/</span><span class="dv">365</span>)]
 
-fit &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(y<span class="op">~</span>yearMinus2000<span class="op">+</span>sin365 <span class="op">+</span><span class="st"> </span>cos365, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>fylke,
+fit0 &lt;-<span class="st"> </span><span class="kw">glm</span>(y<span class="op">~</span>yearMinus2000, <span class="dt">data=</span>d, <span class="dt">family=</span><span class="kw">poisson</span>())
+fit1 &lt;-<span class="st"> </span><span class="kw">glm</span>(y<span class="op">~</span>yearMinus2000<span class="op">+</span>sin365 <span class="op">+</span><span class="st"> </span>cos365, <span class="dt">data=</span>d, <span class="dt">family=</span><span class="kw">poisson</span>())
+
+<span class="kw">print</span>(lmtest<span class="op">::</span><span class="kw">lrtest</span>(fit0, fit1))</code></pre></div>
+<pre><code>## Likelihood ratio test
+## 
+## Model 1: y ~ yearMinus2000
+## Model 2: y ~ yearMinus2000 + sin365 + cos365
+##   #Df LogLik Df Chisq Pr(&gt;Chisq)    
+## 1   2 -43124                        
+## 2   4 -14542  2 57163  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">summary</span>(fit1))</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ yearMinus2000 + sin365 + cos365, family = poisson(), 
+##     data = d)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.6774  -0.6738  -0.0503   0.4920   3.5820  
+## 
+## Coefficients:
+##                 Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)    0.7981246  0.0105300   75.80   &lt;2e-16 ***
+## yearMinus2000  0.0991480  0.0007416  133.70   &lt;2e-16 ***
+## sin365         1.4074818  0.0073418  191.71   &lt;2e-16 ***
+## cos365        -0.5390314  0.0061513  -87.63   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 81832.6  on 6939  degrees of freedom
+## Residual deviance:  5217.8  on 6936  degrees of freedom
+## AIC: 29093
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d[,residuals<span class="op">:</span><span class="er">=</span><span class="kw">residuals</span>(fit1, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)]
+d[,predicted<span class="op">:</span><span class="er">=</span><span class="kw">predict</span>(fit1, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this is for AR</span>
+<span class="kw">pacf</span>(d<span class="op">$</span>residuals)</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this is for MA</span>
+<span class="kw">acf</span>(d<span class="op">$</span>residuals)</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>This means our model is bad, we have autocorrelation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d[,ID<span class="op">:</span><span class="er">=</span><span class="dv">1</span>]
+<span class="co"># this is for MA</span>
+fit &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(y<span class="op">~</span>yearMinus2000<span class="op">+</span>sin365 <span class="op">+</span><span class="st"> </span>cos365, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ID,
                 <span class="dt">family =</span> poisson, <span class="dt">data =</span> d,
-                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>(<span class="dt">form=</span><span class="op">~</span>dayOfSeries<span class="op">|</span>fylke))</code></pre></div>
+                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>(<span class="dt">form=</span><span class="op">~</span>dayOfSeries<span class="op">|</span>ID))</code></pre></div>
 <pre><code>## iteration 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit)</code></pre></div>
 <pre><code>## Linear mixed-effects model fit by maximum likelihood
@@ -220,42 +225,42 @@ fit &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw"
 ##    NA  NA     NA
 ## 
 ## Random effects:
-##  Formula: ~1 | fylke
-##          (Intercept)  Residual
-## StdDev: 1.708256e-05 0.9976713
+##  Formula: ~1 | ID
+##          (Intercept) Residual
+## StdDev: 1.149069e-05 0.841689
 ## 
 ## Correlation Structure: AR(1)
-##  Formula: ~dayOfSeries | fylke 
+##  Formula: ~dayOfSeries | ID 
 ##  Parameter estimate(s):
-##         Phi 
-## 0.002841665 
+##       Phi 
+## 0.4926123 
 ## Variance function:
 ##  Structure: fixed weights
 ##  Formula: ~invwt 
 ## Fixed effects: y ~ yearMinus2000 + sin365 + cos365 
-##                    Value   Std.Error    DF   t-value p-value
-## (Intercept)    0.1122528 0.014529606 43797    7.7258       0
-## yearMinus2000  0.0989047 0.001112632 43797   88.8926       0
-## sin365         1.4095094 0.003705852 43797  380.3469       0
-## cos365        -0.5109372 0.003092449 43797 -165.2209       0
+##                    Value   Std.Error   DF   t-value p-value
+## (Intercept)    0.7980540 0.015203158 6936  52.49265       0
+## yearMinus2000  0.0991582 0.001070583 6936  92.62077       0
+## sin365         1.4074339 0.010596649 6936 132.81876       0
+## cos365        -0.5389807 0.008876447 6936 -60.72031       0
 ##  Correlation: 
 ##               (Intr) yM2000 sin365
-## yearMinus2000 -0.979              
-## sin365        -0.150  0.000       
-## cos365         0.065 -0.001 -0.151
+## yearMinus2000 -0.832              
+## sin365        -0.409  0.000       
+## cos365         0.186  0.000 -0.158
 ## 
 ## Standardized Within-Group Residuals:
-##        Min         Q1        Med         Q3        Max 
-## -3.1968230 -0.8238741 -0.0750183  0.6340046  5.8245241 
+##         Min          Q1         Med          Q3         Max 
+## -2.89886753 -0.75775062 -0.05982255  0.60730690  6.49964494 
 ## 
-## Number of Observations: 43820
-## Number of Groups: 20</code></pre>
+## Number of Observations: 6940
+## Number of Groups: 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pacf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for AR</span></code></pre></div>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(<span class="kw">residuals</span>(fit, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)) <span class="co"># this is for MA</span></code></pre></div>
-<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-30-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b1 &lt;-<span class="st"> </span><span class="fl">1.4007640</span> <span class="co"># sin coefficient</span>
-b2 &lt;-<span class="st"> </span><span class="op">-</span><span class="fl">0.5234863</span> <span class="co"># cos coefficient</span>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b1 &lt;-<span class="st"> </span><span class="fl">1.3936185</span> <span class="co"># sin coefficient</span>
+b2 &lt;-<span class="st"> </span><span class="op">-</span><span class="fl">0.5233866</span> <span class="co"># cos coefficient</span>
 amplitude &lt;-<span class="st"> </span><span class="kw">sqrt</span>(b1<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>b2<span class="op">^</span><span class="dv">2</span>)
 p &lt;-<span class="st"> </span><span class="kw">atan</span>(b1<span class="op">/</span>b2) <span class="op">*</span><span class="st"> </span><span class="dv">365</span><span class="op">/</span><span class="dv">2</span><span class="op">/</span>pi
 <span class="cf">if</span> (p <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {
@@ -271,7 +276,7 @@ p &lt;-<span class="st"> </span><span class="kw">atan</span>(b1<span class="op">
     trough &lt;-<span class="st"> </span>g
 }
 <span class="kw">print</span>(<span class="kw">sprintf</span>(<span class="st">&quot;amplitude is estimated as %s, peak is estimated as %s, trough is estimated as %s&quot;</span>,<span class="kw">round</span>(amplitude,<span class="dv">2</span>),<span class="kw">round</span>(peak),<span class="kw">round</span>(trough)))</code></pre></div>
-<pre><code>## [1] &quot;amplitude is estimated as 1.5, peak is estimated as 112, trough is estimated as 295&quot;</code></pre>
+<pre><code>## [1] &quot;amplitude is estimated as 1.49, peak is estimated as 112, trough is estimated as 295&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sprintf</span>(<span class="st">&quot;true values are: amplitude: %s, peak: %s, trough: %s&quot;</span>,<span class="kw">round</span>(AMPLITUDE,<span class="dv">2</span>),<span class="kw">round</span>(<span class="dv">365</span><span class="op">/</span><span class="dv">4</span><span class="op">+</span>SEASONAL_HORIZONTAL_SHIFT),<span class="kw">round</span>(<span class="dv">3</span><span class="op">*</span><span class="dv">365</span><span class="op">/</span><span class="dv">4</span><span class="op">+</span>SEASONAL_HORIZONTAL_SHIFT)))</code></pre></div>
 <pre><code>## [1] &quot;true values are: amplitude: 1.5, peak: 111, trough: 294&quot;</code></pre>
 
@@ -281,8 +286,8 @@ p &lt;-<span class="st"> </span><span class="kw">atan</span>(b1<span class="op">
           </div>
         </div>
       </div>
-<a href="variables-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="variables-4.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="panel-data-one-area-without-autocorrelation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="not-panel-data-multiple-areas.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -312,7 +317,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/raubreywhite/longitudinal_analysis/edit/master/05-multiple-areas-no-autocorrelation.Rmd",
+"link": "https://github.com/raubreywhite/longitudinal_analysis/edit/master/03-one-area-with-autocorrelation.Rmd",
 "text": "Edit"
 },
 "download": ["longitudinal-analysis.pdf"],
