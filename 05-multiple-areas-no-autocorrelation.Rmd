@@ -6,6 +6,8 @@ editor_options:
 
 # Panel data: multiple areas without autocorrelation
 
+The data for this chapter is available at: http://rwhite.no/longitudinal_analysis/data/chapter_6.csv
+
 ```{r}
 library(data.table)
 library(ggplot2)
@@ -40,6 +42,7 @@ d[,mu := exp(0.1 + yearMinus2000*0.1 + seasonalEffect*AMPLITUDE)]
 d[,y:=rpois(.N,mu)]
 #d[,y:=round(as.numeric(arima.sim(model=list("ar"=c(0.5)), rand.gen = rpois, n=nrow(d), lambda=mu)))]
 
+fwrite(d,"data/chapter_6.csv")
 ```
 
 \newpage

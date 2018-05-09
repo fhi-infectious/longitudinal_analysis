@@ -6,6 +6,8 @@ editor_options:
 
 # Not panel data: Multiple areas
 
+The data for this chapter is available at: http://rwhite.no/longitudinal_analysis/data/chapter_5.csv
+
 ```{r}
 library(data.table)
 library(lme4)
@@ -20,6 +22,8 @@ d[,x:=runif(.N)]
 d[,year:=sample(c(1950:2018),.N,replace=T)]
 d[,mu := exp(mainIntercept + fylkeIntercepts + 3*x)]
 d[,y:=rpois(.N,mu)]
+
+fwrite(d,"data/chapter_5.csv")
 ```
 
 \newpage

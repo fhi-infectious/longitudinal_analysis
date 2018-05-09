@@ -162,6 +162,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="not-panel-data-multiple-areas" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Not panel data: Multiple areas</h1>
+<p>The data for this chapter is available at: <a href="http://rwhite.no/longitudinal_analysis/data/chapter_5.csv" class="uri">http://rwhite.no/longitudinal_analysis/data/chapter_5.csv</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
 <span class="kw">library</span>(lme4)</code></pre></div>
 <pre><code>## Loading required package: Matrix</code></pre>
@@ -176,7 +177,9 @@ d[,mainIntercept<span class="op">:</span><span class="er">=</span><span class="d
 d[,x<span class="op">:</span><span class="er">=</span><span class="kw">runif</span>(.N)]
 d[,year<span class="op">:</span><span class="er">=</span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1950</span><span class="op">:</span><span class="dv">2018</span>),.N,<span class="dt">replace=</span>T)]
 d[,mu <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">exp</span>(mainIntercept <span class="op">+</span><span class="st"> </span>fylkeIntercepts <span class="op">+</span><span class="st"> </span><span class="dv">3</span><span class="op">*</span>x)]
-d[,y<span class="op">:</span><span class="er">=</span><span class="kw">rpois</span>(.N,mu)]</code></pre></div>
+d[,y<span class="op">:</span><span class="er">=</span><span class="kw">rpois</span>(.N,mu)]
+
+<span class="kw">fwrite</span>(d,<span class="st">&quot;data/chapter_5.csv&quot;</span>)</code></pre></div>
 
 <div id="investigating-the-data" class="section level2">
 <h2><span class="header-section-number">5.1</span> Investigating the data</h2>

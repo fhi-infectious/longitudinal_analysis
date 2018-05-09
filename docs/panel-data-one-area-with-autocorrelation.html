@@ -162,6 +162,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="panel-data-one-area-with-autocorrelation" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Panel data: One area with autocorrelation</h1>
+<p>The data for this chapter is available at: <a href="http://rwhite.no/longitudinal_analysis/data/chapter_4.csv" class="uri">http://rwhite.no/longitudinal_analysis/data/chapter_4.csv</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
 <span class="kw">library</span>(ggplot2)
 <span class="kw">set.seed</span>(<span class="dv">4</span>)
@@ -183,7 +184,9 @@ d[,dayOfYear<span class="op">:</span><span class="er">=</span><span class="kw">a
 d[,seasonalEffect<span class="op">:</span><span class="er">=</span><span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>(dayOfYear<span class="op">-</span>SEASONAL_HORIZONTAL_SHIFT)<span class="op">/</span><span class="dv">365</span>)]
 d[,mu <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">exp</span>(<span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>yearMinus2000<span class="op">*</span><span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>seasonalEffect<span class="op">*</span>AMPLITUDE)]
 d[,y<span class="op">:</span><span class="er">=</span><span class="kw">rpois</span>(.N,mu)]
-d[,y<span class="op">:</span><span class="er">=</span><span class="kw">round</span>(<span class="kw">as.numeric</span>(<span class="kw">arima.sim</span>(<span class="dt">model=</span><span class="kw">list</span>(<span class="st">&quot;ar&quot;</span>=<span class="kw">c</span>(<span class="fl">0.5</span>)), <span class="dt">rand.gen =</span> rpois, <span class="dt">n=</span><span class="kw">nrow</span>(d), <span class="dt">lambda=</span>mu)))]</code></pre></div>
+d[,y<span class="op">:</span><span class="er">=</span><span class="kw">round</span>(<span class="kw">as.numeric</span>(<span class="kw">arima.sim</span>(<span class="dt">model=</span><span class="kw">list</span>(<span class="st">&quot;ar&quot;</span>=<span class="kw">c</span>(<span class="fl">0.5</span>)), <span class="dt">rand.gen =</span> rpois, <span class="dt">n=</span><span class="kw">nrow</span>(d), <span class="dt">lambda=</span>mu)))]
+
+<span class="kw">fwrite</span>(d,<span class="st">&quot;data/chapter_4.csv&quot;</span>)</code></pre></div>
 
 <div id="investigation-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Investigation</h2>

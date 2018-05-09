@@ -6,7 +6,9 @@ editor_options:
 
 # Panel data: One area without autocorrelation
 
-```{r}
+The data for this chapter is available at: http://rwhite.no/longitudinal_analysis/data/chapter_3.csv
+
+```{r warning=FALSE}
 dir.create("data")
 
 library(data.table)
