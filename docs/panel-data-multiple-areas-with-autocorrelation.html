@@ -196,7 +196,7 @@ d[,mu <span class="op">:</span><span class="er">=</span><span class="st"> </span
 d[,y<span class="op">:</span><span class="er">=</span><span class="kw">rpois</span>(.N,mu)]
 d[,y<span class="op">:</span><span class="er">=</span>mu<span class="op">+</span><span class="kw">round</span>(<span class="kw">as.numeric</span>(<span class="kw">arima.sim</span>(<span class="dt">model=</span><span class="kw">list</span>(<span class="st">&quot;ar&quot;</span>=<span class="kw">c</span>(<span class="fl">0.5</span>)), <span class="dt">rand.gen =</span> rpois, <span class="dt">n=</span><span class="kw">nrow</span>(d), <span class="dt">lambda=</span>mu)))]
 
-<span class="kw">fwrite</span>(d,<span class="st">&quot;data/chapter_6.csv&quot;</span>)</code></pre></div>
+<span class="kw">fwrite</span>(d,<span class="st">&quot;data/chapter_7.csv&quot;</span>)</code></pre></div>
 
 <div id="investigation-3" class="section level2">
 <h2><span class="header-section-number">7.1</span> Investigation</h2>
