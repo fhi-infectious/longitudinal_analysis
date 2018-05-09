@@ -36,14 +36,18 @@ d[,dayOfSeries:=1:.N]
 
 d[,dayOfYear:=as.numeric(format.Date(date,"%j"))]
 d[,seasonalEffect:=sin(2*pi*(dayOfYear-SEASONAL_HORIZONTAL_SHIFT)/365)]
-d[,mu := exp(0.1 + yearMinus2000*0.1 + seasonalEffect*AMPLITUDE)]
+d[,mu := round(exp(0.1 + yearMinus2000*0.1 + seasonalEffect*AMPLITUDE))]
 d[,y:=rpois(.N,mu)]
-d[,y:=round(as.numeric(arima.sim(model=list("ar"=c(0.5)), rand.gen = rpois, n=nrow(d), lambda=mu)))]
+d[,y:=mu+round(as.numeric(arima.sim(model=list("ar"=c(0.5)), rand.gen = rpois, n=nrow(d), lambda=mu)))]
 
 ```
 
-We then drill down into a few years, and see a clear seasonal trend
-```{r}
+\newpage
+
+## Investigation
+
+We drill down into a few years in fylke 1, and see a clear seasonal trend
+```{r warning=FALSE}
 q <- ggplot(d[fylke==1],aes(x=dayOfYear,y=y))
 q <- q + facet_wrap(~year)
 q <- q + geom_point()
@@ -51,22 +55,73 @@ q <- q + stat_smooth(colour="red")
 q
 ```
 
+\newpage
+
 The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days
 ```{r}
 lomb::lsp(d$y,from=100,to=500,ofac=1,type="period")
 ```
 
+\newpage
+
+## Regressions
 ```{r}
 d[,cos365:=cos(dayOfYear*2*pi/365)]
 d[,sin365:=sin(dayOfYear*2*pi/365)]
 
 fit <- MASS::glmmPQL(y~yearMinus2000+sin365 + cos365, random = ~ 1 | fylke,
+                family = poisson, data = d)
+summary(fit)
+```
+
+\newpage
+
+## Residual analysis
+
+We see that there is an `AR(1)` autocorrelation in the residuals, meaning that our model is not appropriate.
+```{r}
+pacf(residuals(fit, type = "normalized")) # this is for AR
+```
+
+\newpage
+
+We see that there is some sort of `AR` autocorrelation in the residuals, meaning that our model is not appropriate.
+```{r}
+acf(residuals(fit, type = "normalized")) # this is for MA
+```
+
+\newpage
+
+## Regression with AR(1) correlation in residuals
+
+We include `correlation=nlme::corAR1(form=~dayOfSeries|fylke)` or in other words `correlation=nlme::corAR1(form=~time|group)` to let the computer know what is the time variable and what is the group variable.
+
+```{r}
+fit <- MASS::glmmPQL(y~yearMinus2000+sin365 + cos365, random = ~ 1 | fylke,
                 family = poisson, data = d,
                 correlation=nlme::corAR1(form=~dayOfSeries|fylke))
 summary(fit)
+```
+
+\newpage
+
+## Residual analysis
+
+We see that the vast majority of the autoregression in the residuals has been removed.
+```{r}
 pacf(residuals(fit, type = "normalized")) # this is for AR
+```
+
+\newpage
+
+We see that the vast majority of the autoregression in the residuals has been removed.
+```{r}
 acf(residuals(fit, type = "normalized")) # this is for MA
 ```
+
+\newpage
+
+We obtain the same estimates that we did in the last chapter.
 
 ```{r}
 b1 <- 1.4007640 # sin coefficient

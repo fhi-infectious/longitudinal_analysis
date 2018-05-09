@@ -7,6 +7,8 @@ editor_options:
 # Panel data: One area without autocorrelation
 
 ```{r}
+dir.create("data")
+
 library(data.table)
 library(ggplot2)
 set.seed(4)
@@ -27,9 +29,15 @@ d[,dayOfYear:=as.numeric(format.Date(date,"%j"))]
 d[,seasonalEffect:=sin(2*pi*(dayOfYear-SEASONAL_HORIZONTAL_SHIFT)/365)]
 d[,mu := exp(0.1 + yearMinus2000*0.1 + seasonalEffect*AMPLITUDE)]
 d[,y:=rpois(.N,mu)]
+
+fwrite(d,"data/chapter_3.csv")
 ```
 
-Showing the true data
+\newpage
+
+## True data
+
+Here we show the true data, and note that there is an increasing annual trend (the data gets higher as time goes on) and there is a seasonal pattern (one peak/trough per year)
 ```{r}
 q <- ggplot(d,aes(x=date))
 q <- q + geom_point(mapping=aes(y=y))
@@ -37,17 +45,11 @@ q <- q + geom_line(mapping=aes(y=mu),colour="red")
 q
 ```
 
-Investigating the data
+\newpage
 
-We take a quick look, but don't see much
-```{r}
-q <- ggplot(d,aes(x=date,y=y))
-q <- q + geom_point()
-q <- q + stat_smooth(colour="red")
-q
-```
+## Investigation 
 
-We then drill down into a few years, and see a clear seasonal trend
+Pretending we have no prior knowledge of our dataset, we display the data for few years and see a clear seasonal trend
 ```{r}
 q <- ggplot(d[year %in% c(2005:2010)],aes(x=dayOfYear,y=y))
 q <- q + facet_wrap(~year)
@@ -56,25 +58,56 @@ q <- q + stat_smooth(colour="red")
 q
 ```
 
+\newpage
+
+## Seasonality 
+
+If we want to investigate the seasonality of our data, and identify when are the peaks and troughs, we have a few ways to approach this.
+
+Non-parametric approaches are flexible and easy to implement, but they can lack power and be hard to interpret:
+- Create a categorical variable for the seasons (e.g. `spring`, `summer`, `autumn`, `winter`) and include this in the regression model
+- Create a categorical variable for the months (e.g. `Jan`, `Feb`, ..., `Dec`) and include this in the regression model
+
+Parametric approaches are more powerful but require more effort:
+- Identify the periodicity of the seasonality (how many days between peaks?)
+- Using trigonometry, transform `day of year` into variables that appropriately model the observed periodicity
+- Obtain coefficient estimates
+- Back-transform these estimates into human-understandable values (day of peak, day of trough)
+
+The non-parametric approaches are simple and we will therefore not cover them in this course. We will briefly examine the parametric approach.
+
+\newpage
+
 The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days
 ```{r}
 lomb::lsp(d$y,from=100,to=500,ofac=1,type="period")
 ```
 
-We then generate two new variables `cos365` and `sin365` and perform a simple poisson regression:
+\newpage
+
+We then generate two new variables `cos365` and `sin365` and perform a likelihood ratio test to see if they are significant or not. This is done with two simple poisson regressions.
+
+When we do not have autocorrelation, we can use the `glm` function in R.
 ```{r}
 d[,cos365:=cos(dayOfYear*2*pi/365)]
 d[,sin365:=sin(dayOfYear*2*pi/365)]
 
 fit0 <- glm(y~yearMinus2000, data=d, family=poisson())
-fit1 <- glm(y~yearMinus2000+sin365 + cos365, data=d, family=poisson())
+fit1 <- glm(y~yearMinus2000 + sin365 + cos365, data=d, family=poisson())
 
 print(lmtest::lrtest(fit0, fit1))
-print(summary(fit1))
 ```
 
-We see a clear significant seasonal effect. We can then use trigonometry to back-calculate the `cos365` and `sin365` variables to amplitude and location of peak/troughs:
+We see that the likelihood ratio test for `sin365` and `cos365` was significant, meaning that there is significant seasonality with a 365 day periodicity in our data.
 
+```{r}
+print(summary(fit1))
+```
+We also see that the coefficient for year is `0.1` which means that for each additional year, the outcome increases by `exp(0.1)=1.11`. 
+
+\newpage
+
+Through the likelihood ratio test we saw a clear significant seasonal effect. We can now use trigonometry to back-calculate the amplitude and location of peak/troughs from the `cos365` and `sin365` estimates:
 ```{r}
 b1 <- 1.428417 # sin coefficient
 b2 <- -0.512912 # cos coefficient
@@ -98,6 +131,10 @@ print(sprintf("true values are: amplitude: %s, peak: %s, trough: %s",round(AMPLI
 
 ```
 
+Note: I have no idea what amplitude means outside of a linear regression!
+
+\newpage
+
 We now investigate our residuals to determine if we have a good fit:
 
 ```{r}
@@ -109,36 +146,18 @@ q <- q + stat_smooth(colour="red")
 q
 ```
 
+\newpage
+
+We check the `pacf` of the residuals to ensure that it is not `AR`. If we observe `AR` in our residuals, then this model was not appropriate and we need to use a different model.
 ```{r}
 # this is for AR
 pacf(d$residuals)
 ```
 
+\newpage
+
+We check the `acf` of the residuals to ensure that it is not `MA`. If we observe `MA` in our residuals, then this model was not appropriate and we need to use a different model.
 ```{r}
 # this is for MA
 acf(d$residuals)
 ```
-
-We see a clear significant seasonal effect. We can then use trigonometry to back-calculate the `cos365` and `sin365` variables to amplitude and location of peak/troughs:
-
-```{r}
-b1 <- 0.1934 # sin coefficient
-b2 <- 0.1018 # cos coefficient
-amplitude <- sqrt(b1^2 + b2^2)
-p <- atan(b1/b2) * 365/2/pi
-if (p > 0) {
-    peak <- p
-    trough <- p + 365/2
-} else {
-    peak <- p + 365/2
-    trough <- p + 365
-}
-if (b1 < 0) {
-    g <- peak
-    peak <- trough
-    trough <- g
-}
-print(sprintf("amplitude is %s, peak is at %s, trough is at %s",round(amplitude,2),round(peak),round(trough)))
-
-```
-

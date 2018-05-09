@@ -12,7 +12,7 @@ There are two important definitions in this course:
 - Panel data
 - Autocorrelation
 
-Panel data is a set of data with measurements repeated at equally spaced points. For example, weight data recorded every day, or every week, or every year would be considered panel data. A person who records three weight measurements "sometime" in 2018 would not be considered panel data.
+Panel data is a set of data with measurements repeated at equally spaced points. For example, weight data recorded every day, or every week, or every year would be considered panel data. A person who records three weight measurements randomly in 2018 would not be considered panel data.
 
 When you have panel data, autocorrelation is the correlation between subsequent observations. For example, if you have daily observations, then the 1 day autocorrelation is the correlation between observations 1 day apart, and likewise the 2 day autocorrelation is the correlation between observations 2 days apart.
 
@@ -24,10 +24,11 @@ In this course we will consider 5 scenarios where we have multiple observations 
 - Panel data: Multiple geographical areas, no autocorrelation
 - Panel data: Multiple geographical areas, with autocorrelation
 
-Note, the following scenario can be covered by normal regressions:
+Note, the following scenario can be covered by standard regression models:
 
 - Multiple geographical areas, one time point/observation per geographical area
 
+\newpage
 
 ## Identifying your scenario
 
@@ -41,7 +42,11 @@ Again, fairly simple, just look at your data.
 
 ### Step 3: Do you have autocorrelation?
 
-Firstly, you must run a model pretending that you do not have autocorrelation. You then inspect the residuals from the model and see if autocorrelation exists. This is done with two statistical procedures: `pacf` (for `autoregressive models`, the most common type of autocorrelation), and `acf` (for `moving average models`, a less common type of autocorrelation).
+Firstly, you must run a model pretending that you do not have autocorrelation.
+
+You then inspect the residuals from the model and see if autocorrelation exists. This is done with two statistical procedures: `pacf` (for `autoregressive models`, the most common type of autocorrelation), and `acf` (for `moving average models`, a less common type of autocorrelation).
+
+\newpage 
 
 ### AR(1) data
 
@@ -49,15 +54,19 @@ Firstly, you must run a model pretending that you do not have autocorrelation. Y
 y <- round(as.numeric(arima.sim(model=list("ar"=c(0.5)), rand.gen = rnorm, n=1000)))
 ```
 
-With `autoregressive` data, a `pacf` plot contains a number of sharp significant lines, demarking how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation. If two lines are significant, it means that each observation is correlated with its two preecing observations. The following plot represents `AR(1)` data.
+With `autoregressive` data, a `pacf` plot contains a number of sharp significant lines, indicating how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation (`AR(1)`). If two lines are significant, it means that each observation is correlated with its two preecing observations (`AR(2)`). The following plot represents `AR(1)` data.
 ```{r}
 pacf(y)
 ```
 
-With `autoregressive` data, an `acf` plot contains a number of decreasing lines. The following plot represents some sort of `AR` data. Note that the `acf` plot displays `lag 0` (which is pointless and can be ignored), while the `pacf` plot does not.
+\newpage
+
+With `autoregressive` data, an `acf` plot contains a number of decreasing lines. The following `acf` plot represents some sort of `AR` data. Note that the `acf` plot displays `lag 0` (which is pointless and can be ignored), while the `pacf` plot does not.
 ```{r}
 acf(y)
 ```
+
+\newpage 
 
 ### AR(2) data
 
@@ -65,15 +74,19 @@ acf(y)
 y <- round(as.numeric(arima.sim(model=list("ar"=c(0.5,0.4)), rand.gen = rnorm, n=1000)))
 ```
 
-With `autoregressive` data, a `pacf` plot contains a number of sharp significant lines, demarking how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation. If two lines are significant, it means that each observation is correlated with its two preecing observations. The following plot represents `AR(2)` data.
+The following `pacf` plot represents `AR(2)` data:
 ```{r}
 pacf(y)
 ```
 
-With `autoregressive` data, an `acf` plot contains a number of decreasing lines. The following plot represents some sort of `AR` data. Note that the `acf` plot displays `lag 0` (which is pointless and can be ignored), while the `pacf` plot does not.
+\newpage
+
+The following `acf` plot represents some sort of `AR` data:
 ```{r}
 acf(y)
 ```
+
+\newpage 
 
 ### MA(1) data
 
@@ -81,15 +94,19 @@ acf(y)
 y <- round(as.numeric(arima.sim(model=list("ma"=c(0.9)), rand.gen = rnorm, n=1000)))
 ```
 
-With `moving average` data, a `pacf` plot contains a number of decreasing lines. The following plot represents some sort of `MA` data. 
+With `moving average` data, a `pacf` plot contains a number of decreasing lines. The following `pacf` plot represents some sort of `MA` data.:
 ```{r}
 pacf(y)
 ```
+
+\newpage
 
 With `moving average` data, an `acf` plot contains a number of sharp significant lines, demarking how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation. If two lines are significant, it means that each observation is correlated with its two preecing observations.  The following plot represents `MA(1)` data. Note that the `acf` plot displays `lag 0` (which is pointless and can be ignored), while the `pacf` plot does not.
 ```{r}
 acf(y)
 ```
+
+\newpage 
 
 ### MA(2) data
 
@@ -97,12 +114,14 @@ acf(y)
 y <- round(as.numeric(arima.sim(model=list("ma"=c(0.9,0.6)), rand.gen = rnorm, n=1000)))
 ```
 
-With `moving average` data, a `pacf` plot contains a number of decreasing lines. The following plot represents some sort of `MA` data. 
+The following `pacf` plot represents some sort of `MA` data. 
 ```{r}
 pacf(y)
 ```
 
-With `moving average` data, an `acf` plot contains a number of sharp significant lines, demarking how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation. If two lines are significant, it means that each observation is correlated with its two preecing observations.  The following plot represents `MA(2)` data. Note that the `acf` plot displays `lag 0` (which is pointless and can be ignored), while the `pacf` plot does not.
+\newpage
+
+The following `acf` plot represents `MA(2)` data:
 ```{r}
 acf(y)
 ```

@@ -42,8 +42,11 @@ d[,y:=rpois(.N,mu)]
 
 ```
 
-We then drill down into a few years, and see a clear seasonal trend
-```{r}
+\newpage
+
+## Investigation
+We then drill down into a few years for fylke 1, and see a clear seasonal trend
+```{r warning=FALSE}
 q <- ggplot(d[fylke==1],aes(x=dayOfYear,y=y))
 q <- q + facet_wrap(~year)
 q <- q + geom_point()
@@ -51,22 +54,48 @@ q <- q + stat_smooth(colour="red")
 q
 ```
 
+\newpage
+
 The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days
 ```{r}
 lomb::lsp(d$y,from=100,to=500,ofac=1,type="period")
 ```
 
+\newpage
+
+## Regression
+
+First we create an `id` variable. This generally corresponds to geographical locations, or people. In this case, we only have one geographical location, so our `id` for all observations is `1`. This lets the computer know that all data belongs to the same group.
+
+When we have panel data with multiple areas, we use the `MASS::glmPQL` function in R.
 ```{r}
 d[,cos365:=cos(dayOfYear*2*pi/365)]
 d[,sin365:=sin(dayOfYear*2*pi/365)]
 
 fit <- MASS::glmmPQL(y~yearMinus2000+sin365 + cos365, random = ~ 1 | fylke,
-                family = poisson, data = d,
-                correlation=nlme::corAR1(form=~dayOfSeries|fylke))
+                family = poisson, data = d)
 summary(fit)
+```
+
+\newpage
+
+## Residual analysis
+
+We see that there is no evidence of autoregression in the residuals
+```{r}
 pacf(residuals(fit, type = "normalized")) # this is for AR
+```
+
+\newpage
+
+We see that there is no evidence of autoregression in the residuals
+```{r}
 acf(residuals(fit, type = "normalized")) # this is for MA
 ```
+
+\newpage
+
+We also obtain the same estimates that we did in the last chapter.
 
 ```{r}
 b1 <- 1.4007640 # sin coefficient

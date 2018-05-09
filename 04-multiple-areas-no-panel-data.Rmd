@@ -17,13 +17,37 @@ d <- data.table(fylke=rep(1:20,each=100))
 d <- merge(d,fylkeIntercepts,by="fylke")
 d[,mainIntercept:=3]
 d[,x:=runif(.N)]
+d[,year:=sample(c(1950:2018),.N,replace=T)]
 d[,mu := exp(mainIntercept + fylkeIntercepts + 3*x)]
 d[,y:=rpois(.N,mu)]
 ```
 
+\newpage
+
+## Investigating the data
+
+We can see from the data that we have 20 geographical areas (`fylke`) with 100 observations for each fylke, but the sampling did not happen consistently (some years have multiple measurements, other years have no measurements).
+
+This means we have:
+- multiple geographical areas
+- multiple observations in each geographical area
+- not panel data
+
 ```{r}
-summary(fit <- lme4::glmer(y~x + (1|fylke),data=d,family=poisson()))
+print(d)
 ```
 
+\newpage
+
+## Regression
+
+For this scenario, we use the `lme4::glmer` function in R. We need to introduce a `(1|fylke)` term to identify the geographical areas (i.e. clusters).
+
+```{r warning=FALSE}
+d[,yearMinus2000:=year-2000]
+summary(fit <- lme4::glmer(y~x + yearMinus2000 + (1|fylke),data=d,family=poisson()))
+```
+
+You can see that the format of the results is the same as an ordinary regression.
 
 
