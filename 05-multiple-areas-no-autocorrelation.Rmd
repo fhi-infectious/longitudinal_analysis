@@ -6,6 +6,18 @@ editor_options:
 
 # Panel data: multiple areas without autocorrelation
 
+## Aim
+
+We are given a dataset containing daily counts of diseases from multiple geographical areas. We want to identify:
+
+- Does seasonality exist?
+- If seasonality exists, when are the high/low seasons?
+- Is there a general yearly trend (i.e. increasing or decreasing from year to year?)
+
+\newpage
+
+## Creating the data
+
 The data for this chapter is available at: http://rwhite.no/longitudinal_analysis/data/chapter_6.csv
 
 ```{r}
@@ -40,7 +52,6 @@ d[,dayOfYear:=as.numeric(format.Date(date,"%j"))]
 d[,seasonalEffect:=sin(2*pi*(dayOfYear-SEASONAL_HORIZONTAL_SHIFT)/365)]
 d[,mu := exp(0.1 + yearMinus2000*0.1 + seasonalEffect*AMPLITUDE)]
 d[,y:=rpois(.N,mu)]
-#d[,y:=round(as.numeric(arima.sim(model=list("ar"=c(0.5)), rand.gen = rpois, n=nrow(d), lambda=mu)))]
 
 fwrite(d,"data/chapter_6.csv")
 ```
@@ -60,7 +71,26 @@ q
 \newpage
 
 The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days
+
+```{}
+// STATA CODE STARTS
+insheet using "chapter_6.csv", clear
+
+sort fylke date
+by fylke: gen time=_n
+tsset fylke time, daily
+
+wntestb y if fylke==1
+
+cumsp y if fylke==1, gen(cumulative_spec_dist)
+by fylke: gen period=_N/_n
+
+browse cumulative_spec_dist period
+// STATA CODE ENDS
+```
+
 ```{r}
+# RCODE
 lomb::lsp(d$y,from=100,to=500,ofac=1,type="period")
 ```
 
@@ -70,14 +100,40 @@ lomb::lsp(d$y,from=100,to=500,ofac=1,type="period")
 
 First we create an `id` variable. This generally corresponds to geographical locations, or people. In this case, we only have one geographical location, so our `id` for all observations is `1`. This lets the computer know that all data belongs to the same group.
 
-When we have panel data with multiple areas, we use the `MASS::glmPQL` function in R.
+When we have panel data with multiple areas, we use the `MASS::glmPQL` function in R and the `meglm` function in STATA. In R we identify the geographical areas with `random = ~ 1 | fylke` and in STATA with `|| fylke:`.
+```{}
+// STATA CODE STARTS
+meglm y yearminus2000 || fylke:, family(poisson) iter(10)
+estimates store m1
+meglm y yearminus2000 cos365 sin365 || fylke:, family(poisson) iter(10)
+estimates store m2
+
+predict resid, anscombe
+
+lrtest m1 m2
+// STATA CODE ENDS
+```
+
 ```{r}
+# R CODE
 d[,cos365:=cos(dayOfYear*2*pi/365)]
 d[,sin365:=sin(dayOfYear*2*pi/365)]
-
-fit <- MASS::glmmPQL(y~yearMinus2000+sin365 + cos365, random = ~ 1 | fylke,
+fit0 <- MASS::glmmPQL(y~yearMinus2000, random = ~ 1 | fylke,
                 family = poisson, data = d)
-summary(fit)
+fit1 <- MASS::glmmPQL(y~yearMinus2000 + sin365 + cos365, random = ~ 1 | fylke,
+                family = poisson, data = d)
+
+print(lmtest::lrtest(fit0, fit1))
+```
+
+We see that the likelihood ratio test for `sin365` and `cos365` was significant, meaning that there is significant seasonality with a 365 day periodicity in our data (which we already strongly suspected due to the periodogram).
+
+\newpage
+
+We can now run/look at the results of our main regression.
+
+```{r}
+print(summary(fit1))
 ```
 
 \newpage
@@ -85,15 +141,29 @@ summary(fit)
 ## Residual analysis
 
 We see that there is no evidence of autoregression in the residuals
+```{}
+// STATA CODE STARTS
+pac resid if fylke==1
+// STATA CODE ENDS
+```
+
 ```{r}
-pacf(residuals(fit, type = "normalized")) # this is for AR
+# R CODE
+pacf(residuals(fit1, type = "normalized")) # this is for AR
 ```
 
 \newpage
 
 We see that there is no evidence of autoregression in the residuals
+```{}
+// STATA CODE STARTS
+ac resid if fylke==1
+// STATA CODE ENDS
+```
+
 ```{r}
-acf(residuals(fit, type = "normalized")) # this is for MA
+# R CODE
+acf(residuals(fit1, type = "normalized")) # this is for MA
 ```
 
 \newpage

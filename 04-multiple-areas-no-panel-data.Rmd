@@ -6,9 +6,20 @@ editor_options:
 
 # Not panel data: Multiple areas
 
+## Aim
+
+We are given a dataset containing counts of diseases from multiple geographical areas. We want to identify:
+
+- Is there a general yearly trend (i.e. increasing or decreasing from year to year?)
+- Is variable `x` associated with the outcome?
+
+\newpage
+
+## Creating the data
+
 The data for this chapter is available at: http://rwhite.no/longitudinal_analysis/data/chapter_5.csv
 
-```{r}
+```{r warning=FALSE}
 library(data.table)
 library(lme4)
 set.seed(4)
@@ -33,6 +44,7 @@ fwrite(d,"data/chapter_5.csv")
 We can see from the data that we have 20 geographical areas (`fylke`) with 100 observations for each fylke, but the sampling did not happen consistently (some years have multiple measurements, other years have no measurements).
 
 This means we have:
+
 - multiple geographical areas
 - multiple observations in each geographical area
 - not panel data
@@ -45,9 +57,19 @@ print(d)
 
 ## Regression
 
-For this scenario, we use the `lme4::glmer` function in R. We need to introduce a `(1|fylke)` term to identify the geographical areas (i.e. clusters).
+For this scenario, we use the `lme4::glmer` function in R. We need to introduce a `(1|fylke)` term to identify the geographical areas (i.e. clusters). In STATA we use the `meglm` function and introduce a `|| fylke:` term to identify the geographical areas (i.e. clusters).
+
+```{}
+// STATA CODE STARTS
+insheet using "chapter_5.csv", clear
+
+gen yearMinus2000 = year-2000
+meglm y x yearMinus2000 || fylke:, family(poisson)
+// STATA CODE ENDS
+```
 
 ```{r warning=FALSE}
+# R CODE
 d[,yearMinus2000:=year-2000]
 summary(fit <- lme4::glmer(y~x + yearMinus2000 + (1|fylke),data=d,family=poisson()))
 ```

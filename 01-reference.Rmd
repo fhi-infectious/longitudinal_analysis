@@ -5,6 +5,18 @@ editor_options:
 ---
 # Reference
 
+## Scope of this course
+
+When dealing with longitudinal data, there are two kinds of analyses that can be performed.
+
+"Time series" analyses generally deal with one variable. The aim is to then predict the future only using the previous observations. A common example would be to predict tomorrow's temperature, using today's and yesterday's temperature as exposures. We will not be focusing on these kinds of analyses in this course.
+
+"Regression analyses" are very similar to ordinary regressions that you have been working with for many years. The only difference is that they have more advanced data structures that your current methods cannot handle. For example, if you want to see how the number of tuberculosis patients (outcome) is affected by the number of immigrants to Norway (exposure) over a 20 year period, then the number of patients in each year might be associated with each other, which might break assumptions of the regression models that you normally use (independent residuals). To account for the advanced structure of the data (correlation between different years) we will use more advanced regression techniques. This is what we will be focusing on in this course.
+
+To recap: this course will let you run "normal regressions" in situations where the data structure would ordinarily prohibit you from running regression models. These situations mostly pertain to clusters of correlated data.
+
+\newpage
+
 ## Introduction
 
 There are two important definitions in this course:
@@ -30,11 +42,81 @@ Note, the following scenario can be covered by standard regression models:
 
 \newpage
 
+## Method summary
+
+### Panel data: One geographical area, no autocorrelation
+
+```{}
+// STATA CODE
+glm y yearminus2000 dailyrainfall cos365 sin365, family(poisson)
+```
+
+```{r, eval=FALSE, echo=TRUE}
+# R CODE
+fit1 <- glm(y~yearMinus2000 + dailyrainfall + sin365 + cos365, data=d, family=poisson())
+```
+
+### Panel data: One geographical area, with autocorrelation
+
+```{}
+// STATA CODE
+glm y yearminus2000 cos365 sin365, family(poisson) vce(robust)
+```
+
+```{r, eval=FALSE, echo=TRUE}
+# R CODE
+fit <- MASS::glmmPQL(y~yearMinus2000+sin365 + cos365, random = ~ 1 | ID,
+                family = poisson, data = d,
+                correlation=nlme::corAR1(form=~dayOfSeries|ID))
+```
+
+### Not panel data: Multiple geographical areas
+
+```{}
+// STATA CODE
+meglm y x yearMinus2000 || fylke:, family(poisson)
+```
+
+```{r, eval=FALSE, echo=TRUE}
+# R CODE
+fit <- lme4::glmer(y~x + yearMinus2000 + (1|fylke),data=d,family=poisson())
+```
+
+### Panel data: Multiple geographical areas, no autocorrelation
+
+```{}
+// STATA CODE
+meglm y yearminus2000 cos365 sin365 || fylke:, family(poisson)
+```
+
+```{r, eval=FALSE, echo=TRUE}
+# R CODE
+fit <- MASS::glmmPQL(y~yearMinus2000+sin365 + cos365, random = ~ 1 | fylke,
+                family = poisson, data = d)
+```
+
+### Panel data: Multiple geographical areas, with autocorrelation
+
+```{}
+// STATA CODE
+meglm y yearminus2000 cos365 sin365 || fylke:, family(poisson) vce(robust)
+```
+
+```{r, eval=FALSE, echo=TRUE}
+# R CODE
+fit <- MASS::glmmPQL(y~yearMinus2000+sin365 + cos365, random = ~ 1 | fylke,
+                family = poisson, data = d,
+                correlation=nlme::corAR1(form=~dayOfSeries|fylke))
+```
+
+
+\newpage
+
 ## Identifying your scenario
 
 ### Step 1: Do you have panel data?
 
-This step should be fairly simple. If your data has equally spaced intervals between them, you have panel data.
+This step should be fairly simple. If your data has equally spaced time intervals between them, you have panel data.
 
 ### Step 2: Do you have multiple geographical areas?
 
@@ -54,7 +136,7 @@ You then inspect the residuals from the model and see if autocorrelation exists.
 y <- round(as.numeric(arima.sim(model=list("ar"=c(0.5)), rand.gen = rnorm, n=1000)))
 ```
 
-With `autoregressive` data, a `pacf` plot contains a number of sharp significant lines, indicating how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation (`AR(1)`). If two lines are significant, it means that each observation is correlated with its two preecing observations (`AR(2)`). The following plot represents `AR(1)` data.
+With `autoregressive` data, a `pacf` plot contains a number of sharp significant lines, indicating how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation (`AR(1)`). If two lines are significant, it means that each observation is correlated with its two preceeding observations (`AR(2)`). The following plot represents `AR(1)` data.
 ```{r}
 pacf(y)
 ```
@@ -74,7 +156,7 @@ acf(y)
 y <- round(as.numeric(arima.sim(model=list("ar"=c(0.5,0.4)), rand.gen = rnorm, n=1000)))
 ```
 
-The following `pacf` plot represents `AR(2)` data:
+The following `pacf` plot represents `AR(2)` data. This means that each observation is correlated with its two preceeding observations (`AR(2)`).
 ```{r}
 pacf(y)
 ```
@@ -101,7 +183,7 @@ pacf(y)
 
 \newpage
 
-With `moving average` data, an `acf` plot contains a number of sharp significant lines, demarking how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation. If two lines are significant, it means that each observation is correlated with its two preecing observations.  The following plot represents `MA(1)` data. Note that the `acf` plot displays `lag 0` (which is pointless and can be ignored), while the `pacf` plot does not.
+With `moving average` data, an `acf` plot contains a number of sharp significant lines, demarking how many subsequent observations have autocorrelation. i.e. if one line is significant, it means that each observation is only correlated with its preceeding observation. If two lines are significant, it means that each observation is correlated with its two preceeding observations.  The following plot represents `MA(1)` data. Note that the `acf` plot displays `lag 0` (which is pointless and can be ignored), while the `pacf` plot does not.
 ```{r}
 acf(y)
 ```
@@ -121,7 +203,7 @@ pacf(y)
 
 \newpage
 
-The following `acf` plot represents `MA(2)` data:
+The following `acf` plot represents `MA(2)` data. This means that each observation is correlated with its two preceeding observations.
 ```{r}
 acf(y)
 ```

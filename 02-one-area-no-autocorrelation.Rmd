@@ -6,9 +6,24 @@ editor_options:
 
 # Panel data: One area without autocorrelation
 
+## Aim
+
+We are given a dataset containing daily counts of diseases from one geographical area. We want to identify:
+
+- Does seasonality exist?
+- If seasonality exists, when are the high/low seasons?
+- Is there a general yearly trend (i.e. increasing or decreasing from year to year?)
+- Is daily rainfall associated with the number of cases?
+
+\newpage
+
+## Creating the data
+
 The data for this chapter is available at: http://rwhite.no/longitudinal_analysis/data/chapter_3.csv
 
 ```{r warning=FALSE}
+# R CODE
+
 dir.create("data")
 
 library(data.table)
@@ -26,6 +41,7 @@ d[,year:=as.numeric(format.Date(date,"%G"))]
 d[,week:=as.numeric(format.Date(date,"%V"))]
 d[,month:=as.numeric(format.Date(date,"%m"))]
 d[,yearMinus2000:=year-2000]
+d[,dailyrainfall:=runif(.N, min=0, max=10)]
 
 d[,dayOfYear:=as.numeric(format.Date(date,"%j"))]
 d[,seasonalEffect:=sin(2*pi*(dayOfYear-SEASONAL_HORIZONTAL_SHIFT)/365)]
@@ -67,10 +83,12 @@ q
 If we want to investigate the seasonality of our data, and identify when are the peaks and troughs, we have a few ways to approach this.
 
 Non-parametric approaches are flexible and easy to implement, but they can lack power and be hard to interpret:
+
 - Create a categorical variable for the seasons (e.g. `spring`, `summer`, `autumn`, `winter`) and include this in the regression model
 - Create a categorical variable for the months (e.g. `Jan`, `Feb`, ..., `Dec`) and include this in the regression model
 
 Parametric approaches are more powerful but require more effort:
+
 - Identify the periodicity of the seasonality (how many days between peaks?)
 - Using trigonometry, transform `day of year` into variables that appropriately model the observed periodicity
 - Obtain coefficient estimates
@@ -78,10 +96,31 @@ Parametric approaches are more powerful but require more effort:
 
 The non-parametric approaches are simple and we will therefore not cover them in this course. We will briefly examine the parametric approach.
 
+*NOTE:* You don't always have to investigate seasonality! It depends entirely on what the purpose of your analysis is!
+
 \newpage
 
-The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days
+The Lomb-Scargle Periodogram shows a clear seasonality with a period of 365 days.
+
+```{}
+// STATA CODE STARTS
+insheet using "chapter_3.csv", clear
+
+sort date
+gen time=_n
+tsset time, daily
+
+wntestb y
+
+cumsp y, gen(cumulative_spec_dist)
+gen period=_N/_n
+
+browse cumulative_spec_dist period
+// STATA CODE ENDS
+```
+
 ```{r}
+# R CODE 
 lomb::lsp(d$y,from=100,to=500,ofac=1,type="period")
 ```
 
@@ -89,23 +128,46 @@ lomb::lsp(d$y,from=100,to=500,ofac=1,type="period")
 
 We then generate two new variables `cos365` and `sin365` and perform a likelihood ratio test to see if they are significant or not. This is done with two simple poisson regressions.
 
-When we do not have autocorrelation, we can use the `glm` function in R.
+When we do not have autocorrelation, we can use the `glm` function in R and in STATA. Note that it is very important to specify the `family` (as this is how we differentiate between linear/logistic/poisson regressions).
+```{}
+// STATA CODE STARTS
+gen cos365=cos(dayofyear*2*_pi/365)
+gen sin365=sin(dayofyear*2*_pi/365)
+
+glm y yearminus2000 dailyrainfall, family(poisson)
+estimates store m1
+glm y yearminus2000 dailyrainfall cos365 sin365, family(poisson)
+estimates store m2
+
+predict resid, anscombe
+
+lrtest m1 m2
+// STATA CODE ENDS
+```
+
 ```{r}
+# R CODE
 d[,cos365:=cos(dayOfYear*2*pi/365)]
 d[,sin365:=sin(dayOfYear*2*pi/365)]
 
-fit0 <- glm(y~yearMinus2000, data=d, family=poisson())
-fit1 <- glm(y~yearMinus2000 + sin365 + cos365, data=d, family=poisson())
+fit0 <- glm(y~yearMinus2000 + dailyrainfall, data=d, family=poisson())
+fit1 <- glm(y~yearMinus2000 + dailyrainfall + sin365 + cos365, data=d, family=poisson())
 
 print(lmtest::lrtest(fit0, fit1))
 ```
 
-We see that the likelihood ratio test for `sin365` and `cos365` was significant, meaning that there is significant seasonality with a 365 day periodicity in our data.
+We see that the likelihood ratio test for `sin365` and `cos365` was significant, meaning that there is significant seasonality with a 365 day periodicity in our data (which we already strongly suspected due to the periodogram).
+
+\newpage
+
+We can now run/look at the results of our main regression.
 
 ```{r}
 print(summary(fit1))
 ```
-We also see that the coefficient for year is `0.1` which means that for each additional year, the outcome increases by `exp(0.1)=1.11`. 
+We also see that the (significant!) coefficient for `year` is `0.1` which means that for each additional year, the outcome increases by `exp(0.1)=1.11`. We also see that the coefficient for `dailyrainfall` was not significant, which means that we did not find a significant association between the outcome and `dailyrainfall`.
+
+*NOTE:* See that this is basically the same as a normal regression.
 
 \newpage
 
@@ -133,7 +195,7 @@ print(sprintf("true values are: amplitude: %s, peak: %s, trough: %s",round(AMPLI
 
 ```
 
-Note: I have no idea what amplitude means outside of a linear regression!
+*NOTE:* An amplitude of 1.5 means that when comparing the average time of year to the peak, the peak is expected to be `exp(1.5)=4.5` times higher than average. We take the exponential because we have run a poisson regression (so think incident rate ratio).
 
 \newpage
 
@@ -151,7 +213,15 @@ q
 \newpage
 
 We check the `pacf` of the residuals to ensure that it is not `AR`. If we observe `AR` in our residuals, then this model was not appropriate and we need to use a different model.
+
+```{}
+// STATA CODE STARTS
+pac resid
+// STATA CODE ENDS
+```
+
 ```{r}
+# R CODE
 # this is for AR
 pacf(d$residuals)
 ```
@@ -159,7 +229,15 @@ pacf(d$residuals)
 \newpage
 
 We check the `acf` of the residuals to ensure that it is not `MA`. If we observe `MA` in our residuals, then this model was not appropriate and we need to use a different model.
+
+```{}
+// STATA CODE STARTS
+ac resid
+// STATA CODE ENDS
+```
+
 ```{r}
+# R CODE
 # this is for MA
 acf(d$residuals)
 ```
