@@ -25,7 +25,7 @@
 <meta name="author" content="Richard White">
 
 
-<meta name="date" content="2018-05-14">
+<meta name="date" content="2018-05-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -163,6 +163,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.7" data-path="panel-data-multiple-areas-with-autocorrelation.html"><a href="panel-data-multiple-areas-with-autocorrelation.html#residual-analysis-3"><i class="fa fa-check"></i><b>7.7</b> Residual analysis</a></li>
 <li class="chapter" data-level="7.8" data-path="panel-data-multiple-areas-with-autocorrelation.html"><a href="panel-data-multiple-areas-with-autocorrelation.html#stata-only-regression-with-robust-standard-errors-1"><i class="fa fa-check"></i><b>7.8</b> (STATA ONLY) Regression with robust standard errors</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>8</b> Exercises</a><ul>
+<li class="chapter" data-level="8.1" data-path="exercises.html"><a href="exercises.html#exercise-1"><i class="fa fa-check"></i><b>8.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="8.2" data-path="exercises.html"><a href="exercises.html#exercise-2"><i class="fa fa-check"></i><b>8.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="8.3" data-path="exercises.html"><a href="exercises.html#exercise-3"><i class="fa fa-check"></i><b>8.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i><b>9</b> Solutions</a><ul>
+<li class="chapter" data-level="9.1" data-path="solutions.html"><a href="solutions.html#exercise-1-1"><i class="fa fa-check"></i><b>9.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="solutions-1.html"><a href="solutions-1.html"><i class="fa fa-check"></i><b>10</b> Solutions</a><ul>
+<li class="chapter" data-level="10.1" data-path="solutions-1.html"><a href="solutions-1.html#exercise-2-1"><i class="fa fa-check"></i><b>10.1</b> Exercise 2</a></li>
+<li class="chapter" data-level="10.2" data-path="solutions-1.html"><a href="solutions-1.html#exercise-3-1"><i class="fa fa-check"></i><b>10.2</b> Exercise 3</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -220,7 +232,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>// STATA CODE
 glm y yearminus2000 dailyrainfall cos365 sin365, family(poisson)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># R CODE</span>
-fit1 &lt;-<span class="st"> </span><span class="kw">glm</span>(y<span class="op">~</span>yearMinus2000 <span class="op">+</span><span class="st"> </span>dailyrainfall <span class="op">+</span><span class="st"> </span>sin365 <span class="op">+</span><span class="st"> </span>cos365, <span class="dt">data=</span>d, <span class="dt">family=</span><span class="kw">poisson</span>())</code></pre></div>
+fit1 &lt;-<span class="st"> </span><span class="kw">glm</span>(y<span class="op">~</span>yearMinus2000 <span class="op">+</span><span class="st"> </span>dailyrainfall <span class="op">+</span><span class="st"> </span>sin365 <span class="op">+</span><span class="st"> </span>cos365, <span class="dt">data=</span>d, <span class="dt">family=</span><span class="kw">poisson</span>())
+<span class="kw">residuals</span>(fit1, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</code></pre></div>
 </div>
 <div id="panel-data-one-geographical-area-with-autocorrelation" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Panel data: One geographical area, with autocorrelation</h3>
@@ -229,7 +242,9 @@ glm y yearminus2000 cos365 sin365, family(poisson) vce(robust)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># R CODE</span>
 fit &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(y<span class="op">~</span>yearMinus2000<span class="op">+</span>sin365 <span class="op">+</span><span class="st"> </span>cos365, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ID,
                 <span class="dt">family =</span> poisson, <span class="dt">data =</span> d,
-                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>(<span class="dt">form=</span><span class="op">~</span>dayOfSeries<span class="op">|</span>ID))</code></pre></div>
+                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>(<span class="dt">form=</span><span class="op">~</span>dayOfSeries<span class="op">|</span>ID))
+r &lt;-<span class="st"> </span><span class="kw">residuals</span>(fit1, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)
+<span class="kw">pacf</span>(r)</code></pre></div>
 </div>
 <div id="not-panel-data-multiple-geographical-areas" class="section level3">
 <h3><span class="header-section-number">2.3.3</span> Not panel data: Multiple geographical areas</h3>
@@ -244,7 +259,9 @@ fit &lt;-<span class="st"> </span>lme4<span class="op">::</span><span class="kw"
 meglm y yearminus2000 cos365 sin365 || fylke:, family(poisson)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># R CODE</span>
 fit &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(y<span class="op">~</span>yearMinus2000<span class="op">+</span>sin365 <span class="op">+</span><span class="st"> </span>cos365, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>fylke,
-                <span class="dt">family =</span> poisson, <span class="dt">data =</span> d)</code></pre></div>
+                <span class="dt">family =</span> poisson, <span class="dt">data =</span> d)
+r &lt;-<span class="st"> </span><span class="kw">residuals</span>(fit1, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)
+<span class="kw">pacf</span>(r)</code></pre></div>
 </div>
 <div id="panel-data-multiple-geographical-areas-with-autocorrelation" class="section level3">
 <h3><span class="header-section-number">2.3.5</span> Panel data: Multiple geographical areas, with autocorrelation</h3>
@@ -253,7 +270,9 @@ meglm y yearminus2000 cos365 sin365 || fylke:, family(poisson) vce(robust)</code
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># R CODE</span>
 fit &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(y<span class="op">~</span>yearMinus2000<span class="op">+</span>sin365 <span class="op">+</span><span class="st"> </span>cos365, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>fylke,
                 <span class="dt">family =</span> poisson, <span class="dt">data =</span> d,
-                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>(<span class="dt">form=</span><span class="op">~</span>dayOfSeries<span class="op">|</span>fylke))</code></pre></div>
+                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>(<span class="dt">form=</span><span class="op">~</span>dayOfSeries<span class="op">|</span>fylke))
+r &lt;-<span class="st"> </span><span class="kw">residuals</span>(fit1, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)
+<span class="kw">pacf</span>(r)</code></pre></div>
 
 </div>
 </div>

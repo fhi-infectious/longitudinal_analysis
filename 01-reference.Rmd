@@ -54,6 +54,7 @@ glm y yearminus2000 dailyrainfall cos365 sin365, family(poisson)
 ```{r, eval=FALSE, echo=TRUE}
 # R CODE
 fit1 <- glm(y~yearMinus2000 + dailyrainfall + sin365 + cos365, data=d, family=poisson())
+residuals(fit1, type = "response")
 ```
 
 ### Panel data: One geographical area, with autocorrelation
@@ -68,6 +69,8 @@ glm y yearminus2000 cos365 sin365, family(poisson) vce(robust)
 fit <- MASS::glmmPQL(y~yearMinus2000+sin365 + cos365, random = ~ 1 | ID,
                 family = poisson, data = d,
                 correlation=nlme::corAR1(form=~dayOfSeries|ID))
+r <- residuals(fit1, type = "normalized")
+pacf(r)
 ```
 
 ### Not panel data: Multiple geographical areas
@@ -93,6 +96,8 @@ meglm y yearminus2000 cos365 sin365 || fylke:, family(poisson)
 # R CODE
 fit <- MASS::glmmPQL(y~yearMinus2000+sin365 + cos365, random = ~ 1 | fylke,
                 family = poisson, data = d)
+r <- residuals(fit1, type = "normalized")
+pacf(r)
 ```
 
 ### Panel data: Multiple geographical areas, with autocorrelation
@@ -107,6 +112,8 @@ meglm y yearminus2000 cos365 sin365 || fylke:, family(poisson) vce(robust)
 fit <- MASS::glmmPQL(y~yearMinus2000+sin365 + cos365, random = ~ 1 | fylke,
                 family = poisson, data = d,
                 correlation=nlme::corAR1(form=~dayOfSeries|fylke))
+r <- residuals(fit1, type = "normalized")
+pacf(r)
 ```
 
 

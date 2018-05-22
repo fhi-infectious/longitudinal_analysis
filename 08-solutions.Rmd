@@ -1,0 +1,81 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Solutions
+
+## Exercise 1
+
+```{r}
+library(data.table)
+d <- fread("data/exercise_1.csv")
+
+fit0 <- glm(y ~ yearMinus2000 + numberOfCows, data=d, family=poisson())
+fit1 <- glm(y ~ season + yearMinus2000 + numberOfCows, data=d, family=poisson())
+
+print(lmtest::lrtest(fit0, fit1))
+
+summary(fit1)
+
+d[,residuals:=residuals(fit1, type = "response")]
+
+pacf(d$residuals)
+
+acf(d$residuals)
+```
+
+\newpage
+
+# Solutions
+
+## Exercise 2
+
+```{r}
+library(data.table)
+d <- fread("data/exercise_2.csv")
+
+fit0 <- MASS::glmmPQL(y~yearMinus2000 + numberOfCows, random = ~ 1 | fylke,
+                family = poisson, data = d)
+fit1 <- MASS::glmmPQL(y~season + yearMinus2000 + numberOfCows, random = ~ 1 | fylke,
+                family = poisson, data = d)
+
+print(lmtest::lrtest(fit0, fit1))
+
+summary(fit1)
+
+d[,residuals:=residuals(fit1, type = "normalized")]
+
+pacf(d$residuals)
+
+acf(d$residuals)
+
+fit1 <- MASS::glmmPQL(y~season + yearMinus2000 + numberOfCows, random = ~ 1 | fylke,
+                family = poisson, data = d,
+                correlation=nlme::corAR1(form=~dayOfSeries|fylke))
+
+summary(fit1)
+
+d[,residuals:=residuals(fit1, type = "normalized")]
+
+pacf(d$residuals)
+
+acf(d$residuals)
+```
+
+\newpage
+
+## Exercise 3
+
+```{r}
+library(data.table)
+d <- fread("data/exercise_3.csv")
+
+fit0 <- lme4::glmer(y ~ yearMinus2000 + numberOfCows + (1|fylke), family = poisson, data = d)
+fit1 <- lme4::glmer(y ~ season + yearMinus2000 + numberOfCows + (1|fylke), family = poisson, data = d)
+
+print(lmtest::lrtest(fit0, fit1))
+
+summary(fit1)
+```
