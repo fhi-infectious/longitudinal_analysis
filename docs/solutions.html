@@ -25,7 +25,7 @@
 <meta name="author" content="Richard White">
 
 
-<meta name="date" content="2018-05-22">
+<meta name="date" content="2018-05-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="exercises.html">
-<link rel="next" href="solutions-1.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -170,10 +170,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="9" data-path="solutions.html"><a href="solutions.html"><i class="fa fa-check"></i><b>9</b> Solutions</a><ul>
 <li class="chapter" data-level="9.1" data-path="solutions.html"><a href="solutions.html#exercise-1-1"><i class="fa fa-check"></i><b>9.1</b> Exercise 1</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="solutions-1.html"><a href="solutions-1.html"><i class="fa fa-check"></i><b>10</b> Solutions</a><ul>
-<li class="chapter" data-level="10.1" data-path="solutions-1.html"><a href="solutions-1.html#exercise-2-1"><i class="fa fa-check"></i><b>10.1</b> Exercise 2</a></li>
-<li class="chapter" data-level="10.2" data-path="solutions-1.html"><a href="solutions-1.html#exercise-3-1"><i class="fa fa-check"></i><b>10.2</b> Exercise 3</a></li>
+<li class="chapter" data-level="9.2" data-path="solutions.html"><a href="solutions.html#exercise-2-1"><i class="fa fa-check"></i><b>9.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="9.3" data-path="solutions.html"><a href="solutions.html#exercise-3-1"><i class="fa fa-check"></i><b>9.3</b> Exercise 3</a></li>
 </ul></li>
 </ul>
 
@@ -248,14 +246,194 @@ fit1 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op
 <p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-65-2.png" width="672" /></p>
 
 </div>
+<div id="exercise-2-1" class="section level2">
+<h2><span class="header-section-number">9.2</span> Exercise 2</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
+d &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st">&quot;data/exercise_2.csv&quot;</span>)
+
+fit0 &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(y<span class="op">~</span>yearMinus2000 <span class="op">+</span><span class="st"> </span>numberOfCows, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>fylke,
+                <span class="dt">family =</span> poisson, <span class="dt">data =</span> d)</code></pre></div>
+<pre><code>## iteration 1</code></pre>
+<pre><code>## iteration 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit1 &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(y<span class="op">~</span>season <span class="op">+</span><span class="st"> </span>yearMinus2000 <span class="op">+</span><span class="st"> </span>numberOfCows, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>fylke,
+                <span class="dt">family =</span> poisson, <span class="dt">data =</span> d)</code></pre></div>
+<pre><code>## iteration 1
+## iteration 2</code></pre>
+<pre><code>## iteration 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(lmtest<span class="op">::</span><span class="kw">lrtest</span>(fit0, fit1))</code></pre></div>
+<pre><code>## Likelihood ratio test
+## 
+## Model 1: y ~ yearMinus2000 + numberOfCows
+## Model 2: y ~ season + yearMinus2000 + numberOfCows
+##   #Df LogLik Df Chisq Pr(&gt;Chisq)
+## 1   5                           
+## 2   8         3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit1)</code></pre></div>
+<pre><code>## Linear mixed-effects model fit by maximum likelihood
+##  Data: d 
+##   AIC BIC logLik
+##    NA  NA     NA
+## 
+## Random effects:
+##  Formula: ~1 | fylke
+##         (Intercept) Residual
+## StdDev:  0.08342256 1.298934
+## 
+## Variance function:
+##  Structure: fixed weights
+##  Formula: ~invwt 
+## Fixed effects: y ~ season + yearMinus2000 + numberOfCows 
+##                    Value  Std.Error   DF   t-value p-value
+## (Intercept)    0.8483946 0.05053613 6565  16.78788  0.0000
+## seasonSpring   0.9334080 0.00685147 6565 136.23480  0.0000
+## seasonSummer   1.9312703 0.00621739 6565 310.62400  0.0000
+## seasonWinter  -0.0822382 0.00841368 6565  -9.77434  0.0000
+## yearMinus2000  0.2004222 0.00104237 6565 192.27503  0.0000
+## numberOfCows   0.0005788 0.00077223 6565   0.74954  0.4536
+##  Correlation: 
+##               (Intr) ssnSpr ssnSmm ssnWnt yM2000
+## seasonSpring  -0.097                            
+## seasonSummer  -0.106  0.793                     
+## seasonWinter  -0.079  0.586  0.646              
+## yearMinus2000 -0.268  0.000  0.000 -0.002       
+## numberOfCows  -0.070 -0.002 -0.018  0.004 -0.020
+## 
+## Standardized Within-Group Residuals:
+##         Min          Q1         Med          Q3         Max 
+## -5.44473503 -0.49365704 -0.05256441  0.39697143 16.32534219 
+## 
+## Number of Observations: 6573
+## Number of Groups: 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d[,residuals<span class="op">:</span><span class="er">=</span><span class="kw">residuals</span>(fit1, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)]
+
+<span class="kw">pacf</span>(d<span class="op">$</span>residuals)</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(d<span class="op">$</span>residuals)</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-66-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit1 &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">glmmPQL</span>(y<span class="op">~</span>season <span class="op">+</span><span class="st"> </span>yearMinus2000 <span class="op">+</span><span class="st"> </span>numberOfCows, <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>fylke,
+                <span class="dt">family =</span> poisson, <span class="dt">data =</span> d,
+                <span class="dt">correlation=</span>nlme<span class="op">::</span><span class="kw">corAR1</span>(<span class="dt">form=</span><span class="op">~</span>dayOfSeries<span class="op">|</span>fylke))</code></pre></div>
+<pre><code>## iteration 1</code></pre>
+<pre><code>## iteration 2</code></pre>
+<pre><code>## iteration 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit1)</code></pre></div>
+<pre><code>## Linear mixed-effects model fit by maximum likelihood
+##  Data: d 
+##   AIC BIC logLik
+##    NA  NA     NA
+## 
+## Random effects:
+##  Formula: ~1 | fylke
+##         (Intercept) Residual
+## StdDev:  0.08328798 1.319938
+## 
+## Correlation Structure: AR(1)
+##  Formula: ~dayOfSeries | fylke 
+##  Parameter estimate(s):
+##       Phi 
+## 0.5525116 
+## Variance function:
+##  Structure: fixed weights
+##  Formula: ~invwt 
+## Fixed effects: y ~ season + yearMinus2000 + numberOfCows 
+##                    Value  Std.Error   DF   t-value p-value
+## (Intercept)    0.9283222 0.05561940 6565  16.69062   0.000
+## seasonSpring   0.8631442 0.01224757 6565  70.47476   0.000
+## seasonSummer   1.8166993 0.01098229 6565 165.42086   0.000
+## seasonWinter  -0.1394364 0.01488823 6565  -9.36554   0.000
+## yearMinus2000  0.2001812 0.00197415 6565 101.40142   0.000
+## numberOfCows   0.0004206 0.00057695 6565   0.72909   0.466
+##  Correlation: 
+##               (Intr) ssnSpr ssnSmm ssnWnt yM2000
+## seasonSpring  -0.155                            
+## seasonSummer  -0.171  0.784                     
+## seasonWinter  -0.123  0.574  0.621              
+## yearMinus2000 -0.464  0.000  0.000 -0.002       
+## numberOfCows  -0.049  0.001 -0.006  0.004 -0.007
+## 
+## Standardized Within-Group Residuals:
+##         Min          Q1         Med          Q3         Max 
+## -5.03056012 -0.54478730 -0.04721577  0.46011628 15.05853958 
+## 
+## Number of Observations: 6573
+## Number of Groups: 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d[,residuals<span class="op">:</span><span class="er">=</span><span class="kw">residuals</span>(fit1, <span class="dt">type =</span> <span class="st">&quot;normalized&quot;</span>)]
+
+<span class="kw">pacf</span>(d<span class="op">$</span>residuals)</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-66-3.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">acf</span>(d<span class="op">$</span>residuals)</code></pre></div>
+<p><img src="longitudinal-analysis_files/figure-html/unnamed-chunk-66-4.png" width="672" /></p>
+
+</div>
+<div id="exercise-3-1" class="section level2">
+<h2><span class="header-section-number">9.3</span> Exercise 3</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
+d &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st">&quot;data/exercise_3.csv&quot;</span>)
+
+fit0 &lt;-<span class="st"> </span>lme4<span class="op">::</span><span class="kw">glmer</span>(y <span class="op">~</span><span class="st"> </span>yearMinus2000 <span class="op">+</span><span class="st"> </span>numberOfCows <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>fylke), <span class="dt">family =</span> poisson, <span class="dt">data =</span> d)
+fit1 &lt;-<span class="st"> </span>lme4<span class="op">::</span><span class="kw">glmer</span>(y <span class="op">~</span><span class="st"> </span>season <span class="op">+</span><span class="st"> </span>yearMinus2000 <span class="op">+</span><span class="st"> </span>numberOfCows <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>fylke), <span class="dt">family =</span> poisson, <span class="dt">data =</span> d)</code></pre></div>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control
+## $checkConv, : Model failed to converge with max|grad| = 0.0013139 (tol =
+## 0.001, component 1)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(lmtest<span class="op">::</span><span class="kw">lrtest</span>(fit0, fit1))</code></pre></div>
+<pre><code>## Likelihood ratio test
+## 
+## Model 1: y ~ yearMinus2000 + numberOfCows + (1 | fylke)
+## Model 2: y ~ season + yearMinus2000 + numberOfCows + (1 | fylke)
+##   #Df   LogLik Df Chisq Pr(&gt;Chisq)    
+## 1   4 -10144.4                        
+## 2   7  -1794.9  3 16699  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit1)</code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: poisson  ( log )
+## Formula: y ~ season + yearMinus2000 + numberOfCows + (1 | fylke)
+##    Data: d
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##   3603.8   3634.6  -1794.9   3589.8      593 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -3.4683 -0.6176 -0.0064  0.5895  3.1431 
+## 
+## Random effects:
+##  Groups Name        Variance Std.Dev.
+##  fylke  (Intercept) 0.005643 0.07512 
+## Number of obs: 600, groups:  fylke, 3
+## 
+## Fixed effects:
+##                 Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)    0.0817819  0.0707498    1.16    0.248    
+## seasonSpring   1.0213789  0.0246508   41.43   &lt;2e-16 ***
+## seasonSummer   2.0118660  0.0220035   91.43   &lt;2e-16 ***
+## seasonWinter  -0.0001082  0.0294244    0.00    0.997    
+## yearMinus2000  0.2019749  0.0038745   52.13   &lt;2e-16 ***
+## numberOfCows  -0.0045764  0.0028115   -1.63    0.104    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr) ssnSpr ssnSmm ssnWnt yM2000
+## seasonSprng -0.225                            
+## seasonSummr -0.276  0.756                     
+## seasonWintr -0.200  0.565  0.633              
+## yearMns2000 -0.708 -0.020  0.008 -0.011       
+## numberOfCws -0.200  0.025  0.038  0.053 -0.005
+## convergence code: 0
+## Model failed to converge with max|grad| = 0.0013139 (tol = 0.001, component 1)</code></pre>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="exercises.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="solutions-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="exercises.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

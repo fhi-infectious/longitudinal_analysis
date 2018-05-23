@@ -28,8 +28,6 @@ acf(d$residuals)
 
 \newpage
 
-# Solutions
-
 ## Exercise 2
 
 ```{r}
