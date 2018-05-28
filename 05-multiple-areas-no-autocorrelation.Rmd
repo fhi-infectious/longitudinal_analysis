@@ -103,6 +103,9 @@ First we create an `id` variable. This generally corresponds to geographical loc
 When we have panel data with multiple areas, we use the `MASS::glmPQL` function in R and the `meglm` function in STATA. In R we identify the geographical areas with `random = ~ 1 | fylke` and in STATA with `|| fylke:`.
 ```{}
 // STATA CODE STARTS
+gen cos365=cos(dayofyear*2*_pi/365)
+gen sin365=sin(dayofyear*2*_pi/365)
+
 meglm y yearminus2000 || fylke:, family(poisson) iter(10)
 estimates store m1
 meglm y yearminus2000 cos365 sin365 || fylke:, family(poisson) iter(10)

@@ -25,7 +25,7 @@
 <meta name="author" content="Richard White">
 
 
-<meta name="date" content="2018-05-23">
+<meta name="date" content="2018-05-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -276,6 +276,9 @@ lomb<span class="op">::</span><span class="kw">lsp</span>(d<span class="op">$</s
 <p>First we create an <code>id</code> variable. This generally corresponds to geographical locations, or people. In this case, we only have one geographical location, so our <code>id</code> for all observations is <code>1</code>. This lets the computer know that all data belongs to the same group.</p>
 <p>When we have panel data with multiple areas, we use the <code>MASS::glmPQL</code> function in R and the <code>meglm</code> function in STATA. In R we identify the geographical areas with <code>random = ~ 1 | fylke</code> and in STATA with <code>|| fylke:</code>.</p>
 <pre><code>// STATA CODE STARTS
+gen cos365=cos(dayofyear*2*_pi/365)
+gen sin365=sin(dayofyear*2*_pi/365)
+
 meglm y yearminus2000 || fylke:, family(poisson) iter(10)
 estimates store m1
 meglm y yearminus2000 cos365 sin365 || fylke:, family(poisson) iter(10)
